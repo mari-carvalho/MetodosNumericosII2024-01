@@ -38,8 +38,12 @@ for i in range(0,n): # precisa de mais elementos que o numero de elementos, por 
 # Método de Euler:
 
 for i in range(0,n-1): # deve ir até n-1 porque a solução de y[i+1] é resolvida até o tempo de 3s, sendo que o tempo final é 4
-    T[i+1] = T[i] + h*f_T(t[i], T[i], C[i])
-    C[i+1] = C[i] + h*f_C(t[i], T[i], C[i])
+    k1_T = h*f_T(t[i], T[i], C[i])
+    k1_C = h*f_C(t[i], T[i], C[i])
+    k2_T = h*f_T(t[i], T[i] + k1_T, C[i] + k1_C)
+    k2_C = h*f_C(t[i], T[i] + k1_T, C[i] + k1_C)
+    T[i+1] = T[i] + (1/2)*(k1_T + k2_T)
+    C[i+1] = C[i] + (1/2)*(k1_C + k2_C)
 print('T', T)
 print('C', C)
 

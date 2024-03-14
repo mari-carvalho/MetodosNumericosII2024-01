@@ -38,8 +38,16 @@ for i in range(0,n): # precisa de mais elementos que o numero de elementos, por 
 # Método de Euler:
 
 for i in range(0,n-1): # deve ir até n-1 porque a solução de y[i+1] é resolvida até o tempo de 3s, sendo que o tempo final é 4
-    T[i+1] = T[i] + h*f_T(t[i], T[i], C[i])
-    C[i+1] = C[i] + h*f_C(t[i], T[i], C[i])
+    k1_T = h*f_T(t[i], T[i],  C[i])
+    k1_C = h*f_C(t[i], T[i], C[i])
+    k2_T = h*f_T(t[i] + (h/2), T[i] + (k1_T/2),  C[i] + (k1_C/2))
+    k2_C = h*f_C(t[i] + (h/2), T[i] + (k1_T/2), C[i] + (k1_C/2))
+    k3_T = h*f_T(t[i] + (h/2), T[i] + (k2_T/2), C[i] + (k2_C/2))
+    k3_C = h*f_C(t[i] + (h/2), T[i] + (k2_T/2), C[i] + (k2_C/2))
+    k4_T = h*f_T(t[i] + h, T[i] + k3_T, C[i] + k3_C)
+    k4_C = h*f_C(t[i] + h, T[i] + k3_T, C[i] + k3_C)
+    T[i+1] = T[i] + (1/6)*(k1_T + (2*k2_T) + (2*k3_T) + k4_T)    
+    C[i+1] = C[i] + (1/6)*(k1_C + (2*k2_C) + (2*k3_C) + k4_C)
 print('T', T)
 print('C', C)
 
@@ -61,4 +69,3 @@ plt.ylabel('C(t)')
 plt.grid(True)
 plt.legend()
 plt.show() 
-
