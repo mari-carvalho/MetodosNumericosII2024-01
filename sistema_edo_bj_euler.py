@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 g = 9.81 # m/s²
 m = 68.1 # kg
 cd = 0.25 # kg/m
-n = 6 
+n = 60
 tf = 10 
 t0 = 0
 y0_x = 0
@@ -46,8 +46,8 @@ for i in range(0,n-1): # deve ir até n-1 porque a solução de y[i+1] é resolv
 print(y_x)
 print(y_v)
 
-yex_v = mt.sqrt((g*m)/cd) * np.tanh(mt.sqrt((g*m)/cd))
-yex_x = (m/cd) * mt.log(10) * (np.cosh(mt.sqrt((g*cd)/m)*t))
+yex_v = np.sqrt((g*m)/cd) * np.tanh(np.sqrt((g*m)/cd))
+yex_x = (m/cd) * (np.log(np.cosh(np.sqrt((g*cd)/m)*t)))
 
 plt.plot(t, y_x, marker='o', linestyle='-', color='#7B2791', label='Solução Numérica X')
 plt.plot(t, yex_x, marker='o', linestyle='-', color='blue', label='Solução Analítica/Exata X')
