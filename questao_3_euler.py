@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 # Definindo Variáveis de Entrada:
 n = 150
-tf = 10
+tf = 400   
 t0 = 0
 T0 = 16
 C0 = 1
@@ -14,7 +14,7 @@ h = (tf-t0)/(n-1)
 
 # Definindo as Funções:
 def f_C(t,T,C):
-    return - np.exp(-10/(T+273)) * C
+    return -np.exp(-10/(T+273)) * C
 
 def f_T(t,T,C):
     return 1000 * np.exp(-10/(T+273)) * C - 10*(T-20)
