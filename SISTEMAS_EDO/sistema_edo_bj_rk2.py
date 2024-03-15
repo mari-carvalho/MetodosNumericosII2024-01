@@ -23,7 +23,6 @@ def f_v(v):
     return g - (cd/m)*v**2
 
 # Definindo as Condições Iniciais:
-
 t = np.zeros(n)
 y_x = np.zeros(n)
 y_v = np.zeros(n)
