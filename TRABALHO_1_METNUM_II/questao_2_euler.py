@@ -9,16 +9,16 @@ def calculate_2_euler():
 
     # Definindo Variáveis de Entrada:
     g = 9.81 # m/s²
-    r = 1.5 # m 
+    d_orificio = 0.03 # m 
+    r = 1.5
     h0 = 2.75 # m 
     C = 0.55 
     t0 = 0 
-    tf = 50 
+    tf = 1000
     Eppara = 10**(-6)
-
     
     p = [0.5, 0.25] # passos solicitados pelo problema # mais elementos, mais refinado, menor o erro 
-    x = len(h) # variável para medir o tamanho do vetor de passos h 
+    x = len(p) # variável para medir o tamanho do vetor de passos h 
 
     # Definindo a Função que calcula o Número de Elementos:
     def calculate_n(tf:float, t0: float, p:float) -> np.ndarray:
@@ -33,12 +33,12 @@ def calculate_2_euler():
     n = calculate_n(tf,t0,p)
     print(n) # vetor com os números de elementos de cada passo solicitado pelo problema 
 
-    def calculate_area(r:float) -> float: 
+    def calculate_area(d_orificio:float) -> float: 
         
-        area = 4*np.pi*r**2
+        area = (np.pi/4) * d_orificio**2
 
         return area
-    area = calculate_area(r)   
+    area = calculate_area(d_orificio)   
         
     # Definindo a Função EDO:
     def f(t,h):
@@ -91,4 +91,5 @@ def calculate_2_euler():
     plt.legend()
     plt.show()
 
-    
+euler2 = calculate_2_euler()
+print(euler2)
