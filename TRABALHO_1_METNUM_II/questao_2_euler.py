@@ -31,7 +31,7 @@ def calculate_2_euler():
         return n
     
     n = calculate_n(tf,t0,p)
-    print(n) # vetor com os números de elementos de cada passo solicitado pelo problema 
+    print('n', n) # vetor com os números de elementos de cada passo solicitado pelo problema 
 
     def calculate_area(d_orificio:float) -> float: 
         
@@ -57,21 +57,23 @@ def calculate_2_euler():
         h_array.append(h) # guarda os vetores de y dentro da matriz y_array
         t_array.append(t) # guarda os vetores de t dentro da matriz y_array
 
-    print(t_array)
-    print(h_array)
+    print('t', t_array)
+    print('h', h_array)
 
     # Método de Euler
     for i in range(x): # loop para selecionar o vetor de t e o vetor de y que vão servir para os cálculos de y. Vai percorrer o tamanho do vetor de passos, pois de acordo com o número de passos solicitados pelo problema, terá vetores de t e y 
 
         t = t_array[i] # vai adotar o vetor de t presente na matriz t_array correspondente a posição i 
         h = h_array[i] # vai adotar o vetor de y presente na matriz y_array correspondente a posição i 
-        m = int(n[i]) - 1 # vai mensurar o número de elementos menos 1 
-
+        eppara = 10e-1
+        m = int(n[i]) - 1 
+        
         for j in range(0,m): # deve ir até n-1 porque a solução de y[i+1] é resolvida até o tempo de 1s (y[i+1] é 2), sendo que o tempo final é 2
-            h[j+1] = h[j] + p[i]*f(t[j], h[j]) # equacionamento do método de euler 
+            while h[j] >= eppara:
+                h[j+1] = h[j] + p[i]*f(t[j], h[j]) # equacionamento do método de euler 
         h_array[i] = h # guarda o vetor y dentro matriz y_array
 
-    print(h_array)
+    print('h', h_array)
 
     # Plotagem da Solução Numérica:
     colors = ['#0000FF', '#1E90FF', '#4169E1', '#6495ED',   # Shades of blue
