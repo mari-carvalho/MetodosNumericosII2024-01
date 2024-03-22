@@ -14,8 +14,7 @@ def calculate_2_euler():
     h0 = 2.75 # m 
     C = 0.55 
     t0 = 0 
-    tf = 1000
-    Eppara = 10**(-6)
+    tf = 10000
     
     p = [0.5, 0.25] # passos solicitados pelo problema # mais elementos, mais refinado, menor o erro 
     x = len(p) # variável para medir o tamanho do vetor de passos h 
@@ -35,15 +34,22 @@ def calculate_2_euler():
 
     def calculate_area(d_orificio:float) -> float: 
         
-        area = (np.pi/4) * d_orificio**2
+        area = (np.pi)*(d_orificio/2)**2
 
         return area
     area = calculate_area(d_orificio)   
-        
+    print(area)  
+
+    Q = C*area*np.sqrt(2*g*h0)
+    print(Q)
+    V = 4/3 * np.pi * r**3
+    print(V)
+    t = V/Q
+    print('t', t)
+
     # Definindo a Função EDO:
     def f(t,h):
-        return (-C*area*np.sqrt(2*g))/np.sqrt(h)*(2*np.pi*r-np.pi*h)
-
+        return (-C * area * np.sqrt(2*g))/(np.sqrt(h)*((2*np.pi*r) - (np.pi*h)))
     # Definindo as Matrizes que vao guardar os Vetores de Tempo e de Y:
     t_array = []
     h_array = []
@@ -65,12 +71,12 @@ def calculate_2_euler():
 
         t = t_array[i] # vai adotar o vetor de t presente na matriz t_array correspondente a posição i 
         h = h_array[i] # vai adotar o vetor de y presente na matriz y_array correspondente a posição i 
-        eppara = 10e-1
+        eppara = 10e-6
         m = int(n[i]) - 1 
         
+        #while any(val > eppara for val in h):
         for j in range(0,m): # deve ir até n-1 porque a solução de y[i+1] é resolvida até o tempo de 1s (y[i+1] é 2), sendo que o tempo final é 2
-            while h[j] >= eppara:
-                h[j+1] = h[j] + p[i]*f(t[j], h[j]) # equacionamento do método de euler 
+            h[j+1] = h[j] + p[i]*f(t[j], h[j]) # equacionamento do método de euler 
         h_array[i] = h # guarda o vetor y dentro matriz y_array
 
     print('h', h_array)
@@ -84,11 +90,11 @@ def calculate_2_euler():
         t = t_array[i] # vai adotar o vetor de t presente na matriz t_array correspondente a posição i 
         h = h_array[i] # vai adotar o vetor de y presente na matriz y_array correspondente a posição i 
         color = colors[i % len(colors)] # seleciona as cores pré definidas de cada linha 
-        plt.plot(t, h, marker='o', linestyle='-', color=color, label='Solução Numérica - Passo ' + str(p[i]))
+        plt.plot(t, h, marker='o', linestyle='-', color=color, label='Solução Euler - Passo ' + str(p[i]))
     
-    plt.title('Letra B - Solução Numérica')
+    plt.title('Questão 3 - Método de Euler')
     plt.xlabel('Tempo (s)')
-    plt.ylabel('y(t)')
+    plt.ylabel('h(t)')
     plt.grid(True)
     plt.legend()
     plt.show()

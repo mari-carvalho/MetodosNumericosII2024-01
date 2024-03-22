@@ -65,7 +65,7 @@ def calculate_letra_b():
     colors = ['#0000FF', '#1E90FF', '#4169E1', '#6495ED',   # Shades of blue
             '#87CEFA', '#ADD8E6', '#B0E0E6', '#87CEEB']   # More shades of blue
 
-    for i in range(len(y_array)): # vai percorrer a matriz de y 
+    for i in range(len(t_array)): # vai percorrer a matriz de y 
 
         t = t_array[i] # vai adotar o vetor de t presente na matriz t_array correspondente a posição i 
         y = y_array[i] # vai adotar o vetor de y presente na matriz y_array correspondente a posição i 
@@ -86,14 +86,14 @@ def calculate_letra_b():
 
         for i in range(len(t)):
             
-            y_exata = np.exp(((t[i]**4)/4) - 1.5*t[i])
+            y_exata = np.exp(t*(0.25*t**3 - 1.5))
             y_exata_list.append(y_exata)
 
         return y_exata_list
 
     y_exata_array = [] # cria uma matriz para inserir os vetores, com os valores de solução analítica, que vão ser gerados para cada vetor de t da matriz t_array
 
-    for i in range(len(y_array)): # percorre a matriz de soluções analíticas y_array
+    for i in range(len(t_array)): # percorre a matriz de soluções analíticas y_array
 
         t = t_array[i] # vai adotar o vetor de t presente na matriz t_array correspondente a posição i 
         y_exata = calculate_yexata(t) # calcula a solução exata com a função da solução analítica 
@@ -133,6 +133,7 @@ def calculate_letra_b():
         t = t_array[i] # vai adotar o vetor de t presente na matriz t_array correspondente a posição i 
         y = y_array[i] # vai adotar o vetor de y presente na matriz y_array correspondente a posição i 
         y_exata = y_exata_array[i] # vai adotar o vetor de y_exata pesente na matriz y_exata_array correspondente a posição i
+        print('y_exata', y_exata)
         color = colors[i % len(colors)]
         plt.plot(t, y, marker='o', linestyle='-', color=color, label='Solução Numérica - Passo ' + str(h[i]))
         plt.plot(t, y_exata, marker='o', linestyle='-', color=color, label='Solução Analítica - Passo ' + str(h[i]))
@@ -145,23 +146,29 @@ def calculate_letra_b():
     plt.show()
 
     # Cálculo do Erro Percentual Verdadeiro:
-    def calculate_erro(y_exata:np.ndarray, y:np.ndarray) -> np.ndarray: # a função devolve uma lista/vetor
+    def calculate_erro(y_exata:np.ndarray, y:np.ndarray, t:np.ndarray) -> np.ndarray: # a função devolve uma lista/vetor
 
         erro_list = []
-        for i in range(len(y_exata)): # percorre o vetor de y_exata 
-            
-            erro = np.abs((y_exata[i]-y[i])/y_exata[i])*100
+
+        for j in range(len(y_exata)): # percorre o vetor de y_exata 
+            print('y_exata_func', y_exata)
+            print('y_func', y)
+            erro = np.abs((y_exata[j]-y[j])/y_exata[j])*100
+            print('erro_func', erro)
             erro_list.append(erro) # guarda o valor dentro do vetor erro_list
         
         return erro_list
 
     erro_array = [] # cria uma matriz para guardar os vetores de erro_list correspondente a cada vetor de y_exata presente na matriz y_exata_array
 
-    for i in range(len(y_array)): # percorre a matrzi de t_array 
+    for i in range(len(t_array)): # percorre a matriz de t_array 
 
+        t = t_array[i]
         y = y_array[i] # vai adotar o vetor de y presente na matriz y_array correspondente a posição i 
+        print('y_essa', y)
         y_exata = y_exata_array[i]  # vai adotar o vetor de y_exata pesente na matriz y_exata_array correspondente a posição i
-        erro = calculate_erro(y_exata, y) # calcula o erro 
+        print('y_exata_essa', y_exata)
+        erro = calculate_erro(y, y_exata, t) # calcula o erro 
         erro_array.append(erro) # guarda o vetor de erros erro_list dentro da matriz erro_arrat
 
     print('erro', erro_array)
@@ -184,3 +191,8 @@ def calculate_letra_b():
     plt.grid(True)
     plt.legend()
     plt.show()
+
+
+# Letra B - Método de Euler para h = 0.5 e 0.25:
+letra_b = calculate_letra_b()
+print(letra_b)

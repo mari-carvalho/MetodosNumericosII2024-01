@@ -63,7 +63,8 @@ def calculate_letra_c_rk2():
         return y_exata_list
 
     yex = calculate_yexata(t) # calcula a solução analítica
-
+    print('yex', yex)
+    print('y', y)
     # Plotagem da Comparação entre as Soluções Analítica e Numérica:
     plt.plot(t, y, marker='o', linestyle='-', color='#7B2791', label='Solução Numérica')
     plt.plot(t, yex, marker='o', linestyle='-', color='blue', label='Solução Analítica/Exata')
@@ -87,6 +88,7 @@ def calculate_letra_c_rk2():
         return erro_list
     
     erro = calculate_erro(yex, y)
+    print('erro', erro)
 
     # Plotagem do Erro Percentual Verdadeiro vs Tempo:
     plt.plot(t, erro, marker='o', linestyle='-', color='red', label='Erro Percentual Verdadeiro [%]')
@@ -96,3 +98,5 @@ def calculate_letra_c_rk2():
     plt.grid(True)
     plt.legend()
     plt.show()
+
+a = calculate_letra_c_rk2()

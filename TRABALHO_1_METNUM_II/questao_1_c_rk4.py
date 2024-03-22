@@ -96,3 +96,5 @@ def calculate_letra_c_rk4():
     plt.grid(True)
     plt.legend()
     plt.show()
+
+a = calculate_letra_c_rk4()
