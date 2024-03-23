@@ -4,10 +4,9 @@
 import numpy as np 
 import math as mt 
 import matplotlib.pyplot as plt 
+from prettytable import PrettyTable 
 
-
-
-def calculate_letra_b():
+def calculate_letra_c_rk4():
 
     # Definindo Variáveis de Entrada:
     t0 = 0
@@ -58,26 +57,26 @@ def calculate_letra_b():
         m = int(n[i]) - 1 # vai mensurar o número de elementos menos 1 
 
         for j in range(0,m): # deve ir até n-1 porque a solução de y[i+1] é resolvida até o tempo de 1s (y[i+1] é 2), sendo que o tempo final é 2
-
             k1 = h[i]*f(t[j], y[j])
-            k2 = h[i]*f(t[j+1], y[j] + k1)
-            y[j+1] = y[j] + (1/2)*(k1 + k2) # método de runge-kutta 2ª ordem 
+            k2 = h[i]*f(t[j] + (h[i]/2), y[j] + (k1/2))
+            k3 = h[i]*f(t[j] + (h[i]/2), y[j] + (k2/2))
+            k4 = h[i]*f(t[j] + h[i], y[j] + k3)
+            y[j+1] = y[j] + (1/6)*(k1 + (2*k2) + (2*k3) + k4) # método de runge-kutta de 4ª ordem
         y_array[i] = y # guarda o vetor y dentro matriz y_array
 
     print(y_array)
 
     # Plotagem da Solução Numérica:
-    colors = ['#0000FF', '#1E90FF', '#4169E1', '#6495ED',   # Shades of blue
-            '#87CEFA', '#ADD8E6', '#B0E0E6', '#87CEEB']   # More shades of blue
+    colors = ['#FF1493', '#4B0082']   # Pink, dark purple
 
     for i in range(len(t_array)): # vai percorrer a matriz de y 
 
         t = t_array[i] # vai adotar o vetor de t presente na matriz t_array correspondente a posição i 
         y = y_array[i] # vai adotar o vetor de y presente na matriz y_array correspondente a posição i 
         color = colors[i % len(colors)] # seleciona as cores pré definidas de cada linha 
-        plt.plot(t, y, marker='o', linestyle='-', color=color, label='Solução Numérica - Passo ' + str(h[i]))
+        plt.plot(t, y, linestyle='-', color=color, label='Solução Numérica - Passo ' + str(h[i]))
     
-    plt.title('Letra B - Solução Numérica')
+    plt.title('Letra C - Solução Numérica por RK4- dy/dt = y*t³ - 1.5*y')
     plt.xlabel('Tempo (s)')
     plt.ylabel('y(t)')
     plt.grid(True)
@@ -107,18 +106,16 @@ def calculate_letra_b():
     print('y_exata_array', y_exata_array)
 
     # Plotagem da Solução Analítica:
-    colors = ['#006400', '#008000', '#556B2F',   # Shades of dark green
-            '#8FBC8F', '#98FB98', '#90EE90',   # Shades of light green
-            '#00FF00', '#7CFC00', '#32CD32']   # Shades of green
+    colors = ['#006400', '#7CFC00']   # Dark green, medium spring green
 
     for i in range(len(t_array)): # percorre a matriz de tempos t_array
 
         t = t_array[i] # vai adotar o vetor de t presente na matriz t_array correspondente a posição i 
         y_exata = y_exata_array[i] # vai adotar o vetor de y_exata pesente na matriz y_exata_array correspondente a posição i 
         color = colors[i % len(colors)]
-        plt.plot(t, y_exata, marker='o', linestyle='-', color=color, label='Solução Analítica - Passo ' + str(h[i]))
+        plt.plot(t, y_exata, linestyle='-', color=color, label='Solução Analítica - Passo ' + str(h[i]))
 
-    plt.title('Letra B - Solução Analítica')
+    plt.title('Letra C - Solução Analítica - y(t) = e(t^4/4 - 1.5*t)')
     plt.xlabel('Tempo(s)')
     plt.ylabel('y(t)')
     plt.grid(True)
@@ -126,12 +123,8 @@ def calculate_letra_b():
     plt.show()
 
     # Comparação das Soluções Analíticas e Numéricas:
-    dark_pink = 'blue'
-    light_pink = 'green'
-    lilac = 'pink'
-    purple = 'black'
-
-    colors = [dark_pink, light_pink, lilac, purple]
+    colors_numerica = '#006400'
+    colors_analitica = '#FF1493'
 
     for i in range(len(t_array)): # percorre a matriz de tempos t_array
 
@@ -139,11 +132,10 @@ def calculate_letra_b():
         y = y_array[i] # vai adotar o vetor de y presente na matriz y_array correspondente a posição i 
         y_exata = y_exata_array[i] # vai adotar o vetor de y_exata pesente na matriz y_exata_array correspondente a posição i
         print('y_exata', y_exata)
-        color = colors[i % len(colors)]
-        plt.plot(t, y, marker='o', linestyle='-', color=color, label='Solução Numérica - Passo ' + str(h[i]))
-        plt.plot(t, y_exata, marker='o', linestyle='-', color=color, label='Solução Analítica - Passo ' + str(h[i]))
+        plt.plot(t, y, linestyle='-', color=colors_numerica, label='Solução Numérica - Passo ' + str(h[i]))
+        plt.plot(t, y_exata, linestyle='-', color=colors_analitica, label='Solução Analítica - Passo ' + str(h[i]))
 
-    plt.title('Letra B - Comparação das Soluções Analítica e Numérica')
+    plt.title('Letra C - Comparação das Soluções Analítica e Numérica')
     plt.xlabel('Tempo(s)')
     plt.ylabel('y(t)')
     plt.grid(True)
@@ -179,25 +171,42 @@ def calculate_letra_b():
     print('erro', erro_array)
 
     # Plotagem do Erro Percentual Verdadeiro vs Tempo:
-    colors = ['#FF4500', '#FF6347', '#FF7F50',   # Shades of dark orange
-            '#FFA07A', '#FFDAB9', '#FFE4B5',   # Shades of light orange
-            '#FF8C00', '#FFA500', '#FFD700']   # Shades of orange
+    colors = ['#FF4500', '#FF8C00']   # Dark orange, orange
 
     for i in range(len(t_array)): # percorre a matriz de t_array
 
         t = t_array[i]  # vai adotar o vetor de t presente na matriz t_array correspondente a posição i 
         erro = erro_array[i]  # vai adotar o vetor de erro presente na matriz erro_array correspondente a posição i 
         color = colors[ i% len(colors)]
-        plt.plot(t, erro, marker='o', linestyle='-', color=color, label='Erro Percentual Verdadeiro [%] - Passo ' + str(h[i]))
+        plt.plot(t, erro, marker='o', linestyle='', color=color, label='Erro Percentual Verdadeiro [%] - Passo ' + str(h[i]))
 
-    plt.title('Letra B - Erro Percentual Verdadeiro vs Tempo')
+    plt.title('Letra C - Erro Percentual Verdadeiro vs Tempo')
     plt.xlabel('Tempo(s)')
     plt.ylabel('Erro Percentual Verdadeiro [%]')
     plt.grid(True)
     plt.legend()
     plt.show()
 
+    # Criando Tabelas para guardar Parâmetros:
+    tabela = PrettyTable()
 
-# Letra B - Método de Euler para h = 0.5 e 0.25:
-letra_b = calculate_letra_b()
-print(letra_b)
+    tabela.field_names = ['Parâmetros', 'Valores', 'Unidades']
+
+    tabela.add_row(["t0", t0, "s"])
+    tabela.add_row(["tf", tf, "s"])
+    tabela.add_row(["y0", y0, "-"])
+    tabela.add_row(["h", h, "-"])
+    print(tabela)
+
+    # Criando Tabelas para guardar Parâmetros Calculados:
+    tabela = PrettyTable(['t(s)', 'y(t)', 'y_analítica(t)'])
+    for i in range(len(t_array)):
+        t = t_array[i]
+        y = y_array[i]
+        y_exata = y_exata_array[i]
+        for val1, val2, val3 in zip(t, y, y_exata):
+            tabela.add_row([val1, val2, val3])
+
+    print(tabela)
+
+c = calculate_letra_c_rk4()

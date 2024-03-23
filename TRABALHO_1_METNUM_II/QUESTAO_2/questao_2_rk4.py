@@ -1,11 +1,10 @@
-# Resolução Analítica: Questão 2 - Equação de EDO com Método de Euler:
-
-#Importando Bibliotecas:
+# Importando Bibliotecas =:
 import numpy as np
-import math as mt
+import math as mt 
 import matplotlib.pyplot as plt
+from prettytable import PrettyTable 
 
-def calculate_2_euler():
+def calculate_2_rk4():
 
     # Definindo Variáveis de Entrada:
     g = 9.81 # m/s²
@@ -39,17 +38,38 @@ def calculate_2_euler():
         return area
     area = calculate_area(d_orificio)   
     print(area)  
+    
+    def calculate_Q(C:float, area:float, g:float, h0:float) -> float:
+        
+        Q = C*area*np.sqrt(2*g*h0)
 
-    Q = C*area*np.sqrt(2*g*h0)
+        return Q
+    
+    Q = calculate_Q(C, area, g, h0)
     print(Q)
-    V = 4/3 * np.pi * r**3
+
+    def calculate_V(r:float) -> float:
+
+        V = 4/3 * np.pi * r**3
+
+        return V
+    
+    V = calculate_V(r)
     print(V)
-    t = V/Q
-    print('t', t)
+
+    def calculate_t_estimativa(V:float, Q:float) -> float:
+    
+        t_estimativa = V/Q
+
+        return t_estimativa
+    
+    t_estimativa = calculate_t_estimativa(V, Q)
+    print('t_estimativa', t_estimativa)
 
     # Definindo a Função EDO:
     def f(t,h):
         return (-C * area * np.sqrt(2*g))/(np.sqrt(h)*((2*np.pi*r) - (np.pi*h)))
+    
     # Definindo as Matrizes que vao guardar os Vetores de Tempo e de Y:
     t_array = []
     h_array = []
@@ -76,28 +96,65 @@ def calculate_2_euler():
         
         #while any(val > eppara for val in h):
         for j in range(0,m): # deve ir até n-1 porque a solução de y[i+1] é resolvida até o tempo de 1s (y[i+1] é 2), sendo que o tempo final é 2
-            h[j+1] = h[j] + p[i]*f(t[j], h[j]) # equacionamento do método de euler 
+            k1 = p[i]*f(t[i], h[j])
+            k2 = p[i]*f(t[j] + (p[i]/2), h[j] + (k1/2))
+            k3 = p[i]*f(t[j] + (p[i]/2), h[j] + (k2/2))
+            k4 = p[i]*f(t[j] + p[i], h[j] + k3)
+            h[j+1] = h[j] + (1/6)*(k1 + (2*k2) + (2*k3) + k4) # método de runge-kutta de 4ª ordem
+
         h_array[i] = h # guarda o vetor y dentro matriz y_array
 
     print('h', h_array)
 
     # Plotagem da Solução Numérica:
-    colors = ['#0000FF', '#1E90FF', '#4169E1', '#6495ED',   # Shades of blue
-            '#87CEFA', '#ADD8E6', '#B0E0E6', '#87CEEB']   # More shades of blue
+    colors = ['#FF1493', '#4B0082']   # Pink, dark purple
 
     for i in range(len(h_array)): # vai percorrer a matriz de y 
 
         t = t_array[i] # vai adotar o vetor de t presente na matriz t_array correspondente a posição i 
         h = h_array[i] # vai adotar o vetor de y presente na matriz y_array correspondente a posição i 
         color = colors[i % len(colors)] # seleciona as cores pré definidas de cada linha 
-        plt.plot(t, h, marker='o', linestyle='-', color=color, label='Solução Euler - Passo ' + str(p[i]))
+        plt.plot(t, h, marker='o', linestyle='-', color=color, label='Solução Numérica- Passo ' + str(p[i]))
     
-    plt.title('Questão 3 - Método de Euler')
+    plt.title('Questão 2 - Método de Runge-Kutta 4ª Ordem')
     plt.xlabel('Tempo (s)')
     plt.ylabel('h(t)')
     plt.grid(True)
     plt.legend()
     plt.show()
 
-euler2 = calculate_2_euler()
-print(euler2)
+    # Criando Tabelas para guardar Parâmetros:
+    tabela = PrettyTable()
+
+    tabela.field_names = ['Parâmetros', 'Valores', 'Unidades']
+
+    tabela.add_row(["t0", t0, "s"])
+    tabela.add_row(["tf", tf, "s"])
+    tabela.add_row(["h0", h0, "m"])
+    tabela.add_row(["r", r, "m"])
+    tabela.add_row(["d_orifício", d_orificio, "m"])
+    tabela.add_row(["g", g, "m/s²"])
+    tabela.add_row(["C", C, "-"])
+    tabela.add_row(["p", p, "-"])
+    print(tabela)
+
+    # Criando Tabelas para guardar Parâmetros Calculados:
+    tabela = PrettyTable()
+
+    tabela.field_names = ['Parâmetros', 'Valores', 'Unidades']
+
+    tabela.add_row(["Q", Q, "m³/s"])
+    tabela.add_row(["V", V, "m³"])
+    tabela.add_row(["t_estimativa", t_estimativa, "s"])
+
+    tabela = PrettyTable(['t(s)', 'h(t)'])
+    for i in range(len(t_array)):
+        t = t_array[i]
+        h = h_array[i]
+        for val1, val2 in zip(t, h):
+            tabela.add_row([val1, val2])
+
+    print(tabela)
+
+rk42 = calculate_2_rk4()
+print(rk42)

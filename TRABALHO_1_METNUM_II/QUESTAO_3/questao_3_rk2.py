@@ -4,8 +4,9 @@
 import numpy as np
 import math as mt
 import matplotlib.pyplot as plt
+from prettytable import PrettyTable 
 
-def calculate_rk2():
+def calculate_3_rk2():
 
     # Definindo Variáveis de Entrada:
     n = 150
@@ -51,15 +52,11 @@ def calculate_rk2():
     print('T', T) 
     print('C', C)
 
-    #FAREMOS A EXATA??
-    #yex_v = np.sqrt((g*m)/cd) * np.tanh(np.sqrt((g*m)/cd)) 
-    #yex_x = (m/cd) * (np.log(np.cosh(np.sqrt((g*cd)/m)*t)))
-
     # Plotagem da Solução do Sistema de EDO com o Método de Runge-Kutta de 2ª Ordem:
     # Solução Numérica da Temperatura:
-    plt.plot(t, T, marker='o', linestyle='-', color='#7B2791', label='Solução Numérica - Temperatura')
+    plt.plot(t, T, linestyle='-', color='#FF1493', label='Solução Numérica - Temperatura')
     #plt.plot(t, yex_x, marker='o', linestyle='-', color='blue', label='Solução Analítica/Exata X')
-    plt.title('Solução Numérica da Temperatura - Método de Runge-Kutta 2ª Ordem')
+    plt.title('Solução Numérica da Temperatura - RK2')
     plt.xlabel('tempo(s)')
     plt.ylabel('T(t)')
     plt.grid(True)
@@ -67,12 +64,33 @@ def calculate_rk2():
     plt.show()
 
     # Solução Numérica da Composição:
-    plt.plot(t, C, marker='o', linestyle='-', color='#7B2791', label='Solução Numérica - Composição')
+    plt.plot(t, C, linestyle='-', color='#4B0082', label='Solução Numérica - Composição')
     #plt.plot(t, yex_x, marker='o', linestyle='-', color='blue', label='Solução Analítica/Exata V')
-    plt.title('Solução Numérica da Temperatura - Método de Runge-Kutta 2ª Ordem')
+    plt.title('Solução Numérica da Composição - RK2')
     plt.xlabel('tempo(s)')
     plt.ylabel('C(t)')
     plt.grid(True)
     plt.legend()
     plt.show() 
 
+    # Criando Tabelas para guardar Parâmetros:
+    tabela = PrettyTable()
+
+    tabela.field_names = ['Parâmetros', 'Valores', 'Unidades']
+
+    tabela.add_row(["t0", t0, "s"])
+    tabela.add_row(["tf", tf, "s"])
+    tabela.add_row(["T0", T0, "°C"])
+    tabela.add_row(["C0", C0, "mol/L"])
+    tabela.add_row(["n", n, "-"])
+    tabela.add_row(["h", h, "-"])
+    print(tabela)
+
+    # Criando Tabelas para guardar Parâmetros Calculados:
+    tabela = PrettyTable(['t(s)', 'T(t)', 'C(t)'])
+    for val1, val2, val3 in zip(t, T, C):
+            tabela.add_row([val1, val2, val3])
+
+    print(tabela)
+
+a = calculate_3_rk2()
