@@ -1,23 +1,22 @@
-# Resolução Analítica: Questão 2 - Equação de EDO com Método de Euler:
-
-#Importando Bibliotecas:
+# Resolução do Problema de PVI:
+# Importando Bibliotecas =:
 import numpy as np
-import math as mt
+import math as mt 
 import matplotlib.pyplot as plt
 from prettytable import PrettyTable 
 
-def calculate_2_euler():
+def calculate_2_rk2():
 
     # Definindo Variáveis de Entrada:
     g = 9.81 # m/s²
     d_orificio = 0.03 # m 
-    r = 1.5 * 10e-2
+    r = 1.5
     h0 = 2.75 # m 
     C = 0.55 
     t0 = 0 
-    tf = 300
+    tf = 1000
     
-    p = [0.01, 0.01] # passos solicitados pelo problema # mais elementos, mais refinado, menor o erro 
+    p = [0.5, 0.25] # passos solicitados pelo problema # mais elementos, mais refinado, menor o erro 
     x = len(p) # variável para medir o tamanho do vetor de passos h 
 
     # Definindo a Função que calcula o Número de Elementos:
@@ -33,12 +32,12 @@ def calculate_2_euler():
     n = calculate_n(tf,t0,p)
     print('n', n) # vetor com os números de elementos de cada passo solicitado pelo problema 
 
-    def calculate_area(r:float) -> float: 
+    def calculate_area(d_orificio:float) -> float: 
         
-        area = np.pi*(d_orificio/2)**2 # área do orifício por onde o líquido sai 
+        area = (np.pi)*(d_orificio/2)**2
 
         return area
-    area = calculate_area(r)   
+    area = calculate_area(d_orificio)   
     print(area)  
 
     def calculate_Q(C:float, area:float, g:float, h0:float) -> float:
@@ -70,23 +69,35 @@ def calculate_2_euler():
 
     # Definindo a Função EDO:
     def f(t,h):
-        return -(C * area * np.square(2*g))/(np.sqrt(h)*((2*np.pi*r) - (np.pi*h)))
-
+        return (-C * area * np.sqrt(2*g))/(np.sqrt(h)*((2*np.pi*r) - (np.pi*h)))
+    
+    # Definindo as Matrizes que vao guardar os Vetores de Tempo e de Y:
+    t_array = []
     h_array = []
 
     # Método de Euler
     for i in range(x): # loop para selecionar o vetor de t e o vetor de y que vão servir para os cálculos de y. Vai percorrer o tamanho do vetor de passos, pois de acordo com o número de passos solicitados pelo problema, terá vetores de t e y 
-        h = h0
-        t = 0
-        h_list = [h]
 
-        while h > 0:
-            h = h + p[i]*f(t, h) # equacionamento do método de euler 
-            if h <= 0:
-                break 
-            t = t + p[i]
-            h_list.append(h)
-        h_array.append(h_list) # guarda o vetor y dentro matriz y_array
+        #t = t_array[i] # vai adotar o vetor de t presente na matriz t_array correspondente a posição i 
+        #h = h_array[i] # vai adotar o vetor de y presente na matriz y_array correspondente a posição i 
+        h_list = []
+        t_list = []
+        m = int(n[i]) - 1 
+        j = 0
+        h = 2.75
+        t = 0
+        eppara = 0
+        while h > eppara: # enquanto o valor da posição j no vetor h for maior que zero, o vetor será alimentado 
+                k1 = p[i]*f(t, h)
+                k2 = p[i]*f(t, h + k1)
+                h = h + (1/2)*(k1 + k2) # método de runge-kutta 2ª ordem 
+                if h <= 0:
+                    break
+                t = t + p[i]
+                t_list.append(t)
+                h_list.append(h)
+        t_array.append(t_list)
+        h_array.append(h_list)# guarda o vetor y dentro matriz y_array
 
     print('h', h_array)
 
@@ -95,13 +106,14 @@ def calculate_2_euler():
 
     for i in range(len(h_array)): # vai percorrer a matriz de y 
 
+        t = t_array[i] # vai adotar o vetor de t presente na matriz t_array correspondente a posição i 
         h = h_array[i] # vai adotar o vetor de y presente na matriz y_array correspondente a posição i 
         color = colors[i % len(colors)] # seleciona as cores pré definidas de cada linha 
-        plt.plot(t, h, marker='o', linestyle='-', color=color, label='Solução Numérica- Passo ' + str(p[i]))
+        plt.plot(t, h, linestyle='-', color=color, label='Passo ' + str(p[i]))
     
-    plt.title('Questão 2 - Método de Euler')
+    plt.title('Questão 2 - Solução Numérica por RK2-Aula')
     plt.xlabel('Tempo (s)')
-    plt.ylabel('h(t)')
+    plt.ylabel('h(t) [m]')
     plt.grid(True)
     plt.legend()
     plt.show()
@@ -129,6 +141,7 @@ def calculate_2_euler():
     tabela.add_row(["Q", Q, "m³/s"])
     tabela.add_row(["V", V, "m³"])
     tabela.add_row(["t_estimativa", t_estimativa, "s"])
+    print(tabela)
 
     tabela = PrettyTable(['t(s)', 'h(t)'])
     for i in range(len(t_array)):
@@ -139,6 +152,5 @@ def calculate_2_euler():
 
     print(tabela)
 
-
-euler2 = calculate_2_euler()
-print(euler2)
+rk42 = calculate_2_rk2()
+print(rk42)

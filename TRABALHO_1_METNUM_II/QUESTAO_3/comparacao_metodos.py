@@ -228,21 +228,21 @@ def calculate_comparacao():
 
     # Plotagem da Solução do Sistema de EDO com o Método de rk4:
     # Solução Numérica da Temperatura:
-    plt.plot(t_rk4, T_rk4, linestyle='-', color='#FF1493', label='Solução Numérica - Temperatura')
+    plt.plot(t_rk4, T_rk4, linestyle='-', color='#FF1493', label='Temperatura')
     #plt.plot(t, yex_x, marker='o', linestyle='-', color='blue', label='Solução Analítica/Exata X')
     plt.title('Solução Numérica da Temperatura por rk4')
-    plt.xlabel('tempo(s)')
-    plt.ylabel('T(t)')
+    plt.xlabel('Tempo(s)')
+    plt.ylabel('T(t) [mol/L]')
     plt.grid(True)
     plt.legend()
     plt.show()
 
     # Solução Numérica da Composição:
-    plt.plot(t_rk4, C_rk4, linestyle='-', color='#4B0082', label='Solução Numérica - Composição')
+    plt.plot(t_rk4, C_rk4, linestyle='-', color='#4B0082', label='Composição')
     #plt.plot(t, yex_x, marker='o', linestyle='-', color='blue', label='Solução Analítica/Exata V')
     plt.title('Solução Numérica da Composição por rk4')
-    plt.xlabel('tempo(s)')
-    plt.ylabel('C(t)')
+    plt.xlabel('Tempo(s)')
+    plt.ylabel('C(t) [mol/L]')
     plt.grid(True)
     plt.legend()
     plt.show() 
@@ -250,7 +250,7 @@ def calculate_comparacao():
     # Criando Tabelas para guardar Parâmetros:
     tabela = PrettyTable()
 
-    tabela.field_names = ['Parâmetros', 'Valores', 'Unidades']
+    tabela.field_names = ['Parametros', 'Valores', 'Unidades']
 
     tabela.add_row(["t0", t0_rk4, "s"])
     tabela.add_row(["tf", tf_rk4, "s"])
@@ -261,32 +261,31 @@ def calculate_comparacao():
     print(tabela)
 
     # Criando Tabelas para guardar Parâmetros Calculados:
-    tabela = PrettyTable(['t(s)', 'T(t)', 'C(t)'])
+    tabela = PrettyTable(['t(s)', 'T(t)', 'C(t) [mol/L]'])
     for val1, val2, val3 in zip(t_rk4, T_rk4, C_rk4):
             tabela.add_row([val1, val2, val3])
 
     print(tabela)
 
     # Plotagem da Comparação das Soluções Numéricas:
-    plt.plot(t_euler, T_euler, linestyle='-', color='#FF1493', label='Solução Numérica - Euler  - Temperatura')
-    plt.plot(t_euler, T_rk2, linestyle='-', color='#4B0082', label='Solução Numérica - RK2  - Temperatura')
-    plt.plot(t_euler, T_rk4, linestyle='-', color='#006400', label='Solução Numérica - RK4  - Temperatura')
-    plt.title('Comparação das Soluções Numéricas')
+    plt.plot(t_euler, T_euler, linestyle='-', color='#FF1493', label='Euler')
+    plt.plot(t_euler, T_rk2, linestyle='-', color='#4B0082', label='RK2')
+    plt.plot(t_euler, T_rk4, linestyle='-', color='#006400', label='RK4')
+    plt.title('Comparação das Soluções Numéricas - Temperatura')
     plt.xlabel('Tempo(s)')
-    plt.ylabel('y(t)')
+    plt.ylabel('T(t) [°C]')
     plt.grid(True)
     plt.legend()
     plt.show()
 
-    plt.plot(t_euler, C_euler, linestyle='-', color='#FF1493', label='Solução Numérica - Euler - Composição')
-    plt.plot(t_euler, C_rk2, linestyle='-', color='#4B0082', label='Solução Numérica - RK2 - Composição')
-    plt.plot(t_euler, C_rk4, linestyle='-', color='#006400', label='Solução Numérica - RK4 - Composição')
-    plt.title('Comparação das Soluções Numéricas')
+    plt.plot(t_euler, C_euler, linestyle='-', color='#FF1493', label='Euler')
+    plt.plot(t_euler, C_rk2, linestyle='-', color='#4B0082', label='RK2')
+    plt.plot(t_euler, C_rk4, linestyle='-', color='#006400', label='RK4')
+    plt.title('Comparação das Soluções Numéricas - Composição')
     plt.xlabel('Tempo(s)')
-    plt.ylabel('y(t)')
+    plt.ylabel('C(t) [mol/L]')
     plt.grid(True)
     plt.legend()
     plt.show()
-
 
 comp = calculate_comparacao()

@@ -1,4 +1,4 @@
-# Resolução Analítica: Questão 1 - Letra A - Solução Analítica 
+# Questão 1 - Letra A - Solução Analítica 
 
 from sympy import symbols, Function, Eq, Derivative, exp, dsolve, simplify 
 import numpy as np 
@@ -42,7 +42,7 @@ def calculate_letra_a():
         
     print(y_exata_list)
 
-    #Plotando a Solução Exata:
+    # Plotando a Solução Numérica/Exata:
     plt.plot(t, y_exata_list, linestyle='-', color='#7B2791', label='Solução Analítica/Exata')
 
     plt.title('Letra A - Solução Analítica - y(t) = e(t^4/4 - 1.5*t)')

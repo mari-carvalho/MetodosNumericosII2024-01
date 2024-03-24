@@ -595,9 +595,9 @@ def calculate__comparacao():
         y_euler = y_array_euler[i]
         y_rk2 = y_array_rk2[i]
         y_rk4 = y_array_rk4[i]
-        plt.plot(t, y_euler, linestyle='-', color='#FF1493', label='Solução Numérica - Euler - Passo ' + str(h_euler[i]))
-        plt.plot(t, y_rk2, linestyle='-', color='#4B0082', label='Solução Numérica - RK2 - Passo ' + str(h_rk2[i]))
-        plt.plot(t, y_rk4, linestyle='-', color='#006400', label='Solução Numérica - RK4 - Passo ' + str(h_rk4[i]))
+        plt.plot(t, y_euler, linestyle='-', color='#FF1493', label='Euler - Passo ' + str(h_euler[i]))
+        plt.plot(t, y_rk2, linestyle='-', color='#4B0082', label='RK2 - Passo ' + str(h_rk2[i]))
+        plt.plot(t, y_rk4, linestyle='-', color='#006400', label='RK4 - Passo ' + str(h_rk4[i]))
 
     plt.title('Comparação das Soluções Numéricas')
     plt.xlabel('Tempo(s)')
@@ -613,9 +613,9 @@ def calculate__comparacao():
         erro_euler = erro_array_euler[i]
         erro_rk2 = erro_array_rk2[i]
         erro_rk4 = erro_array_rk4[i]
-        plt.plot(t, erro_euler, linestyle='-', color='#FF1493', label='Erro Percentual Verdadeiro [%] - Euler - Passo ' + str(h_euler[i]))
-        plt.plot(t, erro_rk2, linestyle='-', color='#4B0082', label='Erro Percentual Verdadeiro [%] - Euler - Passo ' + str(h_rk2[i]))
-        plt.plot(t, erro_rk4, linestyle='-', color='#006400', label='Erro Percentual Verdadeiro [%] - Euler - Passo ' + str(h_rk4[i]))
+        plt.plot(t, erro_euler, linestyle='-', color='#FF1493', label='Euler - Passo ' + str(h_euler[i]))
+        plt.plot(t, erro_rk2, linestyle='-', color='#4B0082', label='RK2 - Passo ' + str(h_rk2[i]))
+        plt.plot(t, erro_rk4, linestyle='-', color='#006400', label='RK4 - Passo ' + str(h_rk4[i]))
 
     plt.title('Comparação dos Erros Percentuais Verdadeiros')
     plt.xlabel('Tempo(s)')

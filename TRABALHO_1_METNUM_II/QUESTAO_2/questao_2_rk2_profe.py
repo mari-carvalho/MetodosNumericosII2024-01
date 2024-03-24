@@ -1,10 +1,11 @@
+# Resolução do Problema de PVI:
 # Importando Bibliotecas =:
 import numpy as np
 import math as mt 
 import matplotlib.pyplot as plt
 from prettytable import PrettyTable 
 
-def calculate_2_rk4():
+def calculate_2_rk2():
 
     # Definindo Variáveis de Entrada:
     g = 9.81 # m/s²
@@ -13,7 +14,7 @@ def calculate_2_rk4():
     h0 = 2.75 # m 
     C = 0.55 
     t0 = 0 
-    tf = 10000
+    tf = 1000
     
     p = [0.5, 0.25] # passos solicitados pelo problema # mais elementos, mais refinado, menor o erro 
     x = len(p) # variável para medir o tamanho do vetor de passos h 
@@ -38,7 +39,7 @@ def calculate_2_rk4():
         return area
     area = calculate_area(d_orificio)   
     print(area)  
-    
+
     def calculate_Q(C:float, area:float, g:float, h0:float) -> float:
         
         Q = C*area*np.sqrt(2*g*h0)
@@ -68,41 +69,35 @@ def calculate_2_rk4():
 
     # Definindo a Função EDO:
     def f(t,h):
-        return (-C * area * np.sqrt(2*g))/(np.sqrt(h)*((2*np.pi*r) - (np.pi*h)))
+        return (-C * area * np.sqrt(2*g*h))/((((2/3)*np.pi*h)*(3*r - h)) - ((np.pi*h**2)/3))
     
     # Definindo as Matrizes que vao guardar os Vetores de Tempo e de Y:
     t_array = []
     h_array = []
 
-    # Definindo as Condições Iniciais:
-    for i in range(0,x): # loop que vai de 0 ao tamanho do vetor de passos
-
-        t = np.linspace(t0,tf,int(n[i])) # cria um vetor de t, de t0 a tf com o número de elementos da interação (número de elementos no vetor, na posição i)
-        h = np.zeros_like(t) # cria um vetor igual ao vetor criado para o tempo 
-        h[0] = h0 # estabelece que na primeira posição do vetor de y, a condição inicial é y0
-        h_array.append(h) # guarda os vetores de y dentro da matriz y_array
-        t_array.append(t) # guarda os vetores de t dentro da matriz y_array
-
-    print('t', t_array)
-    print('h', h_array)
-
     # Método de Euler
     for i in range(x): # loop para selecionar o vetor de t e o vetor de y que vão servir para os cálculos de y. Vai percorrer o tamanho do vetor de passos, pois de acordo com o número de passos solicitados pelo problema, terá vetores de t e y 
 
-        t = t_array[i] # vai adotar o vetor de t presente na matriz t_array correspondente a posição i 
-        h = h_array[i] # vai adotar o vetor de y presente na matriz y_array correspondente a posição i 
-        eppara = 10e-6
+        #t = t_array[i] # vai adotar o vetor de t presente na matriz t_array correspondente a posição i 
+        #h = h_array[i] # vai adotar o vetor de y presente na matriz y_array correspondente a posição i 
+        h_list = []
+        t_list = []
         m = int(n[i]) - 1 
-        
-        #while any(val > eppara for val in h):
-        for j in range(0,m): # deve ir até n-1 porque a solução de y[i+1] é resolvida até o tempo de 1s (y[i+1] é 2), sendo que o tempo final é 2
-            k1 = p[i]*f(t[i], h[j])
-            k2 = p[i]*f(t[j] + (p[i]/2), h[j] + (k1/2))
-            k3 = p[i]*f(t[j] + (p[i]/2), h[j] + (k2/2))
-            k4 = p[i]*f(t[j] + p[i], h[j] + k3)
-            h[j+1] = h[j] + (1/6)*(k1 + (2*k2) + (2*k3) + k4) # método de runge-kutta de 4ª ordem
-
-        h_array[i] = h # guarda o vetor y dentro matriz y_array
+        j = 0
+        h = 2.75
+        t = 0
+        eppara = 0
+        while h > eppara: # enquanto o valor da posição j no vetor h for maior que zero, o vetor será alimentado 
+                k1 = p[i]*f(t, h)
+                k2 = p[i]*f(t, h + k1)
+                h = h + (1/2)*(k1 + k2) # método de runge-kutta 2ª ordem 
+                if h <= 0:
+                    break
+                t = t + p[i]
+                t_list.append(t)
+                h_list.append(h)
+        t_array.append(t_list)
+        h_array.append(h_list)# guarda o vetor y dentro matriz y_array
 
     print('h', h_array)
 
@@ -114,11 +109,11 @@ def calculate_2_rk4():
         t = t_array[i] # vai adotar o vetor de t presente na matriz t_array correspondente a posição i 
         h = h_array[i] # vai adotar o vetor de y presente na matriz y_array correspondente a posição i 
         color = colors[i % len(colors)] # seleciona as cores pré definidas de cada linha 
-        plt.plot(t, h, marker='o', linestyle='-', color=color, label='Solução Numérica- Passo ' + str(p[i]))
+        plt.plot(t, h, linestyle='-', color=color, label='Passo ' + str(p[i]))
     
-    plt.title('Questão 2 - Método de Runge-Kutta 4ª Ordem')
+    plt.title('Questão 2 - Solução Numérica por RK2-Profe')
     plt.xlabel('Tempo (s)')
-    plt.ylabel('h(t)')
+    plt.ylabel('h(t) [m]')
     plt.grid(True)
     plt.legend()
     plt.show()
@@ -146,6 +141,7 @@ def calculate_2_rk4():
     tabela.add_row(["Q", Q, "m³/s"])
     tabela.add_row(["V", V, "m³"])
     tabela.add_row(["t_estimativa", t_estimativa, "s"])
+    print(tabela)
 
     tabela = PrettyTable(['t(s)', 'h(t)'])
     for i in range(len(t_array)):
@@ -156,5 +152,5 @@ def calculate_2_rk4():
 
     print(tabela)
 
-rk42 = calculate_2_rk4()
+rk42 = calculate_2_rk2()
 print(rk42)

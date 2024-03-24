@@ -74,7 +74,7 @@ def calculate_letra_c_rk4():
         t = t_array[i] # vai adotar o vetor de t presente na matriz t_array correspondente a posição i 
         y = y_array[i] # vai adotar o vetor de y presente na matriz y_array correspondente a posição i 
         color = colors[i % len(colors)] # seleciona as cores pré definidas de cada linha 
-        plt.plot(t, y, linestyle='-', color=color, label='Solução Numérica - Passo ' + str(h[i]))
+        plt.plot(t, y, linestyle='-', color=color, label='Passo ' + str(h[i]))
     
     plt.title('Letra C - Solução Numérica por RK4- dy/dt = y*t³ - 1.5*y')
     plt.xlabel('Tempo (s)')
@@ -113,7 +113,7 @@ def calculate_letra_c_rk4():
         t = t_array[i] # vai adotar o vetor de t presente na matriz t_array correspondente a posição i 
         y_exata = y_exata_array[i] # vai adotar o vetor de y_exata pesente na matriz y_exata_array correspondente a posição i 
         color = colors[i % len(colors)]
-        plt.plot(t, y_exata, linestyle='-', color=color, label='Solução Analítica - Passo ' + str(h[i]))
+        plt.plot(t, y_exata, linestyle='-', color=color, label='Passo ' + str(h[i]))
 
     plt.title('Letra C - Solução Analítica - y(t) = e(t^4/4 - 1.5*t)')
     plt.xlabel('Tempo(s)')
@@ -132,8 +132,8 @@ def calculate_letra_c_rk4():
         y = y_array[i] # vai adotar o vetor de y presente na matriz y_array correspondente a posição i 
         y_exata = y_exata_array[i] # vai adotar o vetor de y_exata pesente na matriz y_exata_array correspondente a posição i
         print('y_exata', y_exata)
-        plt.plot(t, y, linestyle='-', color=colors_numerica, label='Solução Numérica - Passo ' + str(h[i]))
-        plt.plot(t, y_exata, linestyle='-', color=colors_analitica, label='Solução Analítica - Passo ' + str(h[i]))
+        plt.plot(t, y, linestyle='-', color=colors_numerica, label='Passo ' + str(h[i]))
+        plt.plot(t, y_exata, linestyle='-', color=colors_analitica, label='Passo ' + str(h[i]))
 
     plt.title('Letra C - Comparação das Soluções Analítica e Numérica')
     plt.xlabel('Tempo(s)')
@@ -178,9 +178,9 @@ def calculate_letra_c_rk4():
         t = t_array[i]  # vai adotar o vetor de t presente na matriz t_array correspondente a posição i 
         erro = erro_array[i]  # vai adotar o vetor de erro presente na matriz erro_array correspondente a posição i 
         color = colors[ i% len(colors)]
-        plt.plot(t, erro, marker='o', linestyle='', color=color, label='Erro Percentual Verdadeiro [%] - Passo ' + str(h[i]))
+        plt.plot(t, erro, marker='o', linestyle='', color=color, label='Passo ' + str(h[i]))
 
-    plt.title('Letra C - Erro Percentual Verdadeiro vs Tempo')
+    plt.title('Letra C - Erro Percentual Verdadeiro vs Tempo [%]')
     plt.xlabel('Tempo(s)')
     plt.ylabel('Erro Percentual Verdadeiro [%]')
     plt.grid(True)
@@ -199,7 +199,7 @@ def calculate_letra_c_rk4():
     print(tabela)
 
     # Criando Tabelas para guardar Parâmetros Calculados:
-    tabela = PrettyTable(['t(s)', 'y(t)', 'y_analítica(t)'])
+    tabela = PrettyTable(['t(s)', 'y(t)', 'y_analitica(t)'])
     for i in range(len(t_array)):
         t = t_array[i]
         y = y_array[i]

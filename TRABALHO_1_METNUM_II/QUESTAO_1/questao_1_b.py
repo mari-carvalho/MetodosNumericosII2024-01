@@ -1,4 +1,4 @@
-# Resolução Analítica: Questão 1 - Letra B - Método de Euler
+# Questão 1 - Letra B - Método de Euler
 
 #Importando Bibliotecas:
 import numpy as np 
@@ -49,7 +49,7 @@ def calculate_letra_b():
     print(t_array)
     print(y_array)
 
-    # Método de Euler
+    # Método de Euler:
     for i in range(x): # loop para selecionar o vetor de t e o vetor de y que vão servir para os cálculos de y. Vai percorrer o tamanho do vetor de passos, pois de acordo com o número de passos solicitados pelo problema, terá vetores de t e y 
 
         t = t_array[i] # vai adotar o vetor de t presente na matriz t_array correspondente a posição i 
@@ -70,7 +70,7 @@ def calculate_letra_b():
         t = t_array[i] # vai adotar o vetor de t presente na matriz t_array correspondente a posição i 
         y = y_array[i] # vai adotar o vetor de y presente na matriz y_array correspondente a posição i 
         color = colors[i % len(colors)] # seleciona as cores pré definidas de cada linha 
-        plt.plot(t, y, linestyle='-', color=color, label='Solução Numérica - Passo ' + str(h[i]))
+        plt.plot(t, y, linestyle='-', color=color, label='Passo ' + str(h[i]))
     
     plt.title('Letra B - Solução Numérica por Euler - dy/dt = y*t³ - 1.5*y')
     plt.xlabel('Tempo (s)')
@@ -109,7 +109,7 @@ def calculate_letra_b():
         t = t_array[i] # vai adotar o vetor de t presente na matriz t_array correspondente a posição i 
         y_exata = y_exata_array[i] # vai adotar o vetor de y_exata pesente na matriz y_exata_array correspondente a posição i 
         color = colors[i % len(colors)]
-        plt.plot(t, y_exata, linestyle='-', color=color, label='Solução Analítica - Passo ' + str(h[i]))
+        plt.plot(t, y_exata, linestyle='-', color=color, label='Passo ' + str(h[i]))
 
     plt.title('Letra B - Solução Analítica - y(t) = e(t^4/4 - 1.5*t)')
     plt.xlabel('Tempo(s)')
@@ -127,8 +127,8 @@ def calculate_letra_b():
         t = t_array[i] # vai adotar o vetor de t presente na matriz t_array correspondente a posição i 
         y = y_array[i] # vai adotar o vetor de y presente na matriz y_array correspondente a posição i 
         y_exata = y_exata_array[i] # vai adotar o vetor de y_exata pesente na matriz y_exata_array correspondente a posição i
-        plt.plot(t, y, linestyle='-', color=colors_numerica, label='Solução Numérica - Passo ' + str(h[i]))
-        plt.plot(t, y_exata, linestyle='-', color=colors_analitica, label='Solução Analítica - Passo ' + str(h[i]))
+        plt.plot(t, y, linestyle='-', color=colors_numerica, label='Passo ' + str(h[i]))
+        plt.plot(t, y_exata, linestyle='-', color=colors_analitica, label='Passo ' + str(h[i]))
 
     plt.title('Letra B - Comparação das Soluções Analítica e Numérica')
     plt.xlabel('Tempo(s)')
@@ -167,7 +167,7 @@ def calculate_letra_b():
         t = t_array[i]  # vai adotar o vetor de t presente na matriz t_array correspondente a posição i 
         erro = erro_array[i]  # vai adotar o vetor de erro presente na matriz erro_array correspondente a posição i 
         color = colors[ i% len(colors)]
-        plt.plot(t, erro, marker='o', linestyle='', color=color, label='Erro Percentual Verdadeiro [%] - Passo ' + str(h[i]))
+        plt.plot(t, erro, marker='o', linestyle='', color=color, label='Passo ' + str(h[i]))
 
     plt.title('Letra B - Erro Percentual Verdadeiro vs Tempo')
     plt.xlabel('Tempo(s)')
@@ -179,7 +179,7 @@ def calculate_letra_b():
     # Criando Tabelas para guardar Parâmetros:
     tabela = PrettyTable()
 
-    tabela.field_names = ['Parâmetros', 'Valores', 'Unidades']
+    tabela.field_names = ['Parametros', 'Valores', 'Unidades']
 
     tabela.add_row(["t0", t0, "s"])
     tabela.add_row(["tf", tf, "s"])
@@ -188,7 +188,7 @@ def calculate_letra_b():
     print(tabela)
 
     # Criando Tabelas para guardar Parâmetros Calculados:
-    tabela = PrettyTable(['t(s)', 'y(t)', 'y_analítica(t)'])
+    tabela = PrettyTable(['t(s)', 'y(t)', 'y_analitica(t)'])
     for i in range(len(t_array)):
         t = t_array[i]
         y = y_array[i]

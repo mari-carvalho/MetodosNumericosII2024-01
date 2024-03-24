@@ -54,21 +54,21 @@ def calculate_3_rk2():
 
     # Plotagem da Solução do Sistema de EDO com o Método de Runge-Kutta de 2ª Ordem:
     # Solução Numérica da Temperatura:
-    plt.plot(t, T, linestyle='-', color='#FF1493', label='Solução Numérica - Temperatura')
+    plt.plot(t, T, linestyle='-', color='#FF1493', label='Temperatura')
     #plt.plot(t, yex_x, marker='o', linestyle='-', color='blue', label='Solução Analítica/Exata X')
     plt.title('Solução Numérica da Temperatura - RK2')
-    plt.xlabel('tempo(s)')
-    plt.ylabel('T(t)')
+    plt.xlabel('Tempo(s)')
+    plt.ylabel('T(t) [°C]')
     plt.grid(True)
     plt.legend()
     plt.show()
 
     # Solução Numérica da Composição:
-    plt.plot(t, C, linestyle='-', color='#4B0082', label='Solução Numérica - Composição')
+    plt.plot(t, C, linestyle='-', color='#4B0082', label='Composição')
     #plt.plot(t, yex_x, marker='o', linestyle='-', color='blue', label='Solução Analítica/Exata V')
     plt.title('Solução Numérica da Composição - RK2')
-    plt.xlabel('tempo(s)')
-    plt.ylabel('C(t)')
+    plt.xlabel('Tempo(s)')
+    plt.ylabel('C(t) [mol/L]')
     plt.grid(True)
     plt.legend()
     plt.show() 
@@ -76,7 +76,7 @@ def calculate_3_rk2():
     # Criando Tabelas para guardar Parâmetros:
     tabela = PrettyTable()
 
-    tabela.field_names = ['Parâmetros', 'Valores', 'Unidades']
+    tabela.field_names = ['Parametros', 'Valores', 'Unidades']
 
     tabela.add_row(["t0", t0, "s"])
     tabela.add_row(["tf", tf, "s"])
@@ -87,7 +87,7 @@ def calculate_3_rk2():
     print(tabela)
 
     # Criando Tabelas para guardar Parâmetros Calculados:
-    tabela = PrettyTable(['t(s)', 'T(t)', 'C(t)'])
+    tabela = PrettyTable(['t(s)', 'T(t)', 'C(t) [mol/L]'])
     for val1, val2, val3 in zip(t, T, C):
             tabela.add_row([val1, val2, val3])
 
