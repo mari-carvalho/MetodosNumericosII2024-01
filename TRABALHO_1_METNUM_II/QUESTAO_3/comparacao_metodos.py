@@ -1,4 +1,4 @@
-# Resolução Analítica: Questão 3 - Sistema de EDO com Método de Euler:
+# Questão 3 - Comparação dos Métodos
 
 #Importando Bibliotecas:
 import numpy as np

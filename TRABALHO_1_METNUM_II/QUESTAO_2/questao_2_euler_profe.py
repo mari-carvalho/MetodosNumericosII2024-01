@@ -1,3 +1,5 @@
+# Questão 2 - Método de Euler - Professor
+
 # Resolução do Problema de PVI:
 # Importando Bibliotecas =:
 import numpy as np

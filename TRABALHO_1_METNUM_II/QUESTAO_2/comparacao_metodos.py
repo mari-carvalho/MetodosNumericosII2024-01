@@ -1,3 +1,5 @@
+# Questão 2 - Comparação dos Métodos
+
 # Resolução do Problema de PVI:
 # Importando Bibliotecas =:
 import numpy as np

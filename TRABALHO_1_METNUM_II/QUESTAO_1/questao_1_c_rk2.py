@@ -1,4 +1,4 @@
-# Resolução Analítica: Questão 1 - Letra B - Método de Euler
+# Resolução Analítica: Questão 1 - Letra C - Método de Runge-Kutta de 2º ordem
 
 #Importando Bibliotecas:
 import numpy as np 

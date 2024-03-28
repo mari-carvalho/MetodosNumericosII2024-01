@@ -48,7 +48,7 @@ def calculate_letra_a():
     plt.title('Letra A - Solução Analítica - y(t) = e(t^4/4 - 1.5*t)')
     plt.xlabel('tempo(s)')
     plt.ylabel('y(t)')
-    plt.grid(True)
+    plt.grid()
     plt.legend()
     plt.show()
 
