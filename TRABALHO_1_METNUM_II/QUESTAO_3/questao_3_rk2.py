@@ -1,4 +1,4 @@
-# Resolução Analítica: Questão 3 - Sistema de EDO com Método de Ruge-Kutta 2ª Ordem:
+# Resolução Analítica: Questão 3 - Sistema de EDO com Método de Runge-Kutta 2ª Ordem:
 
 #Importando Bibliotecas:
 import numpy as np

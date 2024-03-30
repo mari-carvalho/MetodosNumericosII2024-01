@@ -1,3 +1,4 @@
+# Questão 1 - Comparação de Dados
 #Importando Bibliotecas:
 import numpy as np 
 import math as mt 
