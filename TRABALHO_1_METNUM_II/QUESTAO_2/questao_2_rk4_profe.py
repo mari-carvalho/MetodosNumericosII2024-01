@@ -123,13 +123,11 @@ def calculate_2_rk4():
     # Criando Tabelas para guardar Parâmetros:
     tabela = PrettyTable()
 
-    tabela.field_names = ['Parâmetros', 'Valores', 'Unidades']
+    tabela.field_names = ['Parametros', 'Valores', 'Unidades']
 
-    tabela.add_row(["t0", t0, "s"])
-    tabela.add_row(["tf", tf, "s"])
     tabela.add_row(["h0", h0, "m"])
     tabela.add_row(["r", r, "m"])
-    tabela.add_row(["d_orifício", d_orificio, "m"])
+    tabela.add_row(["d_orificio", d_orificio, "m"])
     tabela.add_row(["g", g, "m/s²"])
     tabela.add_row(["C", C, "-"])
     tabela.add_row(["p", p, "-"])

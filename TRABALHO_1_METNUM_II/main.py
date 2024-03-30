@@ -5,13 +5,8 @@ import numpy as np
 import scipy as sp
 import math as mt 
 import matplotlib.pyplot as plt 
-from questao_1_a import calculate_letra_a
-from questao_1_b import calculate_letra_b
-from questao_1_c_rk2 import calculate_letra_c_rk2
-from questao_1_c_rk4 import calculate_letra_c_rk4
-from questao_3_euler import calculate_euler
-from questao_3_rk2 import calculate_rk2
-from questao_3_rk4 import calculate_rk4
+from QUESTAO_1 import questao_1_a, questao_1_b, questao_1_c_rk2, questao_1_c_rk4
+from QUESTAO_3 import questao_3_euler, questao_3_rk2, questao_3_rk4
 
 # Questão 1:
 # Letra A - Analiticamente:
@@ -31,13 +26,13 @@ print(letra_c_rk4)
 
 # Questão 3:
 # Sistema de EDO com Método de Euler:
-euler = calculate_euler()
+euler = calculate_3_euler()
 print(euler)
 
 # Sistema de EDO com Método de Runge-Kutta de 2ª Ordem:
-rk2 = calculate_rk2()
+rk2 = calculate_3_rk2()
 print(rk2)
 
 # Sistema de EDO com Método de Runge-Kutta de 4ª Ordem:
-rk4 = calculate_rk4()
+rk4 = calculate_3_rk4()
 print(rk4)
