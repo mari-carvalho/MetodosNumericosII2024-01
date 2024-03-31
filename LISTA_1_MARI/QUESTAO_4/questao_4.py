@@ -3,6 +3,7 @@
 import numpy as np 
 import matplotlib.pyplot as plt 
 
+# Método de Euler:
 # Definindo as Variáveis de Entrada:
 
 t0_euler = 0
@@ -69,4 +70,99 @@ plt.ylabel('z(t)')
 plt.grid()
 plt.show()
 
+# Método de Runge-Kutta de 4ª Ordem:
+# Definindo as Variáveis de Entrada:
 
+t0_rk4 = 0
+tf_rk4 = 0.4
+h_rk4 = 0.1
+y0_rk4 = 2
+z0_rk4 = 4
+n_rk4 = ((tf_rk4-t0_rk4)/(h_rk4)) + 1
+
+# Definindo os Vetores:
+
+t_rk4 = np.zeros(int(n_rk4))
+y_rk4 = np.zeros(int(n_rk4))
+z_rk4 = np.zeros(int(n_rk4))
+
+# Alimentando os vetores com as Condições Iniciais:
+
+for j in range(int(n_rk4)):
+    if j == 0 :
+        print('j', j)
+        t_rk4[j] = t0_rk4
+        y_rk4[j] = y0_rk4
+        z_rk4[j] = z0_rk4
+    else:
+        print('j', j)
+        t_rk4[j] = j*h_rk4
+        y_rk4[j] = 0
+        z_rk4[j] = 0
+
+print('t_rk4', t_rk4)
+print('y_rk4', y_rk4)
+print('z_rk4', z_rk4)
+
+# Definindo as fuções do Sistema:
+
+def fy_rk4(t_rk4, y_rk4, z_rk4):
+    return (-2*y_rk4) + (5*np.exp(-t_rk4))
+
+def fz_rk4(t_rk4, y_rk4, z_rk4):
+    return (-y_rk4*(z_rk4**2))/(2)
+
+# Método de Runge-Kutta 4ª Ordem:
+
+for j in range(0,int(n_rk4) -1):
+    k1_y_rk4 = h_rk4*fy_rk4(t_rk4[j], y_rk4[j], z_rk4[j])
+    k2_y_rk4 = h_rk4*fy_rk4(t_rk4[j] + h_rk4/2, y_rk4[j] + k1_y_rk4/2, z_rk4[j] + k1_y_rk4/2)
+    k3_y_rk4 = h_rk4*fy_rk4(t_rk4[j] + h_rk4/2, y_rk4[j] + k2_y_rk4/2, z_rk4[j] + k2_y_rk4/2)
+    k4_y_rk4 = h_rk4*fy_rk4(t_rk4[j] + h_rk4, y_rk4[j] + k3_y_rk4, z_rk4[j] + k3_y_rk4)
+    y_rk4[j+1] = y_rk4[j] + (1/6)*(k1_y_rk4 + 2*k2_y_rk4 + 2*k3_y_rk4 + k4_y_rk4)
+    k1_z_rk4 = h_rk4*fz_rk4(t_rk4[j], y_rk4[j], z_rk4[j])
+    k2_z_rk4 = h_rk4*fz_rk4(t_rk4[j] + h_rk4/2, y_rk4[j] + k1_z_rk4/2, z_rk4[j] + k1_z_rk4/2)
+    k3_z_rk4 = h_rk4*fz_rk4(t_rk4[j] + h_rk4/2, y_rk4[j] + k2_z_rk4/2, z_rk4[j] + k2_z_rk4/2)
+    k4_z_rk4 = h_rk4*fz_rk4(t_rk4[j] + h_rk4, y_rk4[j] + k3_z_rk4, z_rk4[j] + k3_z_rk4)
+    z_rk4[j+1] = z_rk4[j] + (1/6)*(k1_z_rk4 + 2*k2_z_rk4 + 2*k3_z_rk4 + k4_z_rk4)
+
+print('y_rk4', y_rk4)
+print('z_rk4', z_rk4)
+
+# Plotando as Soluções:
+
+plt.plot(t_rk4, y_rk4, linestyle='-', color='green', label='Solução Numérica')
+
+plt.legend()
+plt.xlabel('Tempo(s)')
+plt.ylabel('y(t)')
+plt.grid()
+plt.show()
+
+plt.plot(t_rk4, z_rk4, linestyle='-', color='green', label='Solução Numérica')
+
+plt.legend()
+plt.xlabel('Tempo(s)')
+plt.ylabel('z(t)')
+plt.grid()
+plt.show()
+
+# Comparando as soluções:
+
+plt.plot(t_euler, y_euler, linestyle='-', color='green', label='Euler')
+plt.plot(t_rk4, y_rk4, linestyle='-', color='blue', label='RK4/5')
+
+plt.legend()
+plt.xlabel('Tempo(s)')
+plt.ylabel('y(t)')
+plt.grid()
+plt.show()
+
+plt.plot(t_euler, z_euler, linestyle='-', color='green', label='Euler')
+plt.plot(t_rk4, z_rk4, linestyle='-', color='blue', label='RK4/5')
+
+plt.legend()
+plt.xlabel('Tempo(s)')
+plt.ylabel('z(t)')
+plt.grid()
+plt.show()
