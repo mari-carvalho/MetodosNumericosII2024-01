@@ -24,18 +24,18 @@ def fv_euler(t_euler, v_euler, x_euler):
 v_euler_list = []
 x_euler_list = []
 t_euler_list = []
-v_euler = 0
-x_euler = 0
+v_euler = v0_euler
+x_euler = x0_euler
 t_euler = 0 
 while v_euler <= vf_euler:
     x_euler = x_euler + h_euler*fx_euler(t_euler, v_euler, x_euler)
     v_euler = v_euler + h_euler*fv_euler(t_euler, v_euler, x_euler)
     if v_euler >= vf_euler:
         break 
-    t_euler = t_euler + h_euler
     x_euler_list.append(x_euler)
     v_euler_list.append(v_euler)
     t_euler_list.append(t_euler)
+    t_euler = t_euler + h_euler
 
 
 print('x_euler', x_euler_list)
