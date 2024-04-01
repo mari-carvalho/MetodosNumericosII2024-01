@@ -1,3 +1,5 @@
+# Questão 2
+
 # Importando as bibliotecas necessárias
 import numpy as np
 import matplotlib.pyplot as plt
