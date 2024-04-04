@@ -11,7 +11,7 @@ L = 80 #cm
 N = 200 # número de termos da série de Fourier
 
 # Cálculos Iniciais:
-def calculate_c2(k:float, rho:float, cp:float) -> float:
+def calculate_c2(k:float, rho:float, cp:float):
 
     c2 = k/(rho*cp)
 
@@ -19,7 +19,7 @@ def calculate_c2(k:float, rho:float, cp:float) -> float:
 
 c2 = calculate_c2(k,rho,cp)
 
-def calculate_lambda_n(c2: float, L:float) -> float:
+def calculate_lambda_n(c2: float, L:float):
         
     lambda_n = (np.sqrt(c2)**np.pi)/L
 
@@ -33,7 +33,7 @@ def f(x):
     return 20 
 
 # Coeficiente da Série de Fourier:
-def calculate_Bn(f, L:float, N:float) -> np.ndarray:
+def calculate_Bn(f, L:float, N:float):
 
     Bn = np.zeros(N)
     for i in range(1,N):
@@ -55,8 +55,8 @@ def calculate_calor(x:np.ndarray, t, N:float, L:float):
 
 # Define valores de x e t:
 
-x = np.linspace(0,L,5)
-t = np.linspace(0,1000,5)
+x = np.linspace(0,L,1000)
+t = np.linspace(0,1000,1000)
 
 X, T = np.meshgrid(x,t)
 
@@ -66,8 +66,10 @@ print(Temperatura)
 # Plotagem dos Dados:
 
 fig = plt.figure(figsize=(10,10))
-ax = fig.add_subplot(111, projection='3D')
-surf = ax.plot_surface(X, Y, Z, rstride=2, cstride=2, cmap=plt.cm.viridis, linewidth=0.5, antialiased=True)
+ax = fig.add_subplot(111, projection='3d')
+surf = ax.plot_surface(X, T, Temperatura, rstride=2, cstride=2, cmap=plt.cm.viridis, linewidth=0.5, antialiased=True)
 ax.set_xlabel('x (cm)')
 ax.set_ylabel('t (s')
 ax.set_zlabel('T(x,y) (°C)')
+
+plt.show()
