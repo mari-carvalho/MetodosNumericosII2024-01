@@ -21,7 +21,7 @@ c2 = calculate_c2(k,rho,cp)
 
 def calculate_lambda_n(c2: float, L:float):
         
-    lambda_n = (np.sqrt(c2)**np.pi)/L
+    lambda_n = (np.sqrt(c2)*np.pi)/L
 
     return lambda_n
 
@@ -30,7 +30,7 @@ print(lambda_n)
 
 # Definição da Função Desejada:
 def f(x):
-    return 20 
+    return 20
 
 # Coeficiente da Série de Fourier:
 def calculate_Bn(f, L:float, N:float):
@@ -55,8 +55,8 @@ def calculate_calor(x:np.ndarray, t, N:float, L:float):
 
 # Define valores de x e t:
 
-x = np.linspace(0,L,1000)
-t = np.linspace(0,1000,1000)
+x = np.linspace(0,L,100)
+t = np.linspace(0,1000,100)
 
 X, T = np.meshgrid(x,t)
 
@@ -71,5 +71,8 @@ surf = ax.plot_surface(X, T, Temperatura, rstride=2, cstride=2, cmap=plt.cm.viri
 ax.set_xlabel('x (cm)')
 ax.set_ylabel('t (s')
 ax.set_zlabel('T(x,y) (°C)')
+plt.title('Equação do Calor')
+fig.colorbar(surf, shrink=0.5, aspect=10)
+ax.view_init(30,60)
 
 plt.show()
