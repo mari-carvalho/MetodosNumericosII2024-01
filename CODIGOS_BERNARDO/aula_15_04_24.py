@@ -1,3 +1,5 @@
+'''
+# Meu código até linha 74
 import numpy as np
 import math
 import matplotlib.pyplot as plt
@@ -68,4 +70,72 @@ ax.set_ylabel=('t (segundos)')
 plt.title('Equação do Calor')
 fig.colorbar(surf, shrink=0.5, aspect=10)
 ax.view_init(30,80)
+plt.show()
+'''
+# Código do professor abaixo:
+
+import numpy as np
+import math
+import matplotlib.pyplot as plt
+
+# Propriedades do Material - Cobre
+rho = 8.92 # g/cm^3
+cp = 0.092 # cal/(g.ºC)
+k = 0.95 # cal/(cm.s.ºC)
+L = 80 # cm
+
+# Dados Iniciais
+tempo = 1000 # segundos
+To = 20 # ºC
+Tw = 0 # ºC
+Te = 0 # ºC
+
+# Malha
+nx = 50
+nt = 2000
+
+# Cálculos Iniciais
+alpha = k/(rho*cp)
+dx = L/nx
+dt = tempo/nt
+rxt = alpha*dt/dx**2
+
+# Análise de estabilidade e convergência
+if dt <= (dx**2)/(4*alpha):
+  print("Método Convergente.")
+else:
+  print("Método Não Convergente. Refinar a malha do tempo")
+
+# Solução da Equação do Calor
+
+# Condição Inicial
+T = np.zeros((nt+1, nx))
+for i in range(nx):
+    T[0, i] = To
+
+# Equações Discretizadas
+for n in range(nt):
+  for i in range(nx): # Aqui ele conta de 0 a nx-1 
+      if i == 0:
+          T[n+1, i] = 8/3*rxt*Tw + (1 - 4*rxt)*T[n, i] + 4/3*rxt*T[n, i+1]
+      elif i == nx-1:
+          T[n+1, i] = 4/3*rxt*T[n, i-1] + (1 - 4*rxt)*T[n, i] + 8/3*rxt*Te
+      else:
+          T[n+1, i] = rxt*T[n, i-1] + (1 - 2*rxt)*T[n, i] + rxt*T[n, i+1]
+#print(T)  
+
+# Plotagem
+X = np.linspace(0, L, nx)
+Y = np.linspace(0, tempo, nt+1)
+X, Y = np.meshgrid(X, Y)
+
+fig = plt.figure(figsize=(10, 10))
+ax = fig.add_subplot(111, projection='3d')
+surf = ax.plot_surface(X, Y, T, rstride=2, cstride=1, cmap=plt.cm.viridis, linewidth=0.2, alpha=1)
+ax.set_xlabel('x (cm)')
+ax.set_ylabel('t (segundos)')
+ax.set_zlabel('T(x,t) (ºC)')
+plt.title('Equação do Calor')
+fig.colorbar(surf, shrink=0.5, aspect=10)
+ax.view_init(30, 30)
 plt.show()
