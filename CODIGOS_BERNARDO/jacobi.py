@@ -2,29 +2,30 @@
 import numpy as np
 import math
 import matplotlib.pyplot as plt
+import time
 
-def Gauss_Seidel(A, b, x0, Eppara, maxit): #matriz a, vetor b, chute inicial x0, critério de parada Eppara e Número Máximo de Iterações maxit
+ti = time.time()
+
+def Jacobi(A, b, x0, Eppara, maxit):
     ne = len(b)
     x = np.zeros(ne) if x0 is None else np.array(x0)
 
-
     iter = 0
-
     Epest = np.linspace(100,100,ne)
 
     while np.max(Epest) >= Eppara and iter <= maxit:
         x_old = np.copy(x)
 
         for i in range(ne):
-            sum1 = np.dot(A[i, :i], x[:i])
-            sum2 = np.dot(A[i, i + 1:], x_old[i + 1:])
-            x[i] = (b[i] - sum1 - sum2) / A[i, i]
+            # Usar x_old para os termos antigos
+            sum = np.dot(A[i, :i], x_old[:i]) + np.dot(A[i, i + 1:], x_old[i + 1:])
+            x[i] = (b[i] - sum) / A[i, i]
 
         # Critério de parada
         Epest = np.abs((x - x_old) / x) * 100
 
         iter += 1
-
+   
     return x
 
 #Propreidades do Material - Cobre:
@@ -67,7 +68,7 @@ h = 0 # Contador para iteração
 T[h, :] = T0 # Contador para todas as colunas
 t = 0 # Tempo
 
-while t < dt:
+while t < tempo:
   h = h + 1
   T_matriz = np.zeros ((nx, nx))
 
@@ -89,15 +90,16 @@ while t < dt:
       T_matriz[i, i+1] = - rxt
       D[i] = T_old[i]
 
-    #Chute inicial
-    x0 = T_old
-    T_new = Gauss_Seidel(T_matriz, D, x0, Eppara, maxit)
+  #Chute inicial
+  x0 = T_old
+  T_new = Jacobi(T_matriz, D, x0, Eppara, maxit)
 
-    T_old = T_new # Para substituir o old para prosseguir calculando
-    t = t + dt
-    T[h, :] = T_new
+  T_old = T_new # Para substituir o old para prosseguir calculando
+  t = t + dt
+  T[h, :] = T_new
 
     # Plotagem
+
 X = np.linspace(0, L, nx)
 Y = np.linspace(0, tempo, nt+1)
 X, Y = np.meshgrid(X, Y)
@@ -112,3 +114,7 @@ plt.title('Equação do Calor')
 fig.colorbar(surf, shrink=0.5, aspect=10)
 ax.view_init(30, 30)
 plt.show()
+
+tf = time.time()
+time = tf - ti
+print (time)
