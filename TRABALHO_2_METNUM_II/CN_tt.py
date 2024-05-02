@@ -7,7 +7,7 @@ class CN():
         import numpy as np
         import matplotlib.pyplot as plt 
         import sympy as sp 
-        #from solver_gauss_seidel import gauss_seidel
+        from solver_gauss_seidel import gauss_seidel
 
         #Propreidades do Material - Cobre:
         rho = 8.92 # g/cm³
@@ -21,9 +21,10 @@ class CN():
         h_t = 0.5
         t0 = 0
         tf = 100
+        x0 = 0 
+        xf = L
 
-
-        n_x = (T0-Tw)/(h_x)
+        n_x = (xf-x0)/(h_x)
         n_t = (tf-t0)/(h_t)
         print('n_x',n_x)
         print('n_t',n_t)
@@ -63,7 +64,7 @@ class CN():
         alpha = calculate_alpha(k,rho,cp)
 
         def calculate_rxt(h_t:float, h_x:float, alpha:float) -> float:
-            rxt = alpha*(h_t)/(h_x**2)
+            rxt = alpha*((h_t)/(h_x**2))
 
             return rxt 
 
@@ -101,7 +102,7 @@ class CN():
                 elif i == len(t_coeficientes)-1: # o último, N
                     t_coeficientes[i,len(t_coeficientes)-2] = an
                     t_coeficientes[i,len(t_coeficientes)-1] = b1
-                    d[i] = (1 - 2*rxt)*t_old[i] + (2/3*rxt)*t_old[i-1] + 8/3*rxt*Te
+                    d[i] = (1 - 2*rxt)*t_old[i] + (2/3*rxt)*t_old[i-1] + 8/3*rxt*Tw
                 else:
                     t_coeficientes[i,i-1] = ai # linha 1, coluna 0 (i-1)
                     t_coeficientes[i,i] = bi
@@ -112,16 +113,17 @@ class CN():
             t_new = gauss_seidel(t_coeficientes,d,x0,Eppara,maxit)
             #p_new = solve(p_coeficientes,d)
             t_old = t_new # atualiza a matriz, coloca o vetor de pressões calculado no tempo anterior (p_new) em p_old 
-            t_new = np.insert(t_new, 0, T0) # inserindo colunas
+            t_new = np.insert(t_new, 0, Te) # inserindo colunas
             t_new = np.append(t_new, Tw) # append sempre no final 
             t_solucoes[h, :] = t_new # vai guardar na matriz de solucoes todos os vetores de pressão calculados nos tempos 
         
         print(t_solucoes)
-        print(t_coeficientes)
+        print('t_coef', t_coeficientes)
         tam1 = len(t_solucoes[0])
         tam2 = len(t_coeficientes)
         print('tam', tam1)
         print('tam2', tam2)
+
 
         # Plotagem:
         time = [0,10,20,30,40,50,60,70,80,90,100]
@@ -131,6 +133,6 @@ class CN():
 
         plt.legend()
         plt.xlabel('Comprimento (m)')
-        plt.ylabel('Pressão (psia)')
+        plt.ylabel('Temperatura (°C)')
         plt.grid()
         plt.show()
