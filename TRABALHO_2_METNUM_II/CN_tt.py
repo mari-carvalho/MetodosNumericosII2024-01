@@ -113,6 +113,7 @@ class CN():
                 plt.plot(x, t_solucoes[i, :], linestyle='-', label=f't = {t[i]}')
 
         plt.legend()
+        plt.title('Formulação CN - Dirchlet')
         plt.xlabel('Comprimento (m)')
         plt.ylabel('Temperatura (°C)')
         plt.grid()
