@@ -119,6 +119,16 @@ class CN():
         plt.grid()
         plt.show()
 
+        X, T = np.meshgrid(x, t)
+        fig = plt.figure()
+        ax = fig.add_subplot(111, projection='3d')
+        ax.plot_surface(X, T, t_solucoes[:-1, :], cmap='viridis')
+        ax.set_xlabel('Comprimento (m)')
+        ax.set_ylabel('Tempo (s)')
+        ax.set_zlabel('Temperatura (°C)')
+        ax.set_title('Formulação CN - Dirchlet')
+        plt.show()
+
         return x, t, t_solucoes
 
     def calculate_CN_tf(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x):

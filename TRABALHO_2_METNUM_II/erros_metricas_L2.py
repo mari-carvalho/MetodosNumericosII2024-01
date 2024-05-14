@@ -24,8 +24,8 @@ class erros_tt_ftcs():
         x0 = 0
         xf = L
 
-        h_t = [0.1, 0.05, 0.005]
-        h_x = 1
+        h_t = [1, 0.5]
+        h_x = 25
         j = h_x
 
 
@@ -85,8 +85,8 @@ class erros_tt_ftcs():
             T_calc = T_calc_array[i]
             T_ex = T_ex_array[i]
             sum = 0
-            y_calc = T_calc[200] # selecinar a coluna
-            y_ex = T_ex[200] # selecinar a coluna
+            y_calc = T_calc[50] # selecinar a coluna
+            y_ex = T_ex[50] # selecinar a coluna
             for k in range(len(y_ex)): # acesso a cada linha
                 sum = sum + ((abs((y_ex[k]-y_calc[k])/(y_ex[k])))**2)
             L2 = np.sqrt((1/(n_x**2))*sum)
@@ -101,8 +101,8 @@ class erros_tt_ftcs():
         for i in range(len(T_calc_array)): # acesso a matriz menor
             T_calc = T_calc_array[i]
             T_ex = T_ex_array[i]
-            y_calc = T_calc[200]
-            y_ex = T_ex[200]
+            y_calc = T_calc[50]
+            y_ex = T_ex[50]
             E_inf_antes_list = []
             for k in range(len(y_ex)):
                 E_inf_antes = abs((y_ex[k] - y_calc[k]))
@@ -118,8 +118,8 @@ class erros_tt_ftcs():
         for i in range(len(T_calc_array)): # acesso a matriz menor
             T_calc = T_calc_array[i]
             T_ex = T_ex_array[i]
-            y_calc = T_calc[200]
-            y_ex = T_ex[200]
+            y_calc = T_calc[50]
+            y_ex = T_ex[50]
             err_rel_list = []
             sum = 0
             for k in range(len(y_ex)):
@@ -226,8 +226,8 @@ class erros_tt_ftcs():
         x0 = 0
         xf = L
 
-        h_x = [10, 5, 2]
-        h_t = 0.5
+        h_x = [25, 15]
+        h_t = 0.8
         i = h_t
 
 
@@ -282,10 +282,10 @@ class erros_tt_ftcs():
             T_calc = T_calc_array[i]
             T_ex = T_ex_array[i]
             sum = 0
-            y_calc = T_calc[:, 3]  # selecinar a coluna
-            y_ex = T_ex[:, 3]  # selecinar a coluna
+            y_calc = T_calc[:, 2]  # selecinar a coluna
+            y_ex = T_ex[:, 2]  # selecinar a coluna
             n_x = n_x_array[i]
-            for k in range(len(y_ex)):  # acesso a cada linha
+            for k in range(1, len(y_ex)):  # acesso a cada linha
                 sum = sum + ((abs((y_ex[k] - y_calc[k]) / (y_ex[k]))) ** 2)
             L2 = np.sqrt((1 / (n_x ** 2)) * sum)
             L2_list_malha_tt_ftcs.append(L2)
@@ -317,12 +317,12 @@ class erros_tt_ftcs():
         for i in range(len(T_calc_array)):  # acesso a matriz menor
             T_calc = T_calc_array[i]
             T_ex = T_ex_array[i]
-            y_calc = T_calc[:, 3]
-            y_ex = T_ex[:, 3]
+            y_calc = T_calc[:, 2]
+            y_ex = T_ex[:, 2]
             err_rel_list = []
             sum = 0
             n_x = n_x_array[i]
-            for k in range(len(y_ex)):
+            for k in range(1, len(y_ex)):
                 err_rel = abs((y_ex[k] - y_calc[k]) / (y_ex[k]))
                 err_rel_list.append(err_rel)
             for j in range(len(err_rel_list)):
@@ -447,8 +447,8 @@ class erros_tt_btcs():
         x0 = 0
         xf = L
 
-        h_t = [0.1, 0.05, 0.005]
-        h_x = 1
+        h_t = [1, 0.5]
+        h_x = 25
         j = h_x
 
 
@@ -509,8 +509,8 @@ class erros_tt_btcs():
             T_calc = T_calc_array[i]
             T_ex = T_ex_array[i]
             sum = 0
-            y_calc = T_calc[200] # selecinar a coluna
-            y_ex = T_ex[200] # selecinar a coluna
+            y_calc = T_calc[50] # selecinar a coluna
+            y_ex = T_ex[50] # selecinar a coluna
             for k in range(len(y_ex)): # acesso a cada linha
                 sum = sum + ((abs((y_ex[k]-y_calc[k])/(y_ex[k])))**2)
             L2 = np.sqrt((1/(n_x**2))*sum)
@@ -524,8 +524,8 @@ class erros_tt_btcs():
         for i in range(len(T_calc_array)): # acesso a matriz menor
             T_calc = T_calc_array[i]
             T_ex = T_ex_array[i]
-            y_calc = T_calc[200]
-            y_ex = T_ex[200]
+            y_calc = T_calc[50]
+            y_ex = T_ex[50]
             E_inf_antes_list = []
             for k in range(len(y_ex)):
                 E_inf_antes = abs((y_ex[k] - y_calc[k]))
@@ -541,8 +541,8 @@ class erros_tt_btcs():
         for i in range(len(T_calc_array)): # acesso a matriz menor
             T_calc = T_calc_array[i]
             T_ex = T_ex_array[i]
-            y_calc = T_calc[200]
-            y_ex = T_ex[200]
+            y_calc = T_calc[50]
+            y_ex = T_ex[50]
             err_rel_list = []
             sum = 0
             for k in range(len(y_ex)):
@@ -649,8 +649,8 @@ class erros_tt_btcs():
         x0 = 0
         xf = L
 
-        h_x = [10, 5, 2]
-        h_t = 0.5
+        h_x = [25, 15]
+        h_t = 0.8
         i = h_t
 
 
@@ -706,10 +706,10 @@ class erros_tt_btcs():
             T_calc = T_calc_array[i]
             T_ex = T_ex_array[i]
             sum = 0
-            y_calc = T_calc[:, 3]  # selecinar a coluna
-            y_ex = T_ex[:, 3]  # selecinar a coluna
+            y_calc = T_calc[:, 2]  # selecinar a coluna
+            y_ex = T_ex[:, 2]  # selecinar a coluna
             n_x = n_x_array[i]
-            for k in range(len(y_ex)):  # acesso a cada linha
+            for k in range(1, len(y_ex)):  # acesso a cada linha
                 sum = sum + ((abs((y_ex[k] - y_calc[k]) / (y_ex[k]))) ** 2)
             L2 = np.sqrt((1 / (n_x ** 2)) * sum)
             L2_list_malha_tt_btcs.append(L2)
@@ -723,8 +723,8 @@ class erros_tt_btcs():
         for i in range(len(T_calc_array)):  # acesso a matriz menor
             T_calc = T_calc_array[i]
             T_ex = T_ex_array[i]
-            y_calc = T_calc[:, 3]
-            y_ex = T_ex[:, 3]
+            y_calc = T_calc[:, 2]
+            y_ex = T_ex[:, 2]
             E_inf_antes_list = []
             n_x = n_x_array[i]
             for k in range(len(y_ex)):
@@ -741,12 +741,12 @@ class erros_tt_btcs():
         for i in range(len(T_calc_array)):  # acesso a matriz menor
             T_calc = T_calc_array[i]
             T_ex = T_ex_array[i]
-            y_calc = T_calc[:, 3]
-            y_ex = T_ex[:, 3]
+            y_calc = T_calc[:, 2]
+            y_ex = T_ex[:, 2]
             err_rel_list = []
             sum = 0
             n_x = n_x_array[i]
-            for k in range(len(y_ex)):
+            for k in range(1, len(y_ex)):
                 err_rel = abs((y_ex[k] - y_calc[k]) / (y_ex[k]))
                 err_rel_list.append(err_rel)
             for j in range(len(err_rel_list)):
@@ -871,10 +871,9 @@ class erros_tt_cn():
         x0 = 0
         xf = L
 
-        h_t = [0.1, 0.05, 0.005]
-        h_x = 1
+        h_t = [1, 0.5]
+        h_x = 25
         j = h_x
-
 
         def calculate_n_t(tf,t0,i):
 
@@ -933,8 +932,8 @@ class erros_tt_cn():
             T_calc = T_calc_array[i]
             T_ex = T_ex_array[i]
             sum = 0
-            y_calc = T_calc[200] # selecinar a coluna
-            y_ex = T_ex[200] # selecinar a coluna
+            y_calc = T_calc[50] # selecinar a coluna
+            y_ex = T_ex[50] # selecinar a coluna
             for k in range(len(y_ex)): # acesso a cada linha
                 sum = sum + ((abs((y_ex[k]-y_calc[k])/(y_ex[k])))**2)
             L2 = np.sqrt((1/(n_x**2))*sum)
@@ -949,8 +948,8 @@ class erros_tt_cn():
         for i in range(len(T_calc_array)): # acesso a matriz menor
             T_calc = T_calc_array[i]
             T_ex = T_ex_array[i]
-            y_calc = T_calc[200]
-            y_ex = T_ex[200]
+            y_calc = T_calc[50]
+            y_ex = T_ex[50]
             E_inf_antes_list = []
             for k in range(len(y_ex)):
                 E_inf_antes = abs((y_ex[k] - y_calc[k]))
@@ -966,8 +965,8 @@ class erros_tt_cn():
         for i in range(len(T_calc_array)): # acesso a matriz menor
             T_calc = T_calc_array[i]
             T_ex = T_ex_array[i]
-            y_calc = T_calc[200]
-            y_ex = T_ex[200]
+            y_calc = T_calc[50]
+            y_ex = T_ex[50]
             err_rel_list = []
             sum = 0
             for k in range(len(y_ex)):
@@ -1074,8 +1073,8 @@ class erros_tt_cn():
         x0 = 0
         xf = L
 
-        h_x = [10, 5, 2]
-        h_t = 0.5
+        h_x = [25, 15]
+        h_t = 0.8
         i = h_t
 
 
@@ -1131,10 +1130,10 @@ class erros_tt_cn():
             T_calc = T_calc_array[i]
             T_ex = T_ex_array[i]
             sum = 0
-            y_calc = T_calc[:, 3]  # selecinar a coluna
-            y_ex = T_ex[:, 3]  # selecinar a coluna
+            y_calc = T_calc[:, 2]  # selecinar a coluna
+            y_ex = T_ex[:, 2]  # selecinar a coluna
             n_x = n_x_array[i]
-            for k in range(len(y_ex)):  # acesso a cada linha
+            for k in range(1, len(y_ex)):  # acesso a cada linha
                 sum = sum + ((abs((y_ex[k] - y_calc[k]) / (y_ex[k]))) ** 2)
             L2 = np.sqrt((1 / (n_x ** 2)) * sum)
             L2_list_malha_tt_cn.append(L2)
@@ -1166,12 +1165,12 @@ class erros_tt_cn():
         for i in range(len(T_calc_array)):  # acesso a matriz menor
             T_calc = T_calc_array[i]
             T_ex = T_ex_array[i]
-            y_calc = T_calc[:, 3]
-            y_ex = T_ex[:, 3]
+            y_calc = T_calc[:, 2]
+            y_ex = T_ex[:, 2]
             err_rel_list = []
             sum = 0
             n_x = n_x_array[i]
-            for k in range(len(y_ex)):
+            for k in range(1, len(y_ex)):
                 err_rel = abs((y_ex[k] - y_calc[k]) / (y_ex[k]))
                 err_rel_list.append(err_rel)
             for j in range(len(err_rel_list)):
@@ -1298,8 +1297,8 @@ class erros_pp_solv():
         x0 = 0
         xf = L
 
-        h_t = [0.2, 0.1, 0.05]
-        h_x = 0.8
+        h_t = [1, 0.5]
+        h_x = 25
         j = h_x
 
         def calculate_n_t(tf,t0,i):
@@ -1374,8 +1373,8 @@ class erros_pp_solv():
         for i in range(len(T_calc_array)): # acesso a matriz menor
             T_calc = T_calc_array[i]
             T_ex = T_ex_array[i]
-            y_calc = T_calc[200]
-            y_ex = T_ex[200]
+            y_calc = T_calc[50]
+            y_ex = T_ex[50]
             E_inf_antes_list = []
             for k in range(len(y_ex)):
                 E_inf_antes = abs((y_ex[k] - y_calc[k]))
@@ -1391,8 +1390,8 @@ class erros_pp_solv():
         for i in range(len(T_calc_array)): # acesso a matriz menor
             T_calc = T_calc_array[i]
             T_ex = T_ex_array[i]
-            y_calc = T_calc[200]
-            y_ex = T_ex[200]
+            y_calc = T_calc[50]
+            y_ex = T_ex[50]
             err_rel_list = []
             sum = 0
             for k in range(len(y_ex)):
@@ -1499,7 +1498,7 @@ class erros_pp_solv():
         x0 = 0
         xf = L
 
-        h_x = [0.2, 0.1, 0.05]
+        h_x = [25, 15]
         h_t = 0.8
         i = h_t
 
@@ -1554,10 +1553,10 @@ class erros_pp_solv():
             T_calc = T_calc_array[i]
             T_ex = T_ex_array[i]
             sum = 0
-            y_calc = T_calc[:, 3]  # selecinar a coluna
-            y_ex = T_ex[:, 3]  # selecinar a coluna
+            y_calc = T_calc[:, 2]  # selecinar a coluna
+            y_ex = T_ex[:, 2]  # selecinar a coluna
             n_x = n_x_array[i]
-            for k in range(len(y_ex)):  # acesso a cada linha
+            for k in range(1, len(y_ex)):  # acesso a cada linha
                 sum = sum + ((abs((y_ex[k] - y_calc[k]) / (y_ex[k]))) ** 2)
             L2 = np.sqrt((1 / (n_x ** 2)) * sum)
             L2_list_malha_pp_solv.append(L2)
@@ -1571,8 +1570,8 @@ class erros_pp_solv():
         for i in range(len(T_calc_array)):  # acesso a matriz menor
             T_calc = T_calc_array[i]
             T_ex = T_ex_array[i]
-            y_calc = T_calc[:, 3]
-            y_ex = T_ex[:, 3]
+            y_calc = T_calc[:, 2]
+            y_ex = T_ex[:, 2]
             E_inf_antes_list = []
             n_x = n_x_array[i]
             for k in range(len(y_ex)):
@@ -1589,12 +1588,12 @@ class erros_pp_solv():
         for i in range(len(T_calc_array)):  # acesso a matriz menor
             T_calc = T_calc_array[i]
             T_ex = T_ex_array[i]
-            y_calc = T_calc[:, 3]
-            y_ex = T_ex[:, 3]
+            y_calc = T_calc[:, 2]
+            y_ex = T_ex[:, 2]
             err_rel_list = []
             sum = 0
             n_x = n_x_array[i]
-            for k in range(len(y_ex)):
+            for k in range(1, len(y_ex)):
                 err_rel = abs((y_ex[k] - y_calc[k]) / (y_ex[k]))
                 err_rel_list.append(err_rel)
             for j in range(len(err_rel_list)):

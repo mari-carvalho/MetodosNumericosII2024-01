@@ -97,6 +97,17 @@ class FTCS():
         plt.grid()
         plt.show()
 
+        #Plot 3D FTCS_tt
+        X, Tempo = np.meshgrid(x, t)
+        fig = plt.figure()
+        ax = fig.add_subplot(111, projection='3d')
+        ax.plot_surface(X, Tempo, T[:, :], cmap='viridis')
+        ax.set_xlabel('Comprimento (m)')
+        ax.set_ylabel('Tempo (s)')
+        ax.set_zlabel('Temperatura (°C)')
+        ax.set_title('Formulação FTCS - Dirchlet')
+        plt.show()
+
         return x, t, T
 
     def calculate_FTCS_tf(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x):
@@ -185,8 +196,20 @@ class FTCS():
         plt.legend()
         plt.title('Formulação FTCS - Neumann')
         plt.xlabel('Comprimento (m)')
-        plt.ylabel('Pressão (psia)')
+        plt.ylabel('Temperatura (°C)')
         plt.grid()
+        plt.show()
+
+
+        #Plot 3D FTCS_tf
+        X, Tempo = np.meshgrid(x, t)
+        fig = plt.figure()
+        ax = fig.add_subplot(111, projection='3d')
+        ax.plot_surface(X, Tempo, T[:, :], cmap='viridis')
+        ax.set_xlabel('Comprimento (m)')
+        ax.set_ylabel('Tempo (s)')
+        ax.set_zlabel('Temperatura (°C)')
+        ax.set_title('Formulação FTCS - Neumann')
         plt.show()
 
         return x, t, t

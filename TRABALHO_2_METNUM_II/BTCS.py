@@ -121,9 +121,20 @@ class BTCS():
         plt.grid()
         plt.show()
 
+        #Plot 3D BTCS_tt
+        X, T = np.meshgrid(x, t)
+        fig = plt.figure()
+        ax = fig.add_subplot(111, projection='3d')
+        ax.plot_surface(X, T, t_solucoes[:-1, :], cmap='viridis')
+        ax.set_xlabel('Comprimento (m)')
+        ax.set_ylabel('Tempo (s)')
+        ax.set_zlabel('Temperatura (°C)')
+        ax.set_title('Formulação BTCS - Dirchlet')
+        plt.show()
+
         return x, t, t_solucoes
     
-    def calculate_BTCS_tf_gs(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x):
+    def calculate_BTCS_tf_gs(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, material):
 
         import numpy as np
         import matplotlib.pyplot as plt
@@ -233,18 +244,29 @@ class BTCS():
         time = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
         for i in range(len(t)):
             if t[i] in time:
-                plt.plot(x, t_solucoes[i, :], linestyle='-', label=f't = {t[i]}')
+                plt.plot(x, t_solucoes[i, :], linestyle='-')
 
-        plt.legend()
+        plt.legend(labels=[material])
         plt.title('Formulação BTCS - Neumann - Gaussa Seidel')
         plt.xlabel('Comprimento (m)')
         plt.ylabel('Pressão (psia)')
         plt.grid()
         plt.show()
 
+        #Plot 3D BTCS_tf_gs
+        X, T = np.meshgrid(x, t)
+        fig = plt.figure()
+        ax = fig.add_subplot(111, projection='3d')
+        ax.plot_surface(X, T, t_solucoes[:-1, :], cmap='viridis')
+        ax.set_xlabel('Comprimento (m)')
+        ax.set_ylabel('Tempo (s)')
+        ax.set_zlabel('Temperatura (°C)')
+        ax.set_title('Formulação BTCS - Neumann - Gaussa Seidel')
+        plt.show()
+
         return x, t, t_solucoes
 
-    def calculate_BTCS_tf_tdma(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x):
+    def calculate_BTCS_tf_tdma(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, material):
 
         import numpy as np
         import matplotlib.pyplot as plt
@@ -354,18 +376,29 @@ class BTCS():
         time = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
         for i in range(len(t)):
             if t[i] in time:
-                plt.plot(x, t_solucoes[i, :], linestyle='-', label=f't = {t[i]}')
+                plt.plot(x, t_solucoes[i, :], linestyle='-')
 
-        plt.legend()
+        plt.legend(labels=[material])
         plt.title('Formulação BTCS - Neumann - TDMA')
         plt.xlabel('Comprimento (m)')
         plt.ylabel('Pressão (psia)')
         plt.grid()
         plt.show()
 
+        #Plot 3D BTCS_tf_tdma
+        X, T = np.meshgrid(x, t)
+        fig = plt.figure()
+        ax = fig.add_subplot(111, projection='3d')
+        ax.plot_surface(X, T, t_solucoes[:-1, :], cmap='viridis')
+        ax.set_xlabel('Comprimento (m)')
+        ax.set_ylabel('Tempo (s)')
+        ax.set_zlabel('Temperatura (°C)')
+        ax.set_title('Formulação BTCS - Neumann - TDMA')
+        plt.show()
+
         return x, t, t_solucoes
 
-    def calculate_BTCS_tf_jac(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x):
+    def calculate_BTCS_tf_jac(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, material):
 
         import numpy as np
         import matplotlib.pyplot as plt
@@ -475,18 +508,29 @@ class BTCS():
         time = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
         for i in range(len(t)):
             if t[i] in time:
-                plt.plot(x, t_solucoes[i, :], linestyle='-', label=f't = {t[i]}')
+                plt.plot(x, t_solucoes[i, :], linestyle='-')
 
-        plt.legend()
+        plt.legend(labels=[material])
         plt.title('Formulação BTCS - Neumann - Jacobi')
         plt.xlabel('Comprimento (m)')
         plt.ylabel('Pressão (psia)')
         plt.grid()
         plt.show()
 
+        #Plot 3D BTCS_tf_jac
+        X, T = np.meshgrid(x, t)
+        fig = plt.figure()
+        ax = fig.add_subplot(111, projection='3d')
+        ax.plot_surface(X, T, t_solucoes[:-1, :], cmap='viridis')
+        ax.set_xlabel('Comprimento (m)')
+        ax.set_ylabel('Tempo (s)')
+        ax.set_zlabel('Temperatura (°C)')
+        ax.set_title('Formulação BTCS - Neumann - Jacobi')
+        plt.show()
+
         return x, t, t_solucoes
 
-    def calculate_BTCS_tf_gsr(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x):
+    def calculate_BTCS_tf_gsr(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, material):
 
         import numpy as np
         import matplotlib.pyplot as plt
@@ -597,18 +641,29 @@ class BTCS():
         time = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
         for i in range(len(t)):
             if t[i] in time:
-                plt.plot(x, t_solucoes[i, :], linestyle='-', label=f't = {t[i]}')
+                plt.plot(x, t_solucoes[i, :], linestyle='-')
 
-        plt.legend()
+        plt.legend(labels=[material])
         plt.title('Formulação BTCS - Neumann - Gauss Seidel Relaxamento')
         plt.xlabel('Comprimento (m)')
         plt.ylabel('Pressão (psia)')
         plt.grid()
         plt.show()
 
+        #Plot 3D BTCS_tf_gsr
+        X, T = np.meshgrid(x, t)
+        fig = plt.figure()
+        ax = fig.add_subplot(111, projection='3d')
+        ax.plot_surface(X, T, t_solucoes[:-1, :], cmap='viridis')
+        ax.set_xlabel('Comprimento (m)')
+        ax.set_ylabel('Tempo (s)')
+        ax.set_zlabel('Temperatura (°C)')
+        ax.set_title('Formulação BTCS - Neumann - Gauss Seidel Relaxamento')
+        plt.show()
+
         return x, t, t_solucoes
 
-    def calculate_BTCS_tf_solv(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x):
+    def calculate_BTCS_tf_solv(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, material):
 
         import numpy as np
         import matplotlib.pyplot as plt
@@ -718,13 +773,24 @@ class BTCS():
         time = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
         for i in range(len(t)):
             if t[i] in time:
-                plt.plot(x, t_solucoes[i, :], linestyle='-', label=f't = {t[i]}')
+                plt.plot(x, t_solucoes[i, :], linestyle='-')
 
-        plt.legend()
+        plt.legend(labels=[material])
         plt.title('Formulação BTCS - Neumann - Solver Scipy')
         plt.xlabel('Comprimento (m)')
         plt.ylabel('Pressão (psia)')
         plt.grid()
+        plt.show()
+
+        #Plot 3D BTCS_tf_solv
+        X, T = np.meshgrid(x, t)
+        fig = plt.figure()
+        ax = fig.add_subplot(111, projection='3d')
+        ax.plot_surface(X, T, t_solucoes[:-1, :], cmap='viridis')
+        ax.set_xlabel('Comprimento (m)')
+        ax.set_ylabel('Tempo (s)')
+        ax.set_zlabel('Temperatura (°C)')
+        ax.set_title('Formulação BTCS - Neumann - Solver Scipy')
         plt.show()
 
         return x, t, t_solucoes
