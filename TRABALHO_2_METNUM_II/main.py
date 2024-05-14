@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import sympy as sp 
 from CN_tt import CN
 from solver_gauss_seidel import gauss_seidel
-from TRABALHO_2_METNUM_II.BTCS import BTCS
+from BTCS import BTCS
 
 # Propreidades do Material - Cobre:
 rho = 8.92  # g/cm³
