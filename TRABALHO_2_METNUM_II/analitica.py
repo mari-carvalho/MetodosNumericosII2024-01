@@ -102,7 +102,7 @@ class analitica():
             if t[i] in time:
                 plt.plot(x, Temperatura[i, :], linestyle='-', label=f't = {t[i]}')
 
-        legend_label = f'{v} {n_x: .3f}' if variancia == "malha" else f'{v} {n_t:3f}'
+        legend_label = f'{v} {n_x: .3f}' if variancia == "malha" else f'{v} {n_t: .3f}'
         plt.legend(labels=[legend_label])
         plt.title('Solução Analítica - Dirchlet')
         plt.xlabel('Comprimento (m)')
@@ -126,4 +126,4 @@ class analitica():
 
 
 
-        return X, t, T
+        return X, t, Temperatura

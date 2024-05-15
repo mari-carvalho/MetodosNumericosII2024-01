@@ -95,7 +95,7 @@ class FTCS():
             if t[i] in time:
                 plt.plot(x, T[i, :], linestyle='-', label=f't = {t[i]}')
 
-        legend_label = f'{v} {n_x: .3f}' if variancia == "malha" else f'{v} {n_t:3f}'
+        legend_label = f'{v} {n_x: .3f}' if variancia == "malha" else f'{v} {n_t: .3f}'
         plt.legend(labels=[legend_label])
         plt.title('Formulação FTCS - Dirchlet')
         plt.xlabel('Comprimento (m)')
