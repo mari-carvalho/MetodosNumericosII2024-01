@@ -19,8 +19,8 @@ class tempo_computacional_tf():
         cp_list = [0.092, 0.1118]  # cal/(g.ºC)
         k_list = [0.95, 0.032]  # cal/(cm.s.ºC)
         qw = 25
-        L = 80  # cm
-        T0 = 50  # ºC
+        L = 100  # cm
+        T0 = 25  # ºC
         Tw = 0  # ºC
         Te = 0  # ºC
         t0 = 0

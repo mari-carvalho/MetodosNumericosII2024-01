@@ -102,8 +102,8 @@ class erros_tt_ftcs():
         for i in range(len(T_calc_array)): # acesso a matriz menor
             T_calc = T_calc_array[i]
             T_ex = T_ex_array[i]
-            y_calc = T_calc[50]
-            y_ex = T_ex[50]
+            y_calc = T_calc[13]
+            y_ex = T_ex[13]
             E_inf_antes_list = []
             for k in range(len(y_ex)):
                 E_inf_antes = abs((y_ex[k] - y_calc[k]))
@@ -1397,8 +1397,8 @@ class erros_pp_solv():
         for i in range(len(T_calc_array)): # acesso a matriz menor
             T_calc = T_calc_array[i]
             T_ex = T_ex_array[i]
-            y_calc = T_calc[50]
-            y_ex = T_ex[50]
+            y_calc = T_calc[13]
+            y_ex = T_ex[13]
             err_rel_list = []
             sum = 0
             for k in range(len(y_ex)):
