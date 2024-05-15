@@ -3,7 +3,7 @@ from scipy.linalg import solve
 
 class BTCS():
 
-    def calculate_BTCS_tt(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x):
+    def calculate_BTCS_tt(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, variancia):
 
         import numpy as np
         import matplotlib.pyplot as plt
@@ -12,6 +12,12 @@ class BTCS():
 
         x = np.zeros(int(n_x) + 1)  # de 0 ao tamanho do reservatório com 10 elementos na malha
         t = np.zeros(int(n_t) + 1)  # de 0 a 10 segundos com 10 elementos
+
+        if variancia == 'tempo':
+            v = 'Steps de Tempo'
+        elif variancia == 'malha':
+            v = 'Malha'
+
 
         h_t = i
         h_x = j
@@ -114,7 +120,8 @@ class BTCS():
             if t[i] in time:
                 plt.plot(x, t_solucoes[i, :], linestyle='-', label=f't = {t[i]}')
 
-        plt.legend()
+        legend_label = f'{v} {n_x if variancia == "malha" else n_t}'
+        plt.legend(labels=[legend_label])
         plt.title('Formulação BTCS - Dirchlet')
         plt.xlabel('Comprimento (m)')
         plt.ylabel('Pressão (psia)')
@@ -130,11 +137,12 @@ class BTCS():
         ax.set_ylabel('Tempo (s)')
         ax.set_zlabel('Temperatura (°C)')
         ax.set_title('Formulação BTCS - Dirchlet')
+        fig.text(0.02, 0.02, legend_label, color='black', ha='left')
         plt.show()
 
         return x, t, t_solucoes
     
-    def calculate_BTCS_tf_gs(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, material):
+    def calculate_BTCS_tf_gs(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, material, variancia):
 
         import numpy as np
         import matplotlib.pyplot as plt
@@ -143,6 +151,11 @@ class BTCS():
 
         x = np.zeros(int(n_x) + 1)  # de 0 ao tamanho do reservatório com 10 elementos na malha
         t = np.zeros(int(n_t) + 1)  # de 0 a 10 segundos com 10 elementos
+
+        if variancia == 'tempo':
+            v = 'Steps de Tempo'
+        elif variancia == 'malha':
+            v = 'Malha'
 
         h_t = i
         h_x = j
@@ -240,13 +253,15 @@ class BTCS():
         print('tam', tam1)
         print('tam2', tam2)
 
+
         # Plotagem:
         time = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
         for i in range(len(t)):
             if t[i] in time:
                 plt.plot(x, t_solucoes[i, :], linestyle='-')
 
-        plt.legend(labels=[material])
+        legend_label = f'{material} - {v} {n_x if variancia == "malha" else n_t}'
+        plt.legend(labels=[legend_label])
         plt.title('Formulação BTCS - Neumann - Gaussa Seidel')
         plt.xlabel('Comprimento (m)')
         plt.ylabel('Pressão (psia)')
@@ -262,11 +277,13 @@ class BTCS():
         ax.set_ylabel('Tempo (s)')
         ax.set_zlabel('Temperatura (°C)')
         ax.set_title('Formulação BTCS - Neumann - Gaussa Seidel')
+        fig.text(0.02, 0.02, legend_label, color='black', ha='left')
         plt.show()
+
 
         return x, t, t_solucoes
 
-    def calculate_BTCS_tf_tdma(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, material):
+    def calculate_BTCS_tf_tdma(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, material, variancia):
 
         import numpy as np
         import matplotlib.pyplot as plt
@@ -275,6 +292,11 @@ class BTCS():
 
         x = np.zeros(int(n_x) + 1)  # de 0 ao tamanho do reservatório com 10 elementos na malha
         t = np.zeros(int(n_t) + 1)  # de 0 a 10 segundos com 10 elementos
+
+        if variancia == 'tempo':
+            v = 'Steps de Tempo'
+        elif variancia == 'malha':
+            v = 'Malha'
 
         h_t = i
         h_x = j
@@ -378,14 +400,15 @@ class BTCS():
             if t[i] in time:
                 plt.plot(x, t_solucoes[i, :], linestyle='-')
 
-        plt.legend(labels=[material])
-        plt.title('Formulação BTCS - Neumann - TDMA')
+        legend_label = f'{material} - {v} {n_x if variancia == "malha" else n_t}'
+        plt.legend(labels=[legend_label])
+        plt.title('Formulação BTCS - Neumann - Gaussa Seidel')
         plt.xlabel('Comprimento (m)')
         plt.ylabel('Pressão (psia)')
         plt.grid()
         plt.show()
 
-        #Plot 3D BTCS_tf_tdma
+        #Plot 3D BTCS_tf_gs
         X, T = np.meshgrid(x, t)
         fig = plt.figure()
         ax = fig.add_subplot(111, projection='3d')
@@ -393,12 +416,13 @@ class BTCS():
         ax.set_xlabel('Comprimento (m)')
         ax.set_ylabel('Tempo (s)')
         ax.set_zlabel('Temperatura (°C)')
-        ax.set_title('Formulação BTCS - Neumann - TDMA')
+        ax.set_title('Formulação BTCS - Neumann - Gaussa Seidel')
+        fig.text(0.02, 0.02, legend_label, color='black', ha='left')
         plt.show()
 
         return x, t, t_solucoes
 
-    def calculate_BTCS_tf_jac(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, material):
+    def calculate_BTCS_tf_jac(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, material, variancia):
 
         import numpy as np
         import matplotlib.pyplot as plt
@@ -407,6 +431,11 @@ class BTCS():
 
         x = np.zeros(int(n_x) + 1)  # de 0 ao tamanho do reservatório com 10 elementos na malha
         t = np.zeros(int(n_t) + 1)  # de 0 a 10 segundos com 10 elementos
+
+        if variancia == 'tempo':
+            v = 'Steps de Tempo'
+        elif variancia == 'malha':
+            v = 'Malha'
 
         h_t = i
         h_x = j
@@ -510,14 +539,15 @@ class BTCS():
             if t[i] in time:
                 plt.plot(x, t_solucoes[i, :], linestyle='-')
 
-        plt.legend(labels=[material])
-        plt.title('Formulação BTCS - Neumann - Jacobi')
+        legend_label = f'{material} - {v} {n_x if variancia == "malha" else n_t}'
+        plt.legend(labels=[legend_label])
+        plt.title('Formulação BTCS - Neumann - Gaussa Seidel')
         plt.xlabel('Comprimento (m)')
         plt.ylabel('Pressão (psia)')
         plt.grid()
         plt.show()
 
-        #Plot 3D BTCS_tf_jac
+        #Plot 3D BTCS_tf_gs
         X, T = np.meshgrid(x, t)
         fig = plt.figure()
         ax = fig.add_subplot(111, projection='3d')
@@ -525,12 +555,13 @@ class BTCS():
         ax.set_xlabel('Comprimento (m)')
         ax.set_ylabel('Tempo (s)')
         ax.set_zlabel('Temperatura (°C)')
-        ax.set_title('Formulação BTCS - Neumann - Jacobi')
+        ax.set_title('Formulação BTCS - Neumann - Gaussa Seidel')
+        fig.text(0.02, 0.02, legend_label, color='black', ha='left')
         plt.show()
 
         return x, t, t_solucoes
 
-    def calculate_BTCS_tf_gsr(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, material):
+    def calculate_BTCS_tf_gsr(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, material, variancia):
 
         import numpy as np
         import matplotlib.pyplot as plt
@@ -539,6 +570,11 @@ class BTCS():
 
         x = np.zeros(int(n_x) + 1)  # de 0 ao tamanho do reservatório com 10 elementos na malha
         t = np.zeros(int(n_t) + 1)  # de 0 a 10 segundos com 10 elementos
+
+        if variancia == 'tempo':
+            v = 'Steps de Tempo'
+        elif variancia == 'malha':
+            v = 'Malha'
 
         h_t = i
         h_x = j
@@ -643,14 +679,15 @@ class BTCS():
             if t[i] in time:
                 plt.plot(x, t_solucoes[i, :], linestyle='-')
 
-        plt.legend(labels=[material])
-        plt.title('Formulação BTCS - Neumann - Gauss Seidel Relaxamento')
+        legend_label = f'{material} - {v} {n_x if variancia == "malha" else n_t}'
+        plt.legend(labels=[legend_label])
+        plt.title('Formulação BTCS - Neumann - Gaussa Seidel')
         plt.xlabel('Comprimento (m)')
         plt.ylabel('Pressão (psia)')
         plt.grid()
         plt.show()
 
-        #Plot 3D BTCS_tf_gsr
+        #Plot 3D BTCS_tf_gs
         X, T = np.meshgrid(x, t)
         fig = plt.figure()
         ax = fig.add_subplot(111, projection='3d')
@@ -658,12 +695,13 @@ class BTCS():
         ax.set_xlabel('Comprimento (m)')
         ax.set_ylabel('Tempo (s)')
         ax.set_zlabel('Temperatura (°C)')
-        ax.set_title('Formulação BTCS - Neumann - Gauss Seidel Relaxamento')
+        ax.set_title('Formulação BTCS - Neumann - Gaussa Seidel')
+        fig.text(0.02, 0.02, legend_label, color='black', ha='left')
         plt.show()
 
         return x, t, t_solucoes
 
-    def calculate_BTCS_tf_solv(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, material):
+    def calculate_BTCS_tf_solv(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, material, variancia):
 
         import numpy as np
         import matplotlib.pyplot as plt
@@ -672,6 +710,11 @@ class BTCS():
 
         x = np.zeros(int(n_x) + 1)  # de 0 ao tamanho do reservatório com 10 elementos na malha
         t = np.zeros(int(n_t) + 1)  # de 0 a 10 segundos com 10 elementos
+
+        if variancia == 'tempo':
+            v = 'Steps de Tempo'
+        elif variancia == 'malha':
+            v = 'Malha'
 
         h_t = i
         h_x = j
@@ -775,14 +818,15 @@ class BTCS():
             if t[i] in time:
                 plt.plot(x, t_solucoes[i, :], linestyle='-')
 
-        plt.legend(labels=[material])
-        plt.title('Formulação BTCS - Neumann - Solver Scipy')
+        legend_label = f'{material} - {v} {n_x if variancia == "malha" else n_t}'
+        plt.legend(labels=[legend_label])
+        plt.title('Formulação BTCS - Neumann - Gaussa Seidel')
         plt.xlabel('Comprimento (m)')
         plt.ylabel('Pressão (psia)')
         plt.grid()
         plt.show()
 
-        #Plot 3D BTCS_tf_solv
+        #Plot 3D BTCS_tf_gs
         X, T = np.meshgrid(x, t)
         fig = plt.figure()
         ax = fig.add_subplot(111, projection='3d')
@@ -790,7 +834,8 @@ class BTCS():
         ax.set_xlabel('Comprimento (m)')
         ax.set_ylabel('Tempo (s)')
         ax.set_zlabel('Temperatura (°C)')
-        ax.set_title('Formulação BTCS - Neumann - Solver Scipy')
+        ax.set_title('Formulação BTCS - Neumann - Gaussa Seidel')
+        fig.text(0.02, 0.02, legend_label, color='black', ha='left')
         plt.show()
 
         return x, t, t_solucoes

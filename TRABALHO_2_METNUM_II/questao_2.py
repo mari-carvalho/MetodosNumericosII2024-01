@@ -27,6 +27,7 @@ class tempo_computacional_tf():
         tf = 100
         x0 = 0
         xf = L
+        variancia = 'tempo'
 
         h_t = [1, 0.5]
         h_x = 25
@@ -43,7 +44,7 @@ class tempo_computacional_tf():
 
         n_x = (xf - x0) / (h_x)
 
-        def calculate_h_t_calc_gs(rho_list, k_list, cp_list, material_list):
+        def calculate_h_t_calc_gs(rho_list, k_list, cp_list, material_list, variancia):
             x_calc_array_tf_gs_cobre = []
             t_calc_array_tf_gs_cobre = []
             T_calc_array_tf_gs_cobre = []
@@ -63,7 +64,7 @@ class tempo_computacional_tf():
                     for i in h_t:
                         inicio_gs = time.time()
                         n_t = calculate_n_t(tf, t0, i)
-                        x_calc_tf_gs_cobre, t_calc_tf_gs_cobre, T_calc_tf_gs_cobre = BTCS.calculate_BTCS_tf_gs(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, material)
+                        x_calc_tf_gs_cobre, t_calc_tf_gs_cobre, T_calc_tf_gs_cobre = BTCS.calculate_BTCS_tf_gs(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, material, variancia)
                         fim_gs = time.time()
                         tempo_total_gs = fim_gs - inicio_gs
 
@@ -83,7 +84,7 @@ class tempo_computacional_tf():
                         n_t = calculate_n_t(tf, t0, i)
                         x_calc_tf_gs_al, t_calc_tf_gs_al, T_calc_tf_gs_al = BTCS.calculate_BTCS_tf_gs(rho, cp, k, L, Tw, T0, Te,
                                                                                              x0, xf, t0, tf, qw, i, j,
-                                                                                             n_t, n_x, material)
+                                                                                             n_t, n_x, material, variancia)
                         fim_gs = time.time()
                         tempo_total_gs = fim_gs - inicio_gs
 
@@ -97,7 +98,7 @@ class tempo_computacional_tf():
             return x_calc_array_tf_gs_cobre, t_calc_array_tf_gs_cobre, T_calc_array_tf_gs_cobre, tempo_total_array_tf_gs_cobre, n_t_array_gs_cobre, \
                 x_calc_array_tf_gs_al, t_calc_array_tf_gs_al, T_calc_array_tf_gs_al, tempo_total_array_tf_gs_al, n_t_array_gs_al
 
-        def calculate_h_t_calc_tdma(rho_list, k_list, cp_list, material_list):
+        def calculate_h_t_calc_tdma(rho_list, k_list, cp_list, material_list, variancia):
             x_calc_array_tf_tdma_cobre = []
             t_calc_array_tf_tdma_cobre = []
             T_calc_array_tf_tdma_cobre = []
@@ -117,7 +118,7 @@ class tempo_computacional_tf():
                     for i in h_t:
                         inicio_tdma = time.time()
                         n_t = calculate_n_t(tf, t0, i)
-                        x_calc_tf_tdma_cobre, t_calc_tf_tdma_cobre, T_calc_tf_tdma_cobre = BTCS.calculate_BTCS_tf_tdma(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, material)
+                        x_calc_tf_tdma_cobre, t_calc_tf_tdma_cobre, T_calc_tf_tdma_cobre = BTCS.calculate_BTCS_tf_tdma(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, material, variancia)
                         fim_tdma = time.time()
                         tempo_total_tdma = fim_tdma - inicio_tdma
 
@@ -138,7 +139,7 @@ class tempo_computacional_tf():
                         x_calc_tf_tdma_al, t_calc_tf_tdma_al, T_calc_tf_tdma_al = BTCS.calculate_BTCS_tf_tdma(rho, cp, k, L, Tw,
                                                                                                      T0, Te, x0, xf, t0,
                                                                                                      tf, qw, i, j, n_t,
-                                                                                                     n_x, material)
+                                                                                                     n_x, material, variancia)
                         fim_tdma = time.time()
                         tempo_total_tdma = fim_tdma - inicio_tdma
 
@@ -151,7 +152,7 @@ class tempo_computacional_tf():
             return x_calc_array_tf_tdma_cobre, t_calc_array_tf_tdma_cobre, T_calc_array_tf_tdma_cobre, tempo_total_array_tf_tdma_cobre, n_t_array_tdma_cobre, \
                 x_calc_array_tf_tdma_al, t_calc_array_tf_tdma_al, T_calc_array_tf_tdma_al, tempo_total_array_tf_tdma_al, n_t_array_tdma_al
 
-        def calculate_h_t_calc_jac(rho_list, k_list, cp_list, material_list):
+        def calculate_h_t_calc_jac(rho_list, k_list, cp_list, material_list, variancia):
             x_calc_array_tf_jac_cobre = []
             t_calc_array_tf_jac_cobre = []
             T_calc_array_tf_jac_cobre = []
@@ -171,7 +172,7 @@ class tempo_computacional_tf():
                     for i in h_t:
                         inicio_jac = time.time()
                         n_t = calculate_n_t(tf, t0, i)
-                        x_calc_tf_jac_cobre, t_calc_tf_jac_cobre, p_calc_tf_jac_cobre = BTCS.calculate_BTCS_tf_jac(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, material)
+                        x_calc_tf_jac_cobre, t_calc_tf_jac_cobre, p_calc_tf_jac_cobre = BTCS.calculate_BTCS_tf_jac(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, material, variancia)
                         fim_jac = time.time()
                         tempo_total_jac = fim_jac - inicio_jac
 
@@ -192,7 +193,7 @@ class tempo_computacional_tf():
                         x_calc_tf_jac_al, t_calc_tf_jac_al, T_calc_tf_jac_al = BTCS.calculate_BTCS_tf_jac(rho, cp, k, L, Tw,
                                                                                                      T0, Te, x0, xf, t0,
                                                                                                      tf, qw, i, j, n_t,
-                                                                                                     n_x, material)
+                                                                                                     n_x, material, variancia)
                         fim_jac = time.time()
                         tempo_total_jac = fim_jac - inicio_jac
 
@@ -206,7 +207,7 @@ class tempo_computacional_tf():
                 x_calc_array_tf_jac_al, t_calc_array_tf_jac_al, T_calc_array_tf_jac_al, tempo_total_array_tf_jac_al, n_t_array_jac_al
 
 
-        def calculate_h_t_calc_gsr(rho_list, k_list, cp_list, material_list):
+        def calculate_h_t_calc_gsr(rho_list, k_list, cp_list, material_list, variancia):
             x_calc_array_tf_gsr_cobre = []
             t_calc_array_tf_gsr_cobre = []
             T_calc_array_tf_gsr_cobre = []
@@ -226,7 +227,7 @@ class tempo_computacional_tf():
                     for i in h_t:
                         inicio_gsr = time.time()
                         n_t = calculate_n_t(tf, t0, i)
-                        x_calc_tf_gsr_cobre, t_calc_tf_gsr_cobre, T_calc_tf_gsr_cobre = BTCS.calculate_BTCS_tf_gsr(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, material)
+                        x_calc_tf_gsr_cobre, t_calc_tf_gsr_cobre, T_calc_tf_gsr_cobre = BTCS.calculate_BTCS_tf_gsr(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, material, variancia)
                         fim_gsr = time.time()
                         tempo_total_gsr = fim_gsr - inicio_gsr
 
@@ -256,7 +257,7 @@ class tempo_computacional_tf():
                                                                                                                    qw,
                                                                                                                    i, j,
                                                                                                                    n_t,
-                                                                                                                   n_x, material)
+                                                                                                                   n_x, material, variancia)
                         fim_gsr = time.time()
                         tempo_total_gsr = fim_gsr - inicio_gsr
 
@@ -269,7 +270,7 @@ class tempo_computacional_tf():
             return x_calc_array_tf_gsr_cobre, t_calc_array_tf_gsr_cobre, T_calc_array_tf_gsr_cobre, tempo_total_array_tf_gsr_cobre, n_t_array_gsr_cobre, \
                 x_calc_array_tf_gsr_al, t_calc_array_tf_gsr_al, T_calc_array_tf_gsr_al, tempo_total_array_tf_gsr_al, n_t_array_gsr_al
 
-        def calculate_h_t_calc_solv(rho_list, k_list, cp_list, material_list):
+        def calculate_h_t_calc_solv(rho_list, k_list, cp_list, material_list, variancia):
             x_calc_array_tf_solv_cobre = []
             t_calc_array_tf_solv_cobre = []
             T_calc_array_tf_solv_cobre = []
@@ -289,7 +290,7 @@ class tempo_computacional_tf():
                     for i in h_t:
                         inicio_solv = time.time()
                         n_t = calculate_n_t(tf, t0, i)
-                        x_calc_tf_solv_cobre, t_calc_tf_solv_cobre, p_calc_tf_solv_cobre = BTCS.calculate_BTCS_tf_solv(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, material)
+                        x_calc_tf_solv_cobre, t_calc_tf_solv_cobre, p_calc_tf_solv_cobre = BTCS.calculate_BTCS_tf_solv(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, material, variancia)
                         fim_solv = time.time()
                         tempo_total_solv = fim_solv - inicio_solv
 
@@ -310,7 +311,7 @@ class tempo_computacional_tf():
                         x_calc_tf_solv_al, t_calc_tf_solv_al, p_calc_tf_solv_al = BTCS.calculate_BTCS_tf_solv(rho, cp, k, L, Tw,
                                                                                                      T0, Te, x0, xf, t0,
                                                                                                      tf, qw, i, j, n_t,
-                                                                                                     n_x, material)
+                                                                                                     n_x, material, variancia)
                         fim_solv = time.time()
                         tempo_total_solv = fim_solv - inicio_solv
 
@@ -325,23 +326,23 @@ class tempo_computacional_tf():
 
 
         x_calc_array_tf_gs_cobre, t_calc_array_tf_gs_cobre, T_calc_array_tf_gs_cobre, tempo_total_array_tf_gs_cobre, n_t_array_gs_cobre, \
-            x_calc_array_tf_gs_al, t_calc_array_tf_gs_al, T_calc_array_tf_gs_al, tempo_total_array_tf_gs_al, n_t_array_gs_al = calculate_h_t_calc_gs(rho_list, k_list, cp_list, material_list)
+            x_calc_array_tf_gs_al, t_calc_array_tf_gs_al, T_calc_array_tf_gs_al, tempo_total_array_tf_gs_al, n_t_array_gs_al = calculate_h_t_calc_gs(rho_list, k_list, cp_list, material_list, variancia)
         tempos_totais_cobre.append(tempo_total_array_tf_gs_cobre)
         tempos_totais_al.append(tempo_total_array_tf_gs_al)
         x_calc_array_tf_tdma_cobre, t_calc_array_tf_tdma_cobre, T_calc_array_tf_tdma_cobre, tempo_total_array_tf_tdma_cobre, n_t_array_tdma_cobre, \
-            x_calc_array_tf_tdma_al, t_calc_array_tf_tdma_al, T_calc_array_tf_tdma_al, tempo_total_array_tf_tdma_al, n_t_array_tdma_al= calculate_h_t_calc_tdma(rho_list, k_list, cp_list, material_list)
+            x_calc_array_tf_tdma_al, t_calc_array_tf_tdma_al, T_calc_array_tf_tdma_al, tempo_total_array_tf_tdma_al, n_t_array_tdma_al= calculate_h_t_calc_tdma(rho_list, k_list, cp_list, material_list, variancia)
         tempos_totais_cobre.append(tempo_total_array_tf_tdma_cobre)
         tempos_totais_al.append(tempo_total_array_tf_tdma_al)
         x_calc_array_tf_jac_cobre, t_calc_array_tf_jac_cobre, T_calc_array_tf_jac_cobre, tempo_total_array_tf_jac_cobre, n_t_array_jac_cobre, \
-            x_calc_array_tf_jac_al, t_calc_array_tf_jac_al, T_calc_array_tf_jac_al, tempo_total_array_tf_jac_al, n_t_array_jac_al = calculate_h_t_calc_jac(rho_list, k_list, cp_list, material_list)
+            x_calc_array_tf_jac_al, t_calc_array_tf_jac_al, T_calc_array_tf_jac_al, tempo_total_array_tf_jac_al, n_t_array_jac_al = calculate_h_t_calc_jac(rho_list, k_list, cp_list, material_list, variancia)
         tempos_totais_cobre.append(tempo_total_array_tf_jac_cobre)
         tempos_totais_al.append(tempo_total_array_tf_jac_al)
         x_calc_array_tf_gsr_cobre, t_calc_array_tf_gsr_cobre, T_calc_array_tf_gsr_cobre, tempo_total_array_tf_gsr_cobre, n_t_array_gsr_cobre, \
-            x_calc_array_tf_gsr_al, t_calc_array_tf_gsr_al, T_calc_array_tf_gsr_al, tempo_total_array_tf_gsr_al, n_t_array_gsr_al = calculate_h_t_calc_gsr(rho_list, k_list, cp_list, material_list)
+            x_calc_array_tf_gsr_al, t_calc_array_tf_gsr_al, T_calc_array_tf_gsr_al, tempo_total_array_tf_gsr_al, n_t_array_gsr_al = calculate_h_t_calc_gsr(rho_list, k_list, cp_list, material_list, variancia)
         tempos_totais_cobre.append(tempo_total_array_tf_gsr_cobre)
         tempos_totais_al.append(tempo_total_array_tf_gsr_al)
         x_calc_array_tf_solv_cobre, t_calc_array_tf_solv_cobre, T_calc_array_tf_solv_cobre, tempo_total_array_tf_solv_cobre, n_t_array_solv_cobre, \
-            x_calc_array_tf_solv_al, t_calc_array_tf_solv_al, T_calc_array_tf_solv_al, tempo_total_array_tf_solv_al, n_t_array_solv_al = calculate_h_t_calc_solv(rho_list, k_list, cp_list, material_list)
+            x_calc_array_tf_solv_al, t_calc_array_tf_solv_al, T_calc_array_tf_solv_al, tempo_total_array_tf_solv_al, n_t_array_solv_al = calculate_h_t_calc_solv(rho_list, k_list, cp_list, material_list, variancia)
         tempos_totais_cobre.append(tempo_total_array_tf_solv_cobre)
         tempos_totais_al.append(tempo_total_array_tf_solv_al)
 
@@ -386,6 +387,7 @@ class tempo_computacional_tf():
         tf = 100
         x0 = 0
         xf = L
+        variancia = 'malha'
 
         h_x = [25, 15]
         h_t = 0.8
@@ -401,7 +403,7 @@ class tempo_computacional_tf():
 
         n_t = (tf - t0) / (h_t)
 
-        def calculate_h_x_calc_gs(rho_list, k_list, cp_list, material_list):
+        def calculate_h_x_calc_gs(rho_list, k_list, cp_list, material_list, variancia):
             x_calc_array_tf_gs_cobre = []
             t_calc_array_tf_gs_cobre  = []
             T_calc_array_tf_gs_cobre  = []
@@ -427,7 +429,7 @@ class tempo_computacional_tf():
                                                                                                                x0, xf,
                                                                                                                t0, tf,
                                                                                                                qw, i, j,
-                                                                                                               n_t, n_x, material)
+                                                                                                               n_t, n_x, material, variancia)
                         fim_gs = time.time()
                         tempo_total_gs = fim_gs - inicio_gs
 
@@ -449,7 +451,7 @@ class tempo_computacional_tf():
                                                                                                       T0, Te,
                                                                                                       x0, xf, t0, tf,
                                                                                                       qw, i, j,
-                                                                                                      n_t, n_x, material)
+                                                                                                      n_t, n_x, material, variancia)
                         fim_gs = time.time()
                         tempo_total_gs = fim_gs - inicio_gs
 
@@ -462,7 +464,7 @@ class tempo_computacional_tf():
             return x_calc_array_tf_gs_cobre, t_calc_array_tf_gs_cobre, T_calc_array_tf_gs_cobre, tempo_total_array_tf_gs_cobre, n_x_array_gs_cobre, \
                 x_calc_array_tf_gs_al, t_calc_array_tf_gs_al, T_calc_array_tf_gs_al, tempo_total_array_tf_gs_al, n_x_array_gs_al
 
-        def calculate_h_x_calc_tdma(rho_list, k_list, cp_list, material_list):
+        def calculate_h_x_calc_tdma(rho_list, k_list, cp_list, material_list, variancia):
             x_calc_array_tf_tdma_cobre = []
             t_calc_array_tf_tdma_cobre = []
             T_calc_array_tf_tdma_cobre = []
@@ -482,7 +484,7 @@ class tempo_computacional_tf():
                     for j in h_x:
                         inicio_tdma = time.time()
                         n_x = calculate_n_x(xf, x0, j)
-                        x_calc_tf_tdma_cobre, t_calc_tf_tdma_cobre, T_calc_tf_tdma_cobre = BTCS.calculate_BTCS_tf_tdma(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, material)
+                        x_calc_tf_tdma_cobre, t_calc_tf_tdma_cobre, T_calc_tf_tdma_cobre = BTCS.calculate_BTCS_tf_tdma(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, material, variancia)
                         fim_tdma = time.time()
                         tempo_total_tdma = fim_tdma - inicio_tdma
 
@@ -503,7 +505,7 @@ class tempo_computacional_tf():
                         x_calc_tf_tdma_al, t_calc_tf_tdma_al, T_calc_tf_tdma_al = BTCS.calculate_BTCS_tf_tdma(rho, cp, k, L, Tw,
                                                                                                      T0, Te, x0, xf, t0,
                                                                                                      tf, qw, i, j, n_t,
-                                                                                                     n_x, material)
+                                                                                                     n_x, material, variancia)
                         fim_tdma = time.time()
                         tempo_total_tdma = fim_tdma - inicio_tdma
 
@@ -516,7 +518,7 @@ class tempo_computacional_tf():
             return x_calc_array_tf_tdma_cobre, t_calc_array_tf_tdma_cobre, T_calc_array_tf_tdma_cobre, tempo_total_array_tf_tdma_cobre, n_x_array_tdma_cobre, \
                 x_calc_array_tf_tdma_al, t_calc_array_tf_tdma_al, T_calc_array_tf_tdma_al, tempo_total_array_tf_tdma_al, n_x_array_tdma_al
 
-        def calculate_h_x_calc_jac(rho_list, k_list, cp_list, material_list):
+        def calculate_h_x_calc_jac(rho_list, k_list, cp_list, material_list, variancia):
             x_calc_array_tf_jac_cobre = []
             t_calc_array_tf_jac_cobre = []
             T_calc_array_tf_jac_cobre = []
@@ -536,7 +538,7 @@ class tempo_computacional_tf():
                     for j in h_x:
                         inicio_jac = time.time()
                         n_x = calculate_n_x(xf, x0, j)
-                        x_calc_tf_jac_cobre, t_calc_tf_jac_cobre, p_calc_tf_jac_cobre = BTCS.calculate_BTCS_tf_jac(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, material)
+                        x_calc_tf_jac_cobre, t_calc_tf_jac_cobre, p_calc_tf_jac_cobre = BTCS.calculate_BTCS_tf_jac(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, material, variancia)
                         fim_jac = time.time()
                         tempo_total_jac = fim_jac - inicio_jac
 
@@ -557,7 +559,7 @@ class tempo_computacional_tf():
                         x_calc_tf_jac_al, t_calc_tf_jac_al, T_calc_tf_jac_al = BTCS.calculate_BTCS_tf_jac(rho, cp, k, L, Tw,
                                                                                                      T0, Te, x0, xf, t0,
                                                                                                      tf, qw, i, j, n_t,
-                                                                                                     n_x, material)
+                                                                                                     n_x, material, variancia)
                         fim_jac = time.time()
                         tempo_total_jac = fim_jac - inicio_jac
 
@@ -570,7 +572,7 @@ class tempo_computacional_tf():
             return x_calc_array_tf_jac_cobre, t_calc_array_tf_jac_cobre, T_calc_array_tf_jac_cobre, tempo_total_array_tf_jac_cobre, n_x_array_jac_cobre, \
                 x_calc_array_tf_jac_al, t_calc_array_tf_jac_al, T_calc_array_tf_jac_al, tempo_total_array_tf_jac_al, n_x_array_jac_al
 
-        def calculate_h_x_calc_gsr(rho_list, k_list, cp_list, material_list):
+        def calculate_h_x_calc_gsr(rho_list, k_list, cp_list, material_list, variancia):
             x_calc_array_tf_gsr_cobre = []
             t_calc_array_tf_gsr_cobre = []
             T_calc_array_tf_gsr_cobre = []
@@ -603,7 +605,7 @@ class tempo_computacional_tf():
                                                                                                                    qw,
                                                                                                                    i, j,
                                                                                                                    n_t,
-                                                                                                                   n_x, material)
+                                                                                                                   n_x, material, variancia)
                         fim_gsr = time.time()
                         tempo_total_gsr = fim_gsr - inicio_gsr
 
@@ -633,7 +635,7 @@ class tempo_computacional_tf():
                                                                                                           qw,
                                                                                                           i, j,
                                                                                                           n_t,
-                                                                                                          n_x, material)
+                                                                                                          n_x, material, variancia)
                         fim_gsr = time.time()
                         tempo_total_gsr = fim_gsr - inicio_gsr
 
@@ -645,7 +647,7 @@ class tempo_computacional_tf():
                         tempo_total_array_tf_gsr_al.append(tempo_total_gsr)
             return x_calc_array_tf_gsr_cobre, t_calc_array_tf_gsr_cobre, T_calc_array_tf_gsr_cobre, tempo_total_array_tf_gsr_cobre, n_x_array_gsr_cobre, \
                 x_calc_array_tf_gsr_al, t_calc_array_tf_gsr_al, T_calc_array_tf_gsr_al, tempo_total_array_tf_gsr_al, n_x_array_gsr_al
-        def calculate_h_x_calc_solv(rho_list, k_list, cp_list, material_list):
+        def calculate_h_x_calc_solv(rho_list, k_list, cp_list, material_list, variancia):
             x_calc_array_tf_solv_cobre = []
             t_calc_array_tf_solv_cobre = []
             T_calc_array_tf_solv_cobre = []
@@ -665,7 +667,7 @@ class tempo_computacional_tf():
                     for j in h_x:
                         inicio_solv = time.time()
                         n_x = calculate_n_x(xf, x0, j)
-                        x_calc_tf_solv_cobre, t_calc_tf_solv_cobre, p_calc_tf_solv_cobre = BTCS.calculate_BTCS_tf_solv(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, material)
+                        x_calc_tf_solv_cobre, t_calc_tf_solv_cobre, p_calc_tf_solv_cobre = BTCS.calculate_BTCS_tf_solv(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, material, variancia)
                         fim_solv = time.time()
                         tempo_total_solv = fim_solv - inicio_solv
 
@@ -686,7 +688,7 @@ class tempo_computacional_tf():
                         x_calc_tf_solv_al, t_calc_tf_solv_al, p_calc_tf_solv_al = BTCS.calculate_BTCS_tf_solv(rho, cp, k, L, Tw,
                                                                                                      T0, Te, x0, xf, t0,
                                                                                                      tf, qw, i, j, n_t,
-                                                                                                     n_x, material)
+                                                                                                     n_x, material, variancia)
                         fim_solv = time.time()
                         tempo_total_solv = fim_solv - inicio_solv
 
@@ -700,23 +702,23 @@ class tempo_computacional_tf():
                 x_calc_array_tf_solv_al, t_calc_array_tf_solv_al, T_calc_array_tf_solv_al, tempo_total_array_tf_solv_al, n_x_array_solv_al
 
         x_calc_array_tf_gs_cobre, t_calc_array_tf_gs_cobre, T_calc_array_tf_gs_cobre, tempo_total_array_tf_gs_cobre, n_x_array_gs_cobre, \
-            x_calc_array_tf_gs_al, t_calc_array_tf_gs_al, T_calc_array_tf_gs_al, tempo_total_array_tf_gs_al, n_x_array_gs_al = calculate_h_x_calc_gs(rho_list, k_list, cp_list, material_list)
+            x_calc_array_tf_gs_al, t_calc_array_tf_gs_al, T_calc_array_tf_gs_al, tempo_total_array_tf_gs_al, n_x_array_gs_al = calculate_h_x_calc_gs(rho_list, k_list, cp_list, material_list, variancia)
         tempos_totais_cobre.append(tempo_total_array_tf_gs_cobre)
         tempos_totais_al.append(tempo_total_array_tf_gs_al)
         x_calc_array_tf_tdma_cobre, t_calc_array_tf_tdma_cobre, T_calc_array_tf_tdma_cobre, tempo_total_array_tf_tdma_cobre, n_x_array_tdma_cobre, \
-            x_calc_array_tf_tdma_al, t_calc_array_tf_tdma_al, T_calc_array_tf_tdma_al, tempo_total_array_tf_tdma_al, n_x_array_tdma_al = calculate_h_x_calc_tdma(rho_list, k_list, cp_list, material_list)
+            x_calc_array_tf_tdma_al, t_calc_array_tf_tdma_al, T_calc_array_tf_tdma_al, tempo_total_array_tf_tdma_al, n_x_array_tdma_al = calculate_h_x_calc_tdma(rho_list, k_list, cp_list, material_list, variancia)
         tempos_totais_cobre.append(tempo_total_array_tf_tdma_cobre)
         tempos_totais_al.append(tempo_total_array_tf_tdma_al)
         x_calc_array_tf_jac_cobre, t_calc_array_tf_jac_cobre, T_calc_array_tf_jac_cobre, tempo_total_array_tf_jac_cobre, n_x_array_jac_cobre, \
-            x_calc_array_tf_jac_al, t_calc_array_tf_jac_al, T_calc_array_tf_jac_al, tempo_total_array_tf_jac_al, n_x_array_jac_al = calculate_h_x_calc_jac(rho_list, k_list, cp_list, material_list)
+            x_calc_array_tf_jac_al, t_calc_array_tf_jac_al, T_calc_array_tf_jac_al, tempo_total_array_tf_jac_al, n_x_array_jac_al = calculate_h_x_calc_jac(rho_list, k_list, cp_list, material_list, variancia)
         tempos_totais_cobre.append(tempo_total_array_tf_jac_cobre)
         tempos_totais_al.append(tempo_total_array_tf_jac_al)
         x_calc_array_tf_gsr_cobre, t_calc_array_tf_gsr_cobre, T_calc_array_tf_gsr_cobre, tempo_total_array_tf_gsr_cobre, n_x_array_gsr_cobre, \
-            x_calc_array_tf_gsr_al, t_calc_array_tf_gsr_al, T_calc_array_tf_gsr_al, tempo_total_array_tf_gsr_al, n_x_array_gsr_al = calculate_h_x_calc_gsr(rho_list, k_list, cp_list, material_list)
+            x_calc_array_tf_gsr_al, t_calc_array_tf_gsr_al, T_calc_array_tf_gsr_al, tempo_total_array_tf_gsr_al, n_x_array_gsr_al = calculate_h_x_calc_gsr(rho_list, k_list, cp_list, material_list, variancia)
         tempos_totais_cobre.append(tempo_total_array_tf_gsr_cobre)
         tempos_totais_al.append(tempo_total_array_tf_gsr_al)
         x_calc_array_tf_solv_cobre, t_calc_array_tf_solv_cobre, T_calc_array_tf_solv_cobre, tempo_total_array_tf_solv_cobre, n_x_array_solv_cobre, \
-            x_calc_array_tf_solv_al, t_calc_array_tf_solv_al, T_calc_array_tf_solv_al, tempo_total_array_tf_solv_al, n_x_array_solv_al = calculate_h_x_calc_solv(rho_list, k_list, cp_list, material_list)
+            x_calc_array_tf_solv_al, t_calc_array_tf_solv_al, T_calc_array_tf_solv_al, tempo_total_array_tf_solv_al, n_x_array_solv_al = calculate_h_x_calc_solv(rho_list, k_list, cp_list, material_list, variancia)
         tempos_totais_cobre.append(tempo_total_array_tf_solv_cobre)
         tempos_totais_al.append(tempo_total_array_tf_solv_al)
 

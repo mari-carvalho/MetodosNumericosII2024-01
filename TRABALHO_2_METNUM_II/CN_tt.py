@@ -1,6 +1,6 @@
 class CN():
 
-    def calculate_CN_tt(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x):
+    def calculate_CN_tt(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, variancia):
 
         import numpy as np
         import matplotlib.pyplot as plt 
@@ -9,6 +9,11 @@ class CN():
 
         x = np.zeros(int(n_x)+1) # de 0 ao tamanho do reservatório com 10 elementos na malha 
         t = np.zeros(int(n_t)+1) # de 0 a 10 segundos com 10 elementos
+
+        if variancia == 'tempo':
+            v = 'Steps de Tempo'
+        elif variancia == 'malha':
+            v = 'Malha'
 
         h_t = i
         h_x = j
@@ -112,7 +117,8 @@ class CN():
             if t[i] in time:
                 plt.plot(x, t_solucoes[i, :], linestyle='-', label=f't = {t[i]}')
 
-        plt.legend()
+        legend_label = f'{v} {n_x if variancia == "malha" else n_t}'
+        plt.legend([legend_label])
         plt.title('Formulação CN - Dirchlet')
         plt.xlabel('Comprimento (m)')
         plt.ylabel('Temperatura (°C)')
@@ -127,6 +133,7 @@ class CN():
         ax.set_ylabel('Tempo (s)')
         ax.set_zlabel('Temperatura (°C)')
         ax.set_title('Formulação CN - Dirchlet')
+        fig.text(0.02, 0.02, legend_label, color='black', ha='left')
         plt.show()
 
         return x, t, t_solucoes

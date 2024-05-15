@@ -23,6 +23,7 @@ class erros_tt_ftcs():
         tf = 100
         x0 = 0
         xf = L
+        variancia = 'tempo'
 
         h_t = [1, 0.5]
         h_x = 25
@@ -36,7 +37,7 @@ class erros_tt_ftcs():
 
         n_x = (xf - x0) / (h_x)
 
-        def calculate_h_t_ex():
+        def calculate_h_t_ex(variancia):
             x_ex_array = []
             t_ex_array = []
             T_ex_array = []
@@ -44,7 +45,7 @@ class erros_tt_ftcs():
             for i in h_t:
 
                 n_t = calculate_n_t(tf, t0, i)
-                x_ex, t_ex, T_ex = analitica.calculate_analitica(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x)
+                x_ex, t_ex, T_ex = analitica.calculate_analitica(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, variancia)
 
                 x_ex_array.append(x_ex)
                 T_ex_array.append(T_ex)
@@ -54,10 +55,10 @@ class erros_tt_ftcs():
             return x_ex_array, t_ex_array, T_ex_array, n_t_array
 
 
-        x_ex_array, t_ex_array, T_ex_array, n_t_array = calculate_h_t_ex()
+        x_ex_array, t_ex_array, T_ex_array, n_t_array = calculate_h_t_ex(variancia)
 
 
-        def calculate_h_t_calc():
+        def calculate_h_t_calc(variancia):
             x_calc_array = []
             t_calc_array = []
             T_calc_array = []
@@ -65,7 +66,7 @@ class erros_tt_ftcs():
             for i in h_t:
 
                 n_t = calculate_n_t(tf, t0, i)
-                x_calc, t_calc, T_calc = FTCS.calculate_FTCS_tt(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x)
+                x_calc, t_calc, T_calc = FTCS.calculate_FTCS_tt(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, variancia)
 
                 x_calc_array.append(x_calc)
                 T_calc_array.append(T_calc)
@@ -75,7 +76,7 @@ class erros_tt_ftcs():
             return x_calc_array, t_calc_array, T_calc_array, n_t_array
 
 
-        x_calc_array, t_calc_array, T_calc_array, n_t_array = calculate_h_t_calc()
+        x_calc_array, t_calc_array, T_calc_array, n_t_array = calculate_h_t_calc(variancia)
 
         # Cálculo do Erro:
 
@@ -225,6 +226,7 @@ class erros_tt_ftcs():
         tf = 100
         x0 = 0
         xf = L
+        variancia = 'malha'
 
         h_x = [25, 15]
         h_t = 0.8
@@ -238,14 +240,14 @@ class erros_tt_ftcs():
 
         n_t = (tf - t0) / (h_t)
 
-        def calculate_h_t_ex():
+        def calculate_h_t_ex(variancia):
             x_ex_array = []
             t_ex_array = []
             T_ex_array = []
             n_x_array = []
             for j in h_x:
                 n_x = calculate_n_x(xf, x0, j)
-                x_ex, t_ex, T_ex = analitica.calculate_analitica(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x)
+                x_ex, t_ex, T_ex = analitica.calculate_analitica(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, variancia)
 
                 x_ex_array.append(x_ex)
                 T_ex_array.append(T_ex)
@@ -254,16 +256,16 @@ class erros_tt_ftcs():
 
             return x_ex_array, t_ex_array, T_ex_array, n_x_array
 
-        x_ex_array, t_ex_array, T_ex_array, n_x_array = calculate_h_t_ex()
+        x_ex_array, t_ex_array, T_ex_array, n_x_array = calculate_h_t_ex(variancia)
 
-        def calculate_h_t_calc():
+        def calculate_h_t_calc(variancia):
             x_calc_array = []
             t_calc_array = []
             T_calc_array = []
             n_x_array = []
             for j in h_x:
                 n_x = calculate_n_x(xf, x0, j)
-                x_calc, t_calc, T_calc = FTCS.calculate_FTCS_tt(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x)
+                x_calc, t_calc, T_calc = FTCS.calculate_FTCS_tt(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, variancia)
 
                 x_calc_array.append(x_calc)
                 T_calc_array.append(T_calc)
@@ -272,7 +274,7 @@ class erros_tt_ftcs():
 
             return x_calc_array, t_calc_array, T_calc_array, n_x_array
 
-        x_calc_array, t_calc_array, T_calc_array, n_x_array = calculate_h_t_calc()
+        x_calc_array, t_calc_array, T_calc_array, n_x_array = calculate_h_t_calc(variancia)
 
         # Cálculo do Erro:
 
@@ -350,7 +352,7 @@ class erros_tt_ftcs():
         plt.show()
 
         # Ajustando uma linha de tendência nos Gráficos LogxLog:
-        grau = 2
+        grau = 1
         coeffs = np.polyfit(h_x_log_list, L2_log_list,
                             grau)  # ajusta a linha de tendência aos dados e retorna os coeficientes do polinômio
         tendencia = np.poly1d(coeffs)  # cria um polinômio a partir dos coeficientes retornados por polyfit
@@ -376,7 +378,7 @@ class erros_tt_ftcs():
         plt.show()
 
         # Ajustando uma linha de tendência nos Gráficos LogxLog:
-        grau = 2
+        grau = 1
         coeffs = np.polyfit(h_x_log_list, E_inf_depois_log_list,
                             grau)  # ajusta a linha de tendência aos dados e retorna os coeficientes do polinômio
         tendencia = np.poly1d(coeffs)  # cria um polinômio a partir dos coeficientes retornados por polyfit
@@ -401,7 +403,7 @@ class erros_tt_ftcs():
         plt.show()
 
         # Ajustando uma linha de tendência nos Gráficos LogxLog:
-        grau = 2
+        grau = 1
         coeffs = np.polyfit(h_x_log_list, err_rel_total_log_list,
                             grau)  # ajusta a linha de tendência aos dados e retorna os coeficientes do polinômio
         tendencia = np.poly1d(coeffs)  # cria um polinômio a partir dos coeficientes retornados por polyfit
@@ -446,6 +448,7 @@ class erros_tt_btcs():
         tf = 100
         x0 = 0
         xf = L
+        variancia = 'tempo'
 
         h_t = [1, 0.5]
         h_x = 25
@@ -459,7 +462,7 @@ class erros_tt_btcs():
 
         n_x = (xf - x0) / (h_x)
 
-        def calculate_h_t_ex():
+        def calculate_h_t_ex(variancia):
             x_ex_array = []
             t_ex_array = []
             T_ex_array = []
@@ -467,7 +470,7 @@ class erros_tt_btcs():
             for i in h_t:
 
                 n_t = calculate_n_t(tf, t0, i)
-                x_ex, t_ex, T_ex = analitica.calculate_analitica(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x)
+                x_ex, t_ex, T_ex = analitica.calculate_analitica(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, variancia)
 
                 x_ex_array.append(x_ex)
                 T_ex_array.append(T_ex)
@@ -477,10 +480,10 @@ class erros_tt_btcs():
             return x_ex_array, t_ex_array, T_ex_array, n_t_array
 
 
-        x_ex_array, t_ex_array, T_ex_array, n_t_array = calculate_h_t_ex()
+        x_ex_array, t_ex_array, T_ex_array, n_t_array = calculate_h_t_ex(variancia)
 
 
-        def calculate_h_t_calc():
+        def calculate_h_t_calc(variancia):
             x_calc_array = []
             t_calc_array = []
             T_calc_array = []
@@ -488,7 +491,7 @@ class erros_tt_btcs():
             for i in h_t:
 
                 n_t = calculate_n_t(tf, t0, i)
-                x_calc, t_calc, T_calc = BTCS.calculate_BTCS_tt(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x)
+                x_calc, t_calc, T_calc = BTCS.calculate_BTCS_tt(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, variancia)
 
                 x_calc_array.append(x_calc)
                 T_calc_array.append(T_calc)
@@ -498,7 +501,7 @@ class erros_tt_btcs():
             return x_calc_array, t_calc_array, T_calc_array, n_t_array
 
 
-        x_calc_array, t_calc_array, T_calc_array, n_t_array = calculate_h_t_calc()
+        x_calc_array, t_calc_array, T_calc_array, n_t_array = calculate_h_t_calc(variancia)
 
         # Cálculo do Erro:
 
@@ -648,6 +651,7 @@ class erros_tt_btcs():
         tf = 100
         x0 = 0
         xf = L
+        variancia = 'malha'
 
         h_x = [25, 15]
         h_t = 0.8
@@ -661,14 +665,14 @@ class erros_tt_btcs():
 
         n_t = (tf - t0) / (h_t)
 
-        def calculate_h_t_ex():
+        def calculate_h_t_ex(variancia):
             x_ex_array = []
             t_ex_array = []
             T_ex_array = []
             n_x_array = []
             for j in h_x:
                 n_x = calculate_n_x(xf, x0, j)
-                x_ex, t_ex, T_ex = analitica.calculate_analitica(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x)
+                x_ex, t_ex, T_ex = analitica.calculate_analitica(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, variancia)
 
                 x_ex_array.append(x_ex)
                 T_ex_array.append(T_ex)
@@ -677,16 +681,16 @@ class erros_tt_btcs():
 
             return x_ex_array, t_ex_array, T_ex_array, n_x_array
 
-        x_ex_array, t_ex_array, T_ex_array, n_x_array = calculate_h_t_ex()
+        x_ex_array, t_ex_array, T_ex_array, n_x_array = calculate_h_t_ex(variancia)
 
-        def calculate_h_t_calc():
+        def calculate_h_t_calc(variancia):
             x_calc_array = []
             t_calc_array = []
             T_calc_array = []
             n_x_array = []
             for j in h_x:
                 n_x = calculate_n_x(xf, x0, j)
-                x_calc, t_calc, T_calc = BTCS.calculate_BTCS_tt(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x)
+                x_calc, t_calc, T_calc = BTCS.calculate_BTCS_tt(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, variancia)
 
                 x_calc_array.append(x_calc)
                 T_calc_array.append(T_calc)
@@ -695,7 +699,7 @@ class erros_tt_btcs():
 
             return x_calc_array, t_calc_array, T_calc_array, n_x_array
 
-        x_calc_array, t_calc_array, T_calc_array, n_x_array = calculate_h_t_calc()
+        x_calc_array, t_calc_array, T_calc_array, n_x_array = calculate_h_t_calc(variancia)
 
         # Cálculo do Erro:
 
@@ -774,7 +778,7 @@ class erros_tt_btcs():
         plt.show()
 
         # Ajustando uma linha de tendência nos Gráficos LogxLog:
-        grau = 2
+        grau = 1
         coeffs = np.polyfit(h_x_log_list, L2_log_list,
                             grau)  # ajusta a linha de tendência aos dados e retorna os coeficientes do polinômio
         tendencia = np.poly1d(coeffs)  # cria um polinômio a partir dos coeficientes retornados por polyfit
@@ -800,7 +804,7 @@ class erros_tt_btcs():
         plt.show()
 
         # Ajustando uma linha de tendência nos Gráficos LogxLog:
-        grau = 2
+        grau = 1
         coeffs = np.polyfit(h_x_log_list, E_inf_depois_log_list,
                             grau)  # ajusta a linha de tendência aos dados e retorna os coeficientes do polinômio
         tendencia = np.poly1d(coeffs)  # cria um polinômio a partir dos coeficientes retornados por polyfit
@@ -825,7 +829,7 @@ class erros_tt_btcs():
         plt.show()
 
         # Ajustando uma linha de tendência nos Gráficos LogxLog:
-        grau = 2
+        grau = 1
         coeffs = np.polyfit(h_x_log_list, err_rel_total_log_list,
                             grau)  # ajusta a linha de tendência aos dados e retorna os coeficientes do polinômio
         tendencia = np.poly1d(coeffs)  # cria um polinômio a partir dos coeficientes retornados por polyfit
@@ -870,6 +874,7 @@ class erros_tt_cn():
         tf = 100
         x0 = 0
         xf = L
+        variancia = 'tempo'
 
         h_t = [1, 0.5]
         h_x = 25
@@ -882,7 +887,7 @@ class erros_tt_cn():
 
         n_x = (xf - x0) / (h_x)
 
-        def calculate_h_t_ex():
+        def calculate_h_t_ex(variancia):
             x_ex_array = []
             t_ex_array = []
             T_ex_array = []
@@ -890,7 +895,7 @@ class erros_tt_cn():
             for i in h_t:
 
                 n_t = calculate_n_t(tf, t0, i)
-                x_ex, t_ex, T_ex = analitica.calculate_analitica(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x)
+                x_ex, t_ex, T_ex = analitica.calculate_analitica(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, variancia)
 
                 x_ex_array.append(x_ex)
                 T_ex_array.append(T_ex)
@@ -900,10 +905,10 @@ class erros_tt_cn():
             return x_ex_array, t_ex_array, T_ex_array, n_t_array
 
 
-        x_ex_array, t_ex_array, T_ex_array, n_t_array = calculate_h_t_ex()
+        x_ex_array, t_ex_array, T_ex_array, n_t_array = calculate_h_t_ex(variancia)
 
 
-        def calculate_h_t_calc():
+        def calculate_h_t_calc(variancia):
             x_calc_array = []
             t_calc_array = []
             T_calc_array = []
@@ -911,7 +916,7 @@ class erros_tt_cn():
             for i in h_t:
 
                 n_t = calculate_n_t(tf, t0, i)
-                x_calc, t_calc, T_calc = CN.calculate_CN_tt(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x)
+                x_calc, t_calc, T_calc = CN.calculate_CN_tt(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, variancia)
 
                 x_calc_array.append(x_calc)
                 T_calc_array.append(T_calc)
@@ -921,7 +926,7 @@ class erros_tt_cn():
             return x_calc_array, t_calc_array, T_calc_array, n_t_array
 
 
-        x_calc_array, t_calc_array, T_calc_array, n_t_array = calculate_h_t_calc()
+        x_calc_array, t_calc_array, T_calc_array, n_t_array = calculate_h_t_calc(variancia)
 
         # Cálculo do Erro:
 
@@ -1072,6 +1077,7 @@ class erros_tt_cn():
         tf = 100
         x0 = 0
         xf = L
+        variancia = 'malha'
 
         h_x = [25, 15]
         h_t = 0.8
@@ -1085,14 +1091,14 @@ class erros_tt_cn():
 
         n_t = (tf - t0) / (h_t)
 
-        def calculate_h_t_ex():
+        def calculate_h_t_ex(variancia):
             x_ex_array = []
             t_ex_array = []
             T_ex_array = []
             n_x_array = []
             for j in h_x:
                 n_x = calculate_n_x(xf, x0, j)
-                x_ex, t_ex, T_ex = analitica.calculate_analitica(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x)
+                x_ex, t_ex, T_ex = analitica.calculate_analitica(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, variancia)
 
                 x_ex_array.append(x_ex)
                 T_ex_array.append(T_ex)
@@ -1101,16 +1107,16 @@ class erros_tt_cn():
 
             return x_ex_array, t_ex_array, T_ex_array, n_x_array
 
-        x_ex_array, t_ex_array, T_ex_array, n_x_array = calculate_h_t_ex()
+        x_ex_array, t_ex_array, T_ex_array, n_x_array = calculate_h_t_ex(variancia)
 
-        def calculate_h_t_calc():
+        def calculate_h_t_calc(variancia):
             x_calc_array = []
             t_calc_array = []
             T_calc_array = []
             n_x_array = []
             for j in h_x:
                 n_x = calculate_n_x(xf, x0, j)
-                x_calc, t_calc, T_calc = CN.calculate_CN_tt(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x)
+                x_calc, t_calc, T_calc = CN.calculate_CN_tt(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, variancia)
 
                 x_calc_array.append(x_calc)
                 T_calc_array.append(T_calc)
@@ -1119,7 +1125,7 @@ class erros_tt_cn():
 
             return x_calc_array, t_calc_array, T_calc_array, n_x_array
 
-        x_calc_array, t_calc_array, T_calc_array, n_x_array = calculate_h_t_calc()
+        x_calc_array, t_calc_array, T_calc_array, n_x_array = calculate_h_t_calc(variancia)
 
         # Cálculo do Erro:
 
@@ -1198,7 +1204,7 @@ class erros_tt_cn():
         plt.show()
 
         # Ajustando uma linha de tendência nos Gráficos LogxLog:
-        grau = 2
+        grau = 1
         coeffs = np.polyfit(h_x_log_list, L2_log_list,
                             grau)  # ajusta a linha de tendência aos dados e retorna os coeficientes do polinômio
         tendencia = np.poly1d(coeffs)  # cria um polinômio a partir dos coeficientes retornados por polyfit
@@ -1224,7 +1230,7 @@ class erros_tt_cn():
         plt.show()
 
         # Ajustando uma linha de tendência nos Gráficos LogxLog:
-        grau = 2
+        grau = 1
         coeffs = np.polyfit(h_x_log_list, E_inf_depois_log_list,
                             grau)  # ajusta a linha de tendência aos dados e retorna os coeficientes do polinômio
         tendencia = np.poly1d(coeffs)  # cria um polinômio a partir dos coeficientes retornados por polyfit
@@ -1249,7 +1255,7 @@ class erros_tt_cn():
         plt.show()
 
         # Ajustando uma linha de tendência nos Gráficos LogxLog:
-        grau = 2
+        grau = 1
         coeffs = np.polyfit(h_x_log_list, err_rel_total_log_list,
                             grau)  # ajusta a linha de tendência aos dados e retorna os coeficientes do polinômio
         tendencia = np.poly1d(coeffs)  # cria um polinômio a partir dos coeficientes retornados por polyfit
@@ -1296,6 +1302,7 @@ class erros_pp_solv():
         tf = 100
         x0 = 0
         xf = L
+        variancia = 'tempo'
 
         h_t = [1, 0.5]
         h_x = 25
@@ -1308,7 +1315,7 @@ class erros_pp_solv():
 
         n_x = (xf - x0) / (h_x)
 
-        def calculate_h_t_ex():
+        def calculate_h_t_ex(variancia):
             x_ex_array = []
             t_ex_array = []
             T_ex_array = []
@@ -1316,7 +1323,7 @@ class erros_pp_solv():
             for i in h_t:
 
                 n_t = calculate_n_t(tf, t0, i)
-                x_ex, t_ex, T_ex = analitica.calculate_analitica(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x)
+                x_ex, t_ex, T_ex = analitica.calculate_analitica(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, variancia)
 
                 x_ex_array.append(x_ex)
                 T_ex_array.append(T_ex)
@@ -1326,10 +1333,10 @@ class erros_pp_solv():
             return x_ex_array, t_ex_array, T_ex_array, n_t_array
 
 
-        x_ex_array, t_ex_array, T_ex_array, n_t_array = calculate_h_t_ex()
+        x_ex_array, t_ex_array, T_ex_array, n_t_array = calculate_h_t_ex(variancia)
 
 
-        def calculate_h_t_calc():
+        def calculate_h_t_calc(variancia):
             x_calc_array = []
             t_calc_array = []
             T_calc_array = []
@@ -1337,7 +1344,7 @@ class erros_pp_solv():
             for i in h_t:
 
                 n_t = calculate_n_t(tf, t0, i)
-                x_calc, t_calc, T_calc = BTCS.calculate_BTCS_pp_solv(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x)
+                x_calc, t_calc, T_calc = BTCS.calculate_BTCS_pp_solv(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, variancia)
 
                 x_calc_array.append(x_calc)
                 T_calc_array.append(T_calc)
@@ -1347,7 +1354,7 @@ class erros_pp_solv():
             return x_calc_array, t_calc_array, T_calc_array, n_t_array
 
 
-        x_calc_array, t_calc_array, T_calc_array, n_t_array = calculate_h_t_calc()
+        x_calc_array, t_calc_array, T_calc_array, n_t_array = calculate_h_t_calc(variancia)
 
         # Cálculo do Erro:
 
@@ -1497,6 +1504,7 @@ class erros_pp_solv():
         tf = 100
         x0 = 0
         xf = L
+        variancia = 'malha'
 
         h_x = [25, 15]
         h_t = 0.8
@@ -1509,14 +1517,14 @@ class erros_pp_solv():
 
         n_t = (tf - t0) / (h_t)
 
-        def calculate_h_t_ex():
+        def calculate_h_t_ex(variancia):
             x_ex_array = []
             t_ex_array = []
             T_ex_array = []
             n_x_array = []
             for j in h_x:
                 n_x = calculate_n_x(xf, x0, j)
-                x_ex, t_ex, T_ex = analitica.calculate_analitica(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x)
+                x_ex, t_ex, T_ex = analitica.calculate_analitica(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, variancia)
 
                 x_ex_array.append(x_ex)
                 T_ex_array.append(T_ex)
@@ -1525,16 +1533,16 @@ class erros_pp_solv():
 
             return x_ex_array, t_ex_array, T_ex_array, n_x_array
 
-        x_ex_array, t_ex_array, T_ex_array, n_x_array = calculate_h_t_ex()
+        x_ex_array, t_ex_array, T_ex_array, n_x_array = calculate_h_t_ex(variancia)
 
-        def calculate_h_t_calc():
+        def calculate_h_t_calc(variancia):
             x_calc_array = []
             t_calc_array = []
             T_calc_array = []
             n_x_array = []
             for j in h_x:
                 n_x = calculate_n_x(xf, x0, j)
-                x_calc, t_calc, T_calc = BTCS.calculate_BTCS_pp_solv(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x)
+                x_calc, t_calc, T_calc = BTCS.calculate_BTCS_pp_solv(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, variancia)
 
                 x_calc_array.append(x_calc)
                 T_calc_array.append(T_calc)
@@ -1543,7 +1551,7 @@ class erros_pp_solv():
 
             return x_calc_array, t_calc_array, T_calc_array, n_x_array
 
-        x_calc_array, t_calc_array, T_calc_array, n_x_array = calculate_h_t_calc()
+        x_calc_array, t_calc_array, T_calc_array, n_x_array = calculate_h_t_calc(variancia)
 
         # Cálculo do Erro:
 
@@ -1621,7 +1629,7 @@ class erros_pp_solv():
         plt.show()
 
         # Ajustando uma linha de tendência nos Gráficos LogxLog:
-        grau = 2
+        grau = 1
         coeffs = np.polyfit(h_x_log_list, L2_log_list,
                             grau)  # ajusta a linha de tendência aos dados e retorna os coeficientes do polinômio
         tendencia = np.poly1d(coeffs)  # cria um polinômio a partir dos coeficientes retornados por polyfit
@@ -1647,7 +1655,7 @@ class erros_pp_solv():
         plt.show()
 
         # Ajustando uma linha de tendência nos Gráficos LogxLog:
-        grau = 2
+        grau = 1
         coeffs = np.polyfit(h_x_log_list, E_inf_depois_log_list,
                             grau)  # ajusta a linha de tendência aos dados e retorna os coeficientes do polinômio
         tendencia = np.poly1d(coeffs)  # cria um polinômio a partir dos coeficientes retornados por polyfit
@@ -1672,7 +1680,7 @@ class erros_pp_solv():
         plt.show()
 
         # Ajustando uma linha de tendência nos Gráficos LogxLog:
-        grau = 2
+        grau = 1
         coeffs = np.polyfit(h_x_log_list, err_rel_total_log_list,
                             grau)  # ajusta a linha de tendência aos dados e retorna os coeficientes do polinômio
         tendencia = np.poly1d(coeffs)  # cria um polinômio a partir dos coeficientes retornados por polyfit
@@ -1708,18 +1716,17 @@ L2_list_tempo_tt_btcs, E_inf_depois_list_tempo_tt_btcs, err_rel_total_list_tempo
 L2_list_malha_tt_btcs, E_inf_depois_list_malha_tt_btcs, err_rel_total_list_malha_tt_btcs, n_x_array, n_t = erros_tt_btcs.calculate_erros_malha()
 L2_list_tempo_tt_cn, E_inf_depois_list_tempo_tt_cn, err_rel_total_list_tempo_tt_cn, n_t_array, n_x = erros_tt_cn.calculate_erros_tempo()
 L2_list_malha_tt_cn, E_inf_depois_list_malha_tt_cn, err_rel_total_list_malha_tt_cn, n_x_array, n_t = erros_tt_cn.calculate_erros_malha()
-
+print(L2_list_malha_tt_ftcs)
+print(E_inf_depois_list_tempo_tt_ftcs)
+print(err_rel_total_list_tempo_tt_ftcs)
+print(L2_list_malha_tt_ftcs)
 
 # Tabelas Tempo:
 tabela = PrettyTable(['N° de Blocos', 'Steps de Tempo', 'L2 FTCS - Dirchlet', 'L2 BTCS - Dirchlet', 'L2 CN - Dirchlet',
-                      'EAM FTCS - Dirchlet', 'EAM BTCS - Dirchlet', 'EAM CN - Dirchlet'
+                      'EAM FTCS - Dirchlet', 'EAM BTCS - Dirchlet', 'EAM CN - Dirchlet',
                       'L1 FTCS - Dirchlet', 'L1 BTCS - Dirchlet', 'L1 CN - Dirchlet'])
 
-for n_t_val, L2_tt_ftcs_val, L2_tt_btcs_val, L2_tt_cn_val, E_inf_tt_ftcs_val, E_inf_tt_btcs_val, E_inf_tt_cn_val, \
-        err_rel_tt_ftcs_val, err_rel_tt_btcs_val, err_rel_tt_cn_val in zip(n_t_array, L2_list_tempo_tt_ftcs,
-                                                   L2_list_tempo_tt_btcs, L2_list_tempo_tt_cn, E_inf_depois_list_tempo_tt_ftcs,
-                                                   E_inf_depois_list_tempo_tt_btcs, E_inf_depois_list_tempo_tt_cn, err_rel_total_list_tempo_tt_ftcs,
-                                                                           err_rel_total_list_tempo_tt_btcs, err_rel_total_list_tempo_tt_cn):
+for n_t_val, L2_tt_ftcs_val, L2_tt_btcs_val, L2_tt_cn_val, E_inf_tt_ftcs_val, E_inf_tt_btcs_val, E_inf_tt_cn_val, err_rel_tt_ftcs_val, err_rel_tt_btcs_val, err_rel_tt_cn_val in zip(n_t_array, L2_list_tempo_tt_ftcs, L2_list_tempo_tt_btcs, L2_list_tempo_tt_cn, E_inf_depois_list_tempo_tt_ftcs, E_inf_depois_list_tempo_tt_btcs, E_inf_depois_list_tempo_tt_cn, err_rel_total_list_tempo_tt_ftcs, err_rel_total_list_tempo_tt_btcs, err_rel_total_list_tempo_tt_cn):
     rounded_L2_tt_ftcs_val = round(L2_tt_ftcs_val, 4)
     rounded_L2_tt_btcs_val = round(L2_tt_btcs_val, 4)
     rounded_L2_tt_cn_val = round(L2_tt_cn_val, 4)
@@ -1737,7 +1744,7 @@ print(tabela)
 
 # Tabelas Tempo:
 tabela = PrettyTable(['Steps de Tempo', 'N° de Blocos', 'L2 FTCS - Dirchlet', 'L2 BTCS - Dirchlet', 'L2 CN - Dirchlet',
-                      'EAM FTCS - Dirchlet', 'EAM BTCS - Dirchlet', 'EAM CN - Dirchlet'
+                      'EAM FTCS - Dirchlet', 'EAM BTCS - Dirchlet', 'EAM CN - Dirchlet',
                       'L1 FTCS - Dirchlet', 'L1 BTCS - Dirchlet', 'L1 CN - Dirchlet'])
 
 for n_x_val, L2_tt_ftcs_val, L2_tt_btcs_val, L2_tt_cn_val, E_inf_tt_ftcs_val, E_inf_tt_btcs_val, E_inf_tt_cn_val, \

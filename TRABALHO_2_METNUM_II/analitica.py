@@ -5,10 +5,15 @@ import matplotlib.pyplot as plt
 
 class analitica():
 
-    def calculate_analitica(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x):
+    def calculate_analitica(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, variancia):
 
         x = np.zeros(int(n_x) + 1)  # de 0 ao tamanho do reservatório com 10 elementos na malha
         t = np.zeros(int(n_t) + 1)  # de 0 a 10 segundos com 10 elementos
+
+        if variancia == 'tempo':
+            v = 'Steps de Tempo'
+        elif variancia == 'malha':
+            v = 'Malha'
 
         h_t = i
         h_x = j
@@ -97,15 +102,16 @@ class analitica():
             if t[i] in time:
                 plt.plot(x, Temperatura[i, :], linestyle='-', label=f't = {t[i]}')
 
-        plt.legend()
+        legend_label = f'{v} {n_x if variancia == "malha" else n_t}'
+        plt.legend(labels=[legend_label])
         plt.title('Solução Analítica - Dirchlet')
         plt.xlabel('Comprimento (m)')
         plt.ylabel('Temperatura (°C)')
         plt.grid()
         plt.show()
 
-        '''
-                fig = plt.figure(figsize=(10,10))
+
+        fig = plt.figure(figsize=(10,10))
         ax = fig.add_subplot(111, projection='3d')
         surf = ax.plot_surface(X, T, Temperatura, rstride=2, cstride=2, cmap=plt.cm.viridis, linewidth=0.5, antialiased=True)
         ax.set_xlabel('x (cm)')
@@ -113,10 +119,11 @@ class analitica():
         ax.set_zlabel('T(x,y) (°C)')
         plt.title('Equação do Calor')
         fig.colorbar(surf, shrink=0.5, aspect=10)
+        fig.text(0.02, 0.02, legend_label, color='black', ha='left')
         ax.view_init(30,60)
 
         plt.show()
-        '''
+
 
 
         return X, t, T

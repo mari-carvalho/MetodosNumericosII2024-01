@@ -4,13 +4,18 @@ import sympy as sp
 
 class FTCS():
 
-    def calculate_FTCS_tt(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x):
+    def calculate_FTCS_tt(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, variancia):
 
         x = np.zeros(int(n_x) + 1)  # de 0 ao tamanho do reservatório com 10 elementos na malha
         t = np.zeros(int(n_t) + 1)  # de 0 a 10 segundos com 10 elementos
         T = np.zeros((int(n_t) + 1, int(n_x) + 1))
         tam = len(x)
         print('tam_ft', tam)
+
+        if variancia == 'tempo':
+            v = 'Steps de Tempo'
+        elif variancia == 'malha':
+            v = 'Malha'
 
         h_t = i
         h_x = j
@@ -90,7 +95,8 @@ class FTCS():
             if t[i] in time:
                 plt.plot(x, T[i, :], linestyle='-', label=f't = {t[i]}')
 
-        plt.legend()
+        legend_label = f'{v} {n_x if variancia == "malha" else n_t}'
+        plt.legend(labels=[legend_label])
         plt.title('Formulação FTCS - Dirchlet')
         plt.xlabel('Comprimento (m)')
         plt.ylabel('Pressão (psia)')
@@ -106,6 +112,7 @@ class FTCS():
         ax.set_ylabel('Tempo (s)')
         ax.set_zlabel('Temperatura (°C)')
         ax.set_title('Formulação FTCS - Dirchlet')
+        fig.text(0.02, 0.02, legend_label, color='black', ha='left')
         plt.show()
 
         return x, t, T
