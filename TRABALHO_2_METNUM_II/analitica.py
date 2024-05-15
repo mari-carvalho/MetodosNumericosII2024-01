@@ -117,7 +117,7 @@ class analitica():
         ax.set_xlabel('x (cm)')
         ax.set_ylabel('t (s')
         ax.set_zlabel('T(x,y) (°C)')
-        plt.title('Equação do Calor')
+        plt.title('Solução Analítica - Dirchlet')
         fig.colorbar(surf, shrink=0.5, aspect=10)
         fig.text(0.02, 0.02, legend_label, color='black', ha='left')
         ax.view_init(30,60)

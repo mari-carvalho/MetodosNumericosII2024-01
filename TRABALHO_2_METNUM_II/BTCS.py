@@ -124,7 +124,7 @@ class BTCS():
         plt.legend(labels=[legend_label])
         plt.title('Formulação BTCS - Dirchlet')
         plt.xlabel('Comprimento (m)')
-        plt.ylabel('Pressão (psia)')
+        plt.ylabel('Temperatura (°C)')
         plt.grid()
         plt.show()
 
@@ -402,7 +402,7 @@ class BTCS():
 
         legend_label = f'{material} - {v} {n_x if variancia == "malha" else n_t}'
         plt.legend(labels=[legend_label])
-        plt.title('Formulação BTCS - Neumann - Gaussa Seidel')
+        plt.title('Formulação BTCS - Neumann - TDMA')
         plt.xlabel('Comprimento (m)')
         plt.ylabel('Pressão (psia)')
         plt.grid()
@@ -416,7 +416,7 @@ class BTCS():
         ax.set_xlabel('Comprimento (m)')
         ax.set_ylabel('Tempo (s)')
         ax.set_zlabel('Temperatura (°C)')
-        ax.set_title('Formulação BTCS - Neumann - Gaussa Seidel')
+        ax.set_title('Formulação BTCS - Neumann - TDMA')
         fig.text(0.02, 0.02, legend_label, color='black', ha='left')
         plt.show()
 
@@ -541,7 +541,7 @@ class BTCS():
 
         legend_label = f'{material} - {v} {n_x if variancia == "malha" else n_t}'
         plt.legend(labels=[legend_label])
-        plt.title('Formulação BTCS - Neumann - Gaussa Seidel')
+        plt.title('Formulação BTCS - Neumann - Jacobi')
         plt.xlabel('Comprimento (m)')
         plt.ylabel('Pressão (psia)')
         plt.grid()
@@ -555,7 +555,7 @@ class BTCS():
         ax.set_xlabel('Comprimento (m)')
         ax.set_ylabel('Tempo (s)')
         ax.set_zlabel('Temperatura (°C)')
-        ax.set_title('Formulação BTCS - Neumann - Gaussa Seidel')
+        ax.set_title('Formulação BTCS - Neumann - Jacobi')
         fig.text(0.02, 0.02, legend_label, color='black', ha='left')
         plt.show()
 
@@ -681,7 +681,7 @@ class BTCS():
 
         legend_label = f'{material} - {v} {n_x if variancia == "malha" else n_t}'
         plt.legend(labels=[legend_label])
-        plt.title('Formulação BTCS - Neumann - Gaussa Seidel')
+        plt.title('Formulação BTCS - Neumann - Gaussa Seidel Relaxamento')
         plt.xlabel('Comprimento (m)')
         plt.ylabel('Pressão (psia)')
         plt.grid()
@@ -695,7 +695,7 @@ class BTCS():
         ax.set_xlabel('Comprimento (m)')
         ax.set_ylabel('Tempo (s)')
         ax.set_zlabel('Temperatura (°C)')
-        ax.set_title('Formulação BTCS - Neumann - Gaussa Seidel')
+        ax.set_title('Formulação BTCS - Neumann - Relaxamento')
         fig.text(0.02, 0.02, legend_label, color='black', ha='left')
         plt.show()
 
@@ -820,7 +820,7 @@ class BTCS():
 
         legend_label = f'{material} - {v} {n_x if variancia == "malha" else n_t}'
         plt.legend(labels=[legend_label])
-        plt.title('Formulação BTCS - Neumann - Gaussa Seidel')
+        plt.title('Formulação BTCS - Neumann - Solver Scipy')
         plt.xlabel('Comprimento (m)')
         plt.ylabel('Pressão (psia)')
         plt.grid()
@@ -834,7 +834,7 @@ class BTCS():
         ax.set_xlabel('Comprimento (m)')
         ax.set_ylabel('Tempo (s)')
         ax.set_zlabel('Temperatura (°C)')
-        ax.set_title('Formulação BTCS - Neumann - Gaussa Seidel')
+        ax.set_title('Formulação BTCS - Neumann - Solver Scipy')
         fig.text(0.02, 0.02, legend_label, color='black', ha='left')
         plt.show()
 
