@@ -29,8 +29,8 @@ class tempo_computacional_tf():
         xf = L
         variancia = 'tempo'
 
-        h_t = [1, 0.5]
-        h_x = 25
+        h_t = [3,2,1,0.5,0.05]
+        h_x = 4
         j = h_x
 
         tempos_totais_cobre = []
@@ -379,8 +379,8 @@ class tempo_computacional_tf():
         cp_list = [0.092, 0.1118]  # cal/(g.ºC)
         k_list = [0.95, 0.032]  # cal/(cm.s.ºC)
         qw = 25
-        L = 80  # cm
-        T0 = 50  # ºC
+        L = 100  # cm
+        T0 = 25  # ºC
         Tw = 0  # ºC
         Te = 0  # ºC
         t0 = 0
@@ -389,8 +389,8 @@ class tempo_computacional_tf():
         xf = L
         variancia = 'malha'
 
-        h_x = [25, 15]
-        h_t = 0.8
+        h_x = [4, 3, 2, 1, 0.5]
+        h_t = 0.05
         i = h_t
 
         tempos_totais_cobre = []

@@ -120,7 +120,7 @@ class BTCS():
             if t[i] in time:
                 plt.plot(x, t_solucoes[i, :], linestyle='-', label=f't = {t[i]}')
 
-        legend_label = f'{v} {n_x if variancia == "malha" else n_t}'
+        legend_label = f'{v} {n_x: .3f}' if variancia == "malha" else f'{v} {n_t:3f}'
         plt.legend(labels=[legend_label])
         plt.title('Formulação BTCS - Dirchlet')
         plt.xlabel('Comprimento (m)')
@@ -260,7 +260,7 @@ class BTCS():
             if t[i] in time:
                 plt.plot(x, t_solucoes[i, :], linestyle='-')
 
-        legend_label = f'{material} - {v} {n_x if variancia == "malha" else n_t}'
+        legend_label = f'{material} - {v} {n_x:.3f}' if variancia == "malha" else f'{material} - {v} {n_t:.3f}'
         plt.legend(labels=[legend_label])
         plt.title('Formulação BTCS - Neumann - Gaussa Seidel')
         plt.xlabel('Comprimento (m)')
@@ -400,7 +400,7 @@ class BTCS():
             if t[i] in time:
                 plt.plot(x, t_solucoes[i, :], linestyle='-')
 
-        legend_label = f'{material} - {v} {n_x if variancia == "malha" else n_t}'
+        legend_label = f'{material} - {v} {n_x:.3f}' if variancia == "malha" else f'{material} - {v} {n_t:.3f}'
         plt.legend(labels=[legend_label])
         plt.title('Formulação BTCS - Neumann - TDMA')
         plt.xlabel('Comprimento (m)')
@@ -539,7 +539,7 @@ class BTCS():
             if t[i] in time:
                 plt.plot(x, t_solucoes[i, :], linestyle='-')
 
-        legend_label = f'{material} - {v} {n_x if variancia == "malha" else n_t}'
+        legend_label = f'{material} - {v} {n_x:.3f}' if variancia == "malha" else f'{material} - {v} {n_t:.3f}'
         plt.legend(labels=[legend_label])
         plt.title('Formulação BTCS - Neumann - Jacobi')
         plt.xlabel('Comprimento (m)')
@@ -679,7 +679,7 @@ class BTCS():
             if t[i] in time:
                 plt.plot(x, t_solucoes[i, :], linestyle='-')
 
-        legend_label = f'{material} - {v} {n_x if variancia == "malha" else n_t}'
+        legend_label = f'{material} - {v} {n_x:.3f}' if variancia == "malha" else f'{material} - {v} {n_t:.3f}'
         plt.legend(labels=[legend_label])
         plt.title('Formulação BTCS - Neumann - Gaussa Seidel Relaxamento')
         plt.xlabel('Comprimento (m)')
@@ -818,7 +818,7 @@ class BTCS():
             if t[i] in time:
                 plt.plot(x, t_solucoes[i, :], linestyle='-')
 
-        legend_label = f'{material} - {v} {n_x if variancia == "malha" else n_t}'
+        legend_label = f'{material} - {v} {n_x:.3f}' if variancia == "malha" else f'{material} - {v} {n_t:.3f}'
         plt.legend(labels=[legend_label])
         plt.title('Formulação BTCS - Neumann - Solver Scipy')
         plt.xlabel('Comprimento (m)')
