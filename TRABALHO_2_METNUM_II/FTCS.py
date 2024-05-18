@@ -98,8 +98,8 @@ class FTCS():
         legend_label = f'{v} {n_x: .3f}' if variancia == "malha" else f'{v} {n_t: .3f}'
         plt.legend(labels=[legend_label])
         plt.title('Formulação FTCS - Dirchlet')
-        plt.xlabel('Comprimento (m)')
-        plt.ylabel('Pressão (psia)')
+        plt.xlabel('Comprimento [cm]')
+        plt.ylabel('Temperatura [°C]')
         plt.grid()
         plt.show()
 
@@ -108,9 +108,9 @@ class FTCS():
         fig = plt.figure()
         ax = fig.add_subplot(111, projection='3d')
         ax.plot_surface(X, Tempo, T[:, :], cmap='viridis')
-        ax.set_xlabel('Comprimento (m)')
-        ax.set_ylabel('Tempo (s)')
-        ax.set_zlabel('Temperatura (°C)')
+        ax.set_xlabel('Comprimento [cm]')
+        ax.set_ylabel('Tempo [s]')
+        ax.set_zlabel('Temperatura [°C]')
         ax.set_title('Formulação FTCS - Dirchlet')
         fig.text(0.02, 0.02, legend_label, color='black', ha='left')
         plt.show()
@@ -218,6 +218,8 @@ class FTCS():
         ax.set_zlabel('Temperatura (°C)')
         ax.set_title('Formulação FTCS - Neumann')
         plt.show()
+
+
 
         return x, t, t
 

@@ -52,7 +52,7 @@ class tempo_computacional_pp():
             for i in h_t:
                 inicio_gs = time.time()
                 n_t = calculate_n_t(tf, t0, i)
-                x_calc_pp_gs, t_calc_pp_gs, T_calc_tf_gs = BTCS.calculate_BTCS_pp_gs(p0, pw, qw, q0, cc, mi, k, h, phi, c, L, A, x0, xf, t0, tf, i, j, n_t, n_x)
+                x_calc_pp_gs, t_calc_pp_gs, T_calc_tf_gs = BTCS.calculate_BTCS_tt(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, variancia)
                 fim_gs = time.time()
                 tempo_total_gs = fim_gs - inicio_gs
 
@@ -114,7 +114,7 @@ class tempo_computacional_pp():
             for i in h_t:
                 inicio_gsr = time.time()
                 n_t = calculate_n_t(tf, t0, i)
-                x_calc_pp_gsr, t_calc_pp_gsr, T_calc_tf_gsr = BTCS.calculate_BTCS_pp_gsr(p0, pw, qw, q0, cc, mi, k, h, phi, c, L, A, x0, xf, t0, tf, i, j, n_t, n_x)
+                x_calc_pp_gsr, t_calc_pp_gsr, T_calc_tf_gsr = BTCS.calculate_BTCS_tt_gsr(p0, pw, qw, q0, cc, mi, k, h, phi, c, L, A, x0, xf, t0, tf, i, j, n_t, n_x)
                 fim_gsr = time.time()
                 tempo_total_gsr = fim_gsr - inicio_gsr
 
@@ -134,7 +134,7 @@ class tempo_computacional_pp():
             for i in h_t:
                 inicio_solv = time.time()
                 n_t = calculate_n_t(tf, t0, i)
-                x_calc_pp_solv, t_calc_pp_solv, p_calc_pp_solv = BTCS.calculate_BTCS_pp_solv(p0, pw, qw, q0, cc, mi, k, h, phi, c, L, A, x0, xf, t0, tf, i, j, n_t, n_x)
+                x_calc_pp_solv, t_calc_pp_solv, p_calc_pp_solv = BTCS.calculate_BTCS_tt_solv(p0, pw, qw, q0, cc, mi, k, h, phi, c, L, A, x0, xf, t0, tf, i, j, n_t, n_x)
                 fim_solv = time.time()
                 tempo_total_solv = fim_solv - inicio_solv
 
@@ -215,7 +215,7 @@ class tempo_computacional_pp():
             for j in h_x:
                 inicio_gs = time.time()
                 n_x = calculate_n_x(xf, x0, j)
-                x_calc_pp_gs, t_calc_pp_gs, T_calc_tf_gs = BTCS.calculate_BTCS_pp_gs(p0, pw, qw, q0, cc, mi, k, h, phi, c, L, A, x0, xf, t0, tf, i, j, n_t, n_x)
+                x_calc_pp_gs, t_calc_pp_gs, T_calc_tf_gs = BTCS.calculate_BTCS_tt_gs(p0, pw, qw, q0, cc, mi, k, h, phi, c, L, A, x0, xf, t0, tf, i, j, n_t, n_x)
                 fim_gs = time.time()
                 tempo_total_gs = fim_gs - inicio_gs
 
@@ -236,7 +236,7 @@ class tempo_computacional_pp():
             for j in h_x:
                 inicio_tdma = time.time()
                 n_x = calculate_n_x(xf, x0, j)
-                x_calc_tf_tdma, t_calc_tf_tdma, T_calc_tf_tdma = BTCS.calculate_BTCS_pp_tdma(p0, pw, qw, q0, cc, mi, k, h, phi, c, L, A, x0, xf, t0, tf, i, j, n_t, n_x)
+                x_calc_tf_tdma, t_calc_tf_tdma, T_calc_tf_tdma = BTCS.calculate_BTCS_tt_tdma(p0, pw, qw, q0, cc, mi, k, h, phi, c, L, A, x0, xf, t0, tf, i, j, n_t, n_x)
                 fim_tdma = time.time()
                 tempo_total_tdma = fim_tdma - inicio_tdma
 
@@ -256,7 +256,7 @@ class tempo_computacional_pp():
             for j in h_x:
                 inicio_jac = time.time()
                 n_x = calculate_n_x(xf, x0, j)
-                x_calc_pp_jac, t_calc_pp_jac, p_calc_pp_jac = BTCS.calculate_BTCS_pp_jac(p0, pw, qw, q0, cc, mi, k, h, phi, c, L, A, x0, xf, t0, tf, i, j, n_t, n_x)
+                x_calc_pp_jac, t_calc_pp_jac, p_calc_pp_jac = BTCS.calculate_BTCS_tt_jac(p0, pw, qw, q0, cc, mi, k, h, phi, c, L, A, x0, xf, t0, tf, i, j, n_t, n_x)
                 fim_jac = time.time()
                 tempo_total_jac = fim_jac - inicio_jac
 
@@ -277,7 +277,7 @@ class tempo_computacional_pp():
             for j in h_x:
                 inicio_gsr = time.time()
                 n_x = calculate_n_x(xf, x0, j)
-                x_calc_pp_gsr, t_calc_pp_gsr, T_calc_tf_gsr = BTCS.calculate_BTCS_pp_gsr(p0, pw, qw, q0, cc, mi, k, h, phi, c, L, A, x0, xf, t0, tf, i, j, n_t, n_x)
+                x_calc_pp_gsr, t_calc_pp_gsr, T_calc_tf_gsr = BTCS.calculate_BTCS_tt_gsr(p0, pw, qw, q0, cc, mi, k, h, phi, c, L, A, x0, xf, t0, tf, i, j, n_t, n_x)
                 fim_gsr = time.time()
                 tempo_total_gsr = fim_gsr - inicio_gsr
 
@@ -297,7 +297,7 @@ class tempo_computacional_pp():
             for j in h_x:
                 inicio_solv = time.time()
                 n_x = calculate_n_x(xf, x0, j)
-                x_calc_pp_solv, t_calc_pp_solv, p_calc_pp_solv = BTCS.calculate_BTCS_pp_solv(p0, pw, qw, q0, cc, mi, k, h, phi, c, L, A, x0, xf, t0, tf, i, j, n_t, n_x)
+                x_calc_pp_solv, t_calc_pp_solv, p_calc_pp_solv = BTCS.calculate_BTCS_tt_solv(p0, pw, qw, q0, cc, mi, k, h, phi, c, L, A, x0, xf, t0, tf, i, j, n_t, n_x)
                 fim_solv = time.time()
                 tempo_total_solv = fim_solv - inicio_solv
 
@@ -380,7 +380,7 @@ class tempo_computacional_fp():
             for i in h_t:
                 inicio_gs = time.time()
                 n_t = calculate_n_t(tf, t0, i)
-                x_calc_fp_gs, t_calc_fp_gs, p_calc_fp_gs = BTCS.calculate_BTCS_fp_gs(p0, pw, qw, q0, cc, mi, k, h, phi, c, L, A, x0, xf, t0, tf, i, j, n_t, n_x)
+                x_calc_fp_gs, t_calc_fp_gs, p_calc_fp_gs = BTCS.calculate_BTCS_tf_gs(p0, pw, qw, q0, cc, mi, k, h, phi, c, L, A, x0, xf, t0, tf, i, j, n_t, n_x)
                 fim_gs = time.time()
                 tempo_total_gs = fim_gs - inicio_gs
 
@@ -401,7 +401,7 @@ class tempo_computacional_fp():
             for i in h_t:
                 inicio_tdma = time.time()
                 n_t = calculate_n_t(tf, t0, i)
-                x_calc_fp_tdma, t_calc_fp_tdma, p_calc_fp_tdma = BTCS.calculate_BTCS_fp_tdma(p0, pw, qw, q0, cc, mi, k, h, phi, c, L, A, x0, xf, t0, tf, i, j, n_t, n_x)
+                x_calc_fp_tdma, t_calc_fp_tdma, p_calc_fp_tdma = BTCS.calculate_BTCS_tf_tdma(p0, pw, qw, q0, cc, mi, k, h, phi, c, L, A, x0, xf, t0, tf, i, j, n_t, n_x)
                 fim_tdma = time.time()
                 tempo_total_tdma = fim_tdma - inicio_tdma
 
@@ -422,7 +422,7 @@ class tempo_computacional_fp():
             for i in h_t:
                 inicio_jac = time.time()
                 n_t = calculate_n_t(tf, t0, i)
-                x_calc_fp_jac, t_calc_fp_jac, p_calc_fp_jac = BTCS.calculate_BTCS_fp_jac(p0, pw, qw, q0, cc, mi, k, h, phi, c, L, A, x0, xf, t0, tf, i, j, n_t, n_x)
+                x_calc_fp_jac, t_calc_fp_jac, p_calc_fp_jac = BTCS.calculate_BTCS_tf_jac(p0, pw, qw, q0, cc, mi, k, h, phi, c, L, A, x0, xf, t0, tf, i, j, n_t, n_x)
                 fim_jac = time.time()
                 tempo_total_jac = fim_jac - inicio_jac
 
@@ -443,7 +443,7 @@ class tempo_computacional_fp():
             for i in h_t:
                 inicio_gsr = time.time()
                 n_t = calculate_n_t(tf, t0, i)
-                x_calc_fp_gsr, t_calc_fp_gsr, p_calc_fp_gsr = BTCS.calculate_BTCS_fp_gsr(p0, pw, qw, q0, cc, mi, k, h, phi, c, L, A, x0, xf, t0, tf, i, j, n_t, n_x)
+                x_calc_fp_gsr, t_calc_fp_gsr, p_calc_fp_gsr = BTCS.calculate_BTCS_tf_gsr(p0, pw, qw, q0, cc, mi, k, h, phi, c, L, A, x0, xf, t0, tf, i, j, n_t, n_x)
                 fim_gsr= time.time()
                 tempo_total_gsr = fim_gsr - inicio_gsr
 
@@ -464,7 +464,7 @@ class tempo_computacional_fp():
             for i in h_t:
                 inicio_solv = time.time()
                 n_t = calculate_n_t(tf, t0, i)
-                x_calc_fp_solv, t_calc_fp_solv, p_calc_fp_solv = BTCS.calculate_BTCS_fp_solv(p0, pw, qw, q0, cc, mi, k, h, phi, c, L, A, x0, xf, t0, tf, i, j, n_t, n_x)
+                x_calc_fp_solv, t_calc_fp_solv, p_calc_fp_solv = BTCS.calculate_BTCS_tf_solv(p0, pw, qw, q0, cc, mi, k, h, phi, c, L, A, x0, xf, t0, tf, i, j, n_t, n_x)
                 fim_solv = time.time()
                 tempo_total_solv = fim_solv - inicio_solv
 
@@ -547,7 +547,7 @@ class tempo_computacional_fp():
             for j in h_x:
                 inicio_gs = time.time()
                 n_x = calculate_n_x(xf, x0, j)
-                x_calc_fp_gs, t_calc_fp_gs, p_calc_fp_gs = BTCS.calculate_BTCS_fp_gs(p0, pw, qw, q0, cc, mi, k, h, phi, c, L, A, x0, xf, t0, tf, i, j, n_t, n_x)
+                x_calc_fp_gs, t_calc_fp_gs, p_calc_fp_gs = BTCS.calculate_BTCS_tf_gs(p0, pw, qw, q0, cc, mi, k, h, phi, c, L, A, x0, xf, t0, tf, i, j, n_t, n_x)
                 fim_gs = time.time()
                 tempo_total_gs = fim_gs - inicio_gs
 
@@ -568,7 +568,7 @@ class tempo_computacional_fp():
             for j in h_x:
                 inicio_tdma = time.time()
                 n_x = calculate_n_x(xf, x0, j)
-                x_calc_fp_tdma, t_calc_fp_tdma, p_calc_fp_tdma = BTCS.calculate_BTCS_fp_tdma(p0, pw, qw, q0, cc, mi, k, h, phi, c, L, A, x0, xf, t0, tf, i, j, n_t, n_x)
+                x_calc_fp_tdma, t_calc_fp_tdma, p_calc_fp_tdma = BTCS.calculate_BTCS_tf_tdma(p0, pw, qw, q0, cc, mi, k, h, phi, c, L, A, x0, xf, t0, tf, i, j, n_t, n_x)
                 fim_tdma = time.time()
                 tempo_total_tdma = fim_tdma - inicio_tdma
 
@@ -589,7 +589,7 @@ class tempo_computacional_fp():
             for j in h_x:
                 inicio_jac = time.time()
                 n_x = calculate_n_x(xf, x0, j)
-                x_calc_fp_jac, t_calc_fp_jac, p_calc_fp_jac = BTCS.calculate_BTCS_fp_jac(p0, pw, qw, q0, cc, mi, k, h, phi, c, L, A, x0, xf, t0, tf, i, j, n_t, n_x)
+                x_calc_fp_jac, t_calc_fp_jac, p_calc_fp_jac = BTCS.calculate_BTCS_tf_jac(p0, pw, qw, q0, cc, mi, k, h, phi, c, L, A, x0, xf, t0, tf, i, j, n_t, n_x)
                 fim_jac = time.time()
                 tempo_total_jac = fim_jac - inicio_jac
 
@@ -610,7 +610,7 @@ class tempo_computacional_fp():
             for j in h_x:
                 inicio_gsr = time.time()
                 n_x = calculate_n_x(xf, x0, j)
-                x_calc_fp_gsr, t_calc_fp_gsr, p_calc_fp_gsr = BTCS.calculate_BTCS_fp_gsr(p0, pw, qw, q0, cc, mi, k, h, phi, c, L, A, x0, xf, t0, tf, i, j, n_t, n_x)
+                x_calc_fp_gsr, t_calc_fp_gsr, p_calc_fp_gsr = BTCS.calculate_BTCS_tf_gsr(p0, pw, qw, q0, cc, mi, k, h, phi, c, L, A, x0, xf, t0, tf, i, j, n_t, n_x)
                 fim_gsr= time.time()
                 tempo_total_gsr = fim_gsr - inicio_gsr
 
@@ -631,7 +631,7 @@ class tempo_computacional_fp():
             for j in h_x:
                 inicio_solv = time.time()
                 n_x = calculate_n_x(xf, x0, j)
-                x_calc_fp_solv, t_calc_fp_solv, p_calc_fp_solv = BTCS.calculate_BTCS_fp_solv(p0, pw, qw, q0, cc, mi, k, h, phi, c, L, A, x0, xf, t0, tf, i, j, n_t, n_x)
+                x_calc_fp_solv, t_calc_fp_solv, p_calc_fp_solv = BTCS.calculate_BTCS_tf_solv(p0, pw, qw, q0, cc, mi, k, h, phi, c, L, A, x0, xf, t0, tf, i, j, n_t, n_x)
                 fim_solv = time.time()
                 tempo_total_solv = fim_solv - inicio_solv
 

@@ -120,10 +120,12 @@ class comparacao_metodos():
             y_calc_btcs = T_calc_btcs[1000]
             y_calc_cn = T_calc_cn[1000]
             x_calc_cn = x_calc_array_cn[i]
-            plt.plot(x_calc_cn, y_ex_analitica, linestyle='dashed', color='pink', label='Analítica')
-            plt.plot(x_calc_cn, y_calc_ftcs, linestyle='-', color='red', label='Explícita')
-            plt.plot(x_calc_cn, y_calc_btcs, linestyle='-', color='green', label='Implícita')
-            plt.plot(x_calc_cn, y_calc_cn, linestyle='-', color='blue', label='Crank Nicolson')
+            rosa_vibrante = (255 / 255, 20 / 255, 147 / 255)
+            roxo_vibrante = (138 / 255, 43 / 255, 226 / 255)
+            plt.plot(x_calc_cn, y_ex_analitica, linestyle='dashed', color=rosa_vibrante, label='Analítica')
+            plt.plot(x_calc_cn, y_calc_ftcs, linestyle='-', color=roxo_vibrante, label='Explícita')
+            plt.plot(x_calc_cn, y_calc_btcs, linestyle='-', color='blue', label='Implícita')
+            plt.plot(x_calc_cn, y_calc_cn, linestyle='-', color='green', label='Crank Nicolson')
 
             plt.legend()
             plt.xlabel('Comprimento [cm]')

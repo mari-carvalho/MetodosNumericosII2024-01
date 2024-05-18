@@ -136,7 +136,7 @@ class erros_tt_ftcs():
         h_t_log_list = np.log(h_t)
 
         # Plotagem:
-        plt.plot(h_t_log_list, L2_list_tempo_tt_ftcs, linestyle='none', marker='o', color="#FF007F", label='Erro Analítica/Explícita')
+        plt.plot(h_t, L2_list_tempo_tt_ftcs, linestyle='none', marker='o', color="#FF007F", label='Erro Analítica/Explícita')
         plt.title('Norma Euclidiana - Norma L2')
         plt.legend()
         plt.xlabel(r'$\bigtriangleup t$ [s]')
@@ -152,12 +152,12 @@ class erros_tt_ftcs():
         plt.plot(h_t_log_list, L2_log_list, linestyle='none', marker='o', color="#FF007F", label='Erro Analítica/Explícita')
         plt.title('Norma Euclidiana - Norma L2')
         plt.legend()
-        plt.xlabel(r'$\bigtriangleup t$ [s]')
+        plt.xlabel(r' ln ($\bigtriangleup t$ [s])')
         plt.ylabel('ln (L2)')
         plt.show()
 
         # Plotagem:
-        plt.plot(h_t_log_list, E_inf_depois_list_tempo_tt_ftcs, linestyle='none', marker='o', color="#FF007F", label='Erro Analítica/Explícita')
+        plt.plot(h_t, E_inf_depois_list_tempo_tt_ftcs, linestyle='none', marker='o', color="#FF007F", label='Erro Analítica/Explícita')
         plt.title('Erro Absoluto Máximo - Norma E$ \infty$')
         plt.legend()
         plt.xlabel(r'$\bigtriangleup t$ [s]')
@@ -173,12 +173,12 @@ class erros_tt_ftcs():
         plt.plot(h_t_log_list, E_inf_depois_log_list, linestyle='none', marker='o', color="#FF007F", label='Erro Analítica/Explícita')
         plt.title('Erro Absoluto Máximo - Norma E$ \infty$')
         plt.legend()
-        plt.xlabel(r'$\bigtriangleup t$ [s]')
+        plt.xlabel(r' ln ($\bigtriangleup t$ [s])')
         plt.ylabel('ln (E$ \infty$)')
         plt.show()
 
         # Plotagem:
-        plt.plot(h_t_log_list, err_rel_total_list_tempo_tt_ftcs, linestyle='none', marker='o', color="#FF007F", label='Erro Analítica/Explícita')
+        plt.plot(h_t, err_rel_total_list_tempo_tt_ftcs, linestyle='none', marker='o', color="#FF007F", label='Erro Analítica/Explícita')
         plt.title('Erro Relativo - Norma L1')
         plt.legend()
         plt.xlabel(r'$\bigtriangleup t$ [s]')
@@ -194,7 +194,7 @@ class erros_tt_ftcs():
         plt.plot(h_t_log_list, err_rel_total_log_list, linestyle='none', marker='o', color="#FF007F", label='Erro Analítica/Explícita')
         plt.title('Erro Relativo - Norma L1')
         plt.legend()
-        plt.xlabel(r'$\bigtriangleup t$ [s]')
+        plt.xlabel(r' ln ($\bigtriangleup t$ [s])')
         plt.ylabel('ln (L1)')
         plt.show()
 
@@ -344,11 +344,11 @@ class erros_tt_ftcs():
         print('h_t_log', h_x_log_list)
 
         # Plotagem:
-        plt.plot(h_x_log_list, L2_list_malha_tt_ftcs, linestyle='none', marker='o', color="#FF007F",
+        plt.plot(h_x, L2_list_malha_tt_ftcs, linestyle='none', marker='o', color="#FF007F",
                  label='Erro Analítica/Explícita')
         plt.title('Norma Euclidiana - Norma L2')
         plt.legend()
-        plt.xlabel(r'$\bigtriangleup x$ [s]')
+        plt.xlabel(r'$\bigtriangleup x$ [cm]')
         plt.ylabel('L2')
         plt.show()
 
@@ -365,16 +365,16 @@ class erros_tt_ftcs():
                  label='Erro Analítica/Explícita')
         plt.title('Norma Euclidiana - Norma L2')
         plt.legend()
-        plt.xlabel(r'$\bigtriangleup x$ [s]')
+        plt.xlabel(r' ln ($\bigtriangleup x$ [cm])')
         plt.ylabel('ln (L2)')
         plt.show()
 
         # Plotagem:
-        plt.plot(h_x_log_list, E_inf_depois_list_malha_tt_ftcs, linestyle='none', marker='o', color="#FF007F",
+        plt.plot(h_x, E_inf_depois_list_malha_tt_ftcs, linestyle='none', marker='o', color="#FF007F",
                  label='Erro Analítica/Explícita')
         plt.title('Erro Absoluto Máximo - Norma E$ \infty$')
         plt.legend()
-        plt.xlabel(r'$\bigtriangleup x$ [s]')
+        plt.xlabel(r'$\bigtriangleup x$ [cm]')
         plt.ylabel('E$ \infty$')
         plt.show()
 
@@ -391,15 +391,15 @@ class erros_tt_ftcs():
                  label='Erro Analítica/Explícita')
         plt.title('Erro Absoluto Máximo - Norma E$ \infty$')
         plt.legend()
-        plt.xlabel(r'$\bigtriangleup x$ [s]')
+        plt.xlabel(r' ln ($\bigtriangleup x$ [cm])')
         plt.ylabel('ln (E$ \infty$)')
         plt.show()
 
         # Plotagem:
-        plt.plot(h_x_log_list, err_rel_total_list_malha_tt_ftcs, linestyle='none', marker='o', color="#FF007F",label='Erro Analítica/Explícita')
+        plt.plot(h_x, err_rel_total_list_malha_tt_ftcs, linestyle='none', marker='o', color="#FF007F",label='Erro Analítica/Explícita')
         plt.title('Erro Relativo - Norma L1')
         plt.legend()
-        plt.xlabel(r'$\bigtriangleup x$ [s]')
+        plt.xlabel(r' $\bigtriangleup x$ [cm]')
         plt.ylabel('L1')
         plt.show()
 
@@ -416,7 +416,7 @@ class erros_tt_ftcs():
                  label='Erro Analítica/Explícita')
         plt.title('Erro Relativo - Norma L1')
         plt.legend()
-        plt.xlabel(r'$\bigtriangleup x$ [s]')
+        plt.xlabel(r' ln ($\bigtriangleup x$ [s])')
         plt.ylabel('ln (L1)')
         plt.show()
 
@@ -562,7 +562,7 @@ class erros_tt_btcs():
         h_t_log_list = np.log(h_t)
 
         # Plotagem:
-        plt.plot(h_t_log_list, L2_list_tempo_tt_btcs , linestyle='none', marker='o', color="#FF007F", label='Erro Analítica/Explícita')
+        plt.plot(h_t, L2_list_tempo_tt_btcs , linestyle='none', marker='o', color="#FF007F", label='Erro Analítica/Explícita')
         plt.title('Norma Euclidiana - Norma L2')
         plt.legend()
         plt.xlabel(r'$\bigtriangleup t$ [s]')
@@ -578,12 +578,12 @@ class erros_tt_btcs():
         plt.plot(h_t_log_list, L2_log_list, linestyle='none', marker='o', color="#FF007F", label='Erro Analítica/Explícita')
         plt.title('Norma Euclidiana - Norma L2')
         plt.legend()
-        plt.xlabel(r'$\bigtriangleup t$ [s]')
+        plt.xlabel(r' ln ($\bigtriangleup t$ [s])')
         plt.ylabel('ln (L2)')
         plt.show()
 
         # Plotagem:
-        plt.plot(h_t_log_list, E_inf_depois_list_tempo_tt_btcs , linestyle='none', marker='o', color="#FF007F", label='Erro Analítica/Explícita')
+        plt.plot(h_t, E_inf_depois_list_tempo_tt_btcs , linestyle='none', marker='o', color="#FF007F", label='Erro Analítica/Explícita')
         plt.title('Erro Absoluto Máximo - Norma E$ \infty$')
         plt.legend()
         plt.xlabel(r'$\bigtriangleup t$ [s]')
@@ -599,12 +599,12 @@ class erros_tt_btcs():
         plt.plot(h_t_log_list, E_inf_depois_log_list, linestyle='none', marker='o', color="#FF007F", label='Erro Analítica/Explícita')
         plt.title('Erro Absoluto Máximo - Norma E$ \infty$')
         plt.legend()
-        plt.xlabel(r'$\bigtriangleup t$ [s]')
+        plt.xlabel(r' ln ($\bigtriangleup t$ [s])')
         plt.ylabel('ln (E$ \infty$)')
         plt.show()
 
         # Plotagem:
-        plt.plot(h_t_log_list, err_rel_total_list_tempo_tt_btcs , linestyle='none', marker='o', color="#FF007F", label='Erro Analítica/Explícita')
+        plt.plot(h_t, err_rel_total_list_tempo_tt_btcs , linestyle='none', marker='o', color="#FF007F", label='Erro Analítica/Explícita')
         plt.title('Erro Relativo - Norma L1')
         plt.legend()
         plt.xlabel(r'$\bigtriangleup t$ [s]')
@@ -620,7 +620,7 @@ class erros_tt_btcs():
         plt.plot(h_t_log_list, err_rel_total_log_list, linestyle='none', marker='o', color="#FF007F", label='Erro Analítica/Explícita')
         plt.title('Erro Relativo - Norma L1')
         plt.legend()
-        plt.xlabel(r'$\bigtriangleup t$ [s]')
+        plt.xlabel(r' ln ($\bigtriangleup t$ [s])')
         plt.ylabel('ln (L1)')
         plt.show()
 
@@ -770,11 +770,11 @@ class erros_tt_btcs():
         print('h_t_log', h_x_log_list)
 
         # Plotagem:
-        plt.plot(h_x_log_list, L2_list_malha_tt_btcs , linestyle='none', marker='o', color="#FF007F",
+        plt.plot(h_x, L2_list_malha_tt_btcs , linestyle='none', marker='o', color="#FF007F",
                  label='Erro Analítica/Explícita')
         plt.title('Norma Euclidiana - Norma L2')
         plt.legend()
-        plt.xlabel(r'$\bigtriangleup x$ [s]')
+        plt.xlabel(r'$\bigtriangleup x$ [cm]')
         plt.ylabel('L2')
         plt.show()
 
@@ -791,16 +791,16 @@ class erros_tt_btcs():
                  label='Erro Analítica/Explícita')
         plt.title('Norma Euclidiana - Norma L2')
         plt.legend()
-        plt.xlabel(r'$\bigtriangleup x$ [s]')
+        plt.xlabel(r' ln ($\bigtriangleup x$ [cm])')
         plt.ylabel('ln (L2)')
         plt.show()
 
         # Plotagem:
-        plt.plot(h_x_log_list, E_inf_depois_list_malha_tt_btcs , linestyle='none', marker='o', color="#FF007F",
+        plt.plot(h_x, E_inf_depois_list_malha_tt_btcs , linestyle='none', marker='o', color="#FF007F",
                  label='Erro Analítica/Explícita')
         plt.title('Erro Absoluto Máximo - Norma E$ \infty$')
         plt.legend()
-        plt.xlabel(r'$\bigtriangleup x$ [s]')
+        plt.xlabel(r'$\bigtriangleup x$ [cm]')
         plt.ylabel('E$ \infty$')
         plt.show()
 
@@ -817,15 +817,15 @@ class erros_tt_btcs():
                  label='Erro Analítica/Explícita')
         plt.title('Erro Absoluto Máximo - Norma E$ \infty$')
         plt.legend()
-        plt.xlabel(r'$\bigtriangleup x$ [s]')
+        plt.xlabel(r' ln ($\bigtriangleup x$ [cm])')
         plt.ylabel('ln (E$ \infty$)')
         plt.show()
 
         # Plotagem:
-        plt.plot(h_x_log_list, err_rel_total_list_malha_tt_btcs , linestyle='none', marker='o', color="#FF007F",label='Erro Analítica/Explícita')
+        plt.plot(h_x, err_rel_total_list_malha_tt_btcs , linestyle='none', marker='o', color="#FF007F",label='Erro Analítica/Explícita')
         plt.title('Erro Relativo - Norma L1')
         plt.legend()
-        plt.xlabel(r'$\bigtriangleup x$ [s]')
+        plt.xlabel(r'$\bigtriangleup x$ [cm]')
         plt.ylabel('L1')
         plt.show()
 
@@ -842,7 +842,7 @@ class erros_tt_btcs():
                  label='Erro Analítica/Explícita')
         plt.title('Erro Relativo - Norma L1')
         plt.legend()
-        plt.xlabel(r'$\bigtriangleup x$ [s]')
+        plt.xlabel(r' ln ($\bigtriangleup x$ [cm])')
         plt.ylabel('ln (L1)')
         plt.show()
 
@@ -988,7 +988,7 @@ class erros_tt_cn():
         h_t_log_list = np.log(h_t)
 
         # Plotagem:
-        plt.plot(h_t_log_list, L2_list_tempo_tt_cn, linestyle='none', marker='o', color="#FF007F", label='Erro Analítica/Explícita')
+        plt.plot(h_t, L2_list_tempo_tt_cn, linestyle='none', marker='o', color="#FF007F", label='Erro Analítica/Explícita')
         plt.title('Norma Euclidiana - Norma L2')
         plt.legend()
         plt.xlabel(r'$\bigtriangleup t$ [s]')
@@ -1004,12 +1004,12 @@ class erros_tt_cn():
         plt.plot(h_t_log_list, L2_log_list, linestyle='none', marker='o', color="#FF007F", label='Erro Analítica/Explícita')
         plt.title('Norma Euclidiana - Norma L2')
         plt.legend()
-        plt.xlabel(r'$\bigtriangleup t$ [s]')
+        plt.xlabel(r' ln ($\bigtriangleup t$ [s])')
         plt.ylabel('ln (L2)')
         plt.show()
 
         # Plotagem:
-        plt.plot(h_t_log_list, E_inf_depois_list_tempo_tt_cn, linestyle='none', marker='o', color="#FF007F", label='Erro Analítica/Explícita')
+        plt.plot(h_t, E_inf_depois_list_tempo_tt_cn, linestyle='none', marker='o', color="#FF007F", label='Erro Analítica/Explícita')
         plt.title('Erro Absoluto Máximo - Norma E$ \infty$')
         plt.legend()
         plt.xlabel(r'$\bigtriangleup t$ [s]')
@@ -1025,12 +1025,12 @@ class erros_tt_cn():
         plt.plot(h_t_log_list, E_inf_depois_log_list, linestyle='none', marker='o', color="#FF007F", label='Erro Analítica/Explícita')
         plt.title('Erro Absoluto Máximo - Norma E$ \infty$')
         plt.legend()
-        plt.xlabel(r'$\bigtriangleup t$ [s]')
+        plt.xlabel(r' ln ($\bigtriangleup t$ [s])')
         plt.ylabel('ln (E$ \infty$)')
         plt.show()
 
         # Plotagem:
-        plt.plot(h_t_log_list, err_rel_total_list_tempo_tt_cn, linestyle='none', marker='o', color="#FF007F", label='Erro Analítica/Explícita')
+        plt.plot(h_t, err_rel_total_list_tempo_tt_cn, linestyle='none', marker='o', color="#FF007F", label='Erro Analítica/Explícita')
         plt.title('Erro Relativo - Norma L1')
         plt.legend()
         plt.xlabel(r'$\bigtriangleup t$ [s]')
@@ -1046,7 +1046,7 @@ class erros_tt_cn():
         plt.plot(h_t_log_list, err_rel_total_log_list, linestyle='none', marker='o', color="#FF007F", label='Erro Analítica/Explícita')
         plt.title('Erro Relativo - Norma L1')
         plt.legend()
-        plt.xlabel(r'$\bigtriangleup t$ [s]')
+        plt.xlabel(r' ln ($\bigtriangleup t$ [s])')
         plt.ylabel('ln (L1)')
         plt.show()
 
@@ -1195,11 +1195,11 @@ class erros_tt_cn():
         print('h_t_log', h_x_log_list)
 
         # Plotagem:
-        plt.plot(h_x_log_list, L2_list_malha_tt_cn, linestyle='none', marker='o', color="#FF007F",
+        plt.plot(h_x, L2_list_malha_tt_cn, linestyle='none', marker='o', color="#FF007F",
                  label='Erro Analítica/Explícita')
         plt.title('Norma Euclidiana - Norma L2')
         plt.legend()
-        plt.xlabel(r'$\bigtriangleup x$ [s]')
+        plt.xlabel(r'$\bigtriangleup x$ [cm]')
         plt.ylabel('L2')
         plt.show()
 
@@ -1216,16 +1216,16 @@ class erros_tt_cn():
                  label='Erro Analítica/Explícita')
         plt.title('Norma Euclidiana - Norma L2')
         plt.legend()
-        plt.xlabel(r'$\bigtriangleup x$ [s]')
+        plt.xlabel(r' ln ($\bigtriangleup x$ [cm])')
         plt.ylabel('ln (L2)')
         plt.show()
 
         # Plotagem:
-        plt.plot(h_x_log_list, E_inf_depois_list_malha_tt_cn, linestyle='none', marker='o', color="#FF007F",
+        plt.plot(h_x, E_inf_depois_list_malha_tt_cn, linestyle='none', marker='o', color="#FF007F",
                  label='Erro Analítica/Explícita')
         plt.title('Erro Absoluto Máximo - Norma E$ \infty$')
         plt.legend()
-        plt.xlabel(r'$\bigtriangleup x$ [s]')
+        plt.xlabel(r'$\bigtriangleup x$ [cm]')
         plt.ylabel('E$ \infty$')
         plt.show()
 
@@ -1242,15 +1242,15 @@ class erros_tt_cn():
                  label='Erro Analítica/Explícita')
         plt.title('Erro Absoluto Máximo - Norma E$ \infty$')
         plt.legend()
-        plt.xlabel(r'$\bigtriangleup x$ [s]')
+        plt.xlabel(r' ln ($\bigtriangleup x$ [cm])')
         plt.ylabel('ln (E$ \infty$)')
         plt.show()
 
         # Plotagem:
-        plt.plot(h_x_log_list, err_rel_total_list_malha_tt_cn, linestyle='none', marker='o', color="#FF007F",label='Erro Analítica/Explícita')
+        plt.plot(h_x, err_rel_total_list_malha_tt_cn, linestyle='none', marker='o', color="#FF007F",label='Erro Analítica/Explícita')
         plt.title('Erro Relativo - Norma L1')
         plt.legend()
-        plt.xlabel(r'$\bigtriangleup x$ [s]')
+        plt.xlabel(r'$\bigtriangleup x$ [cm]')
         plt.ylabel('L1')
         plt.show()
 
@@ -1267,7 +1267,7 @@ class erros_tt_cn():
                  label='Erro Analítica/Explícita')
         plt.title('Erro Relativo - Norma L1')
         plt.legend()
-        plt.xlabel(r'$\bigtriangleup x$ [s]')
+        plt.xlabel(r' ln ($\bigtriangleup x$ [cm])')
         plt.ylabel('ln (L1)')
         plt.show()
 

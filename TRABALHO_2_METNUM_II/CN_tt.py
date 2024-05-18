@@ -117,11 +117,11 @@ class CN():
             if t[i] in time:
                 plt.plot(x, t_solucoes[i, :], linestyle='-', label=f't = {t[i]}')
 
-        legend_label = f'{v} {n_x if variancia == "malha" else n_t}'
+        legend_label = f'{v} {n_x: .3f}' if variancia == "malha" else f'{v} {n_t: .3f}'
         plt.legend([legend_label])
         plt.title('Formulação CN - Dirchlet')
-        plt.xlabel('Comprimento (m)')
-        plt.ylabel('Temperatura (°C)')
+        plt.xlabel('Comprimento [cm]')
+        plt.ylabel('Temperatura [°C]')
         plt.grid()
         plt.show()
 
@@ -129,9 +129,9 @@ class CN():
         fig = plt.figure()
         ax = fig.add_subplot(111, projection='3d')
         ax.plot_surface(X, T, t_solucoes[:-1, :], cmap='viridis')
-        ax.set_xlabel('Comprimento (m)')
-        ax.set_ylabel('Tempo (s)')
-        ax.set_zlabel('Temperatura (°C)')
+        ax.set_xlabel('Comprimento [cm]')
+        ax.set_ylabel('Tempo [s]')
+        ax.set_zlabel('Temperatura [°C]')
         ax.set_title('Formulação CN - Dirchlet')
         fig.text(0.02, 0.02, legend_label, color='black', ha='left')
         plt.show()
@@ -251,8 +251,8 @@ class CN():
                 plt.plot(x, t_solucoes[i, :], linestyle='-', label=f't = {t[i]}')
 
         plt.legend()
-        plt.xlabel('Comprimento (m)')
-        plt.ylabel('Temperatura (°C)')
+        plt.xlabel('Comprimento [cm]')
+        plt.ylabel('Temperatura [°C]')
         plt.grid()
         plt.show()
 
