@@ -18,7 +18,6 @@ class BTCS():
         elif variancia == 'malha':
             v = 'Malha'
 
-
         h_t = i
         h_x = j
 
@@ -46,8 +45,8 @@ class BTCS():
         print('x', x)
         print('t', t)
 
-        def calculate_eta(k:float, rho:float, cp:float) -> float:
-            eta = k / (rho*cp)
+        def calculate_eta(k: float, rho: float, cp: float) -> float:
+            eta = k / (rho * cp)
 
             return eta
 
@@ -76,12 +75,14 @@ class BTCS():
 
         t_coeficientes = np.zeros((int(n_x) + 1, int(n_x) + 1))  # a matriz de coeficientes deve ser quadrada
         t_old = np.ones(int(n_x) + 1) * T0  # vai atualizar cada linha da matriz
-        t_solucoes = np.zeros((int(n_t) + 2,int(n_x) + 1))  # matriz de soluções pode seguir a mesma lógica da FTCS, não quadrada. a matriz de soluções deve ter dimensão de 402 em linhas, porque o vetor de h começa em 0 + 1 = 1 (linha 0 da matriz de soluções é a condição inicial p0), para ir até 401 deve ter uma dimensão a mais (21 linhas, preenche até 20 começando de 0; 401 linhas, preenche até 400 começando de 0; 402 linhas, preenche até 400, começando de 1 )
+        t_solucoes = np.zeros((int(n_t) + 2,
+                               int(n_x) + 1))  # matriz de soluções pode seguir a mesma lógica da FTCS, não quadrada. a matriz de soluções deve ter dimensão de 402 em linhas, porque o vetor de h começa em 0 + 1 = 1 (linha 0 da matriz de soluções é a condição inicial p0), para ir até 401 deve ter uma dimensão a mais (21 linhas, preenche até 20 começando de 0; 401 linhas, preenche até 400 começando de 0; 402 linhas, preenche até 400, começando de 1 )
         d = np.zeros(int(n_x) + 1)  # vai guardar os valores de p no tempo anterior mais 8/3*eta*rx*(Pw ou P0)
         h = 0  # para acompanhar o tamanho do vetor de tempo (0 a 9, 10 elementos), p_soluções deve ter uma posição a frente (1 a 9, 9 elementos)
         t_solucoes[h, :] = T0  # primeira linhas todas as colunas, tempo = 0
 
-        for j in range(len(t)):  # 0 a 4 (tamanho de t), tempo 4 elemento 5; 1 a 4 (tamanho de t, mesmo for), tempo 4 elemento 4; precisa de mais um elemento
+        for j in range(
+                len(t)):  # 0 a 4 (tamanho de t), tempo 4 elemento 5; 1 a 4 (tamanho de t, mesmo for), tempo 4 elemento 4; precisa de mais um elemento
             h = h + 1
             t_coeficientes = np.zeros((int(n_x) + 1, int(n_x) + 1))
             for i in range(len(t_coeficientes)):  # variando a linha
@@ -103,9 +104,10 @@ class BTCS():
             t_new = solvers.gauss_seidel(t_coeficientes, d, x0, Eppara, maxit)
             # p_new = solve(p_coeficientes,d)
             t_old = t_new  # atualiza a matriz, coloca o vetor de pressões calculado no tempo anterior (p_new) em p_old
-            #t_new = np.insert(t_new, 0, T0)  # inserindo colunas
-            #t_new = np.append(t_new, Tw)  # append sempre no final
-            t_solucoes[h,:] = t_new  # vai guardar na matriz de solucoes todos os vetores de pressão calculados nos tempos
+            # t_new = np.insert(t_new, 0, T0)  # inserindo colunas
+            # t_new = np.append(t_new, Tw)  # append sempre no final
+            t_solucoes[h,
+            :] = t_new  # vai guardar na matriz de solucoes todos os vetores de pressão calculados nos tempos
 
         print(t_solucoes)
         print(t_coeficientes)
@@ -123,25 +125,25 @@ class BTCS():
         legend_label = f'{v} {n_x: .3f}' if variancia == "malha" else f'{v} {n_t: .3f}'
         plt.legend(labels=[legend_label])
         plt.title('Formulação BTCS - Dirchlet')
-        plt.xlabel('Comprimento [cm]')
-        plt.ylabel('Temperatura [°C]')
+        plt.xlabel('Comprimento (m)')
+        plt.ylabel('Temperatura (°C)')
         plt.grid()
         plt.show()
 
-        #Plot 3D BTCS_tt
+        # Plot 3D BTCS_tt
         X, T = np.meshgrid(x, t)
         fig = plt.figure()
         ax = fig.add_subplot(111, projection='3d')
         ax.plot_surface(X, T, t_solucoes[:-1, :], cmap='viridis')
-        ax.set_xlabel('Comprimento [cm]')
-        ax.set_ylabel('Tempo [s]')
-        ax.set_zlabel('Temperatura(x,y) [°C]')
+        ax.set_xlabel('Comprimento (m)')
+        ax.set_ylabel('Tempo (s)')
+        ax.set_zlabel('Temperatura (°C)')
         ax.set_title('Formulação BTCS - Dirchlet')
         fig.text(0.02, 0.02, legend_label, color='black', ha='left')
         plt.show()
 
         return x, t, t_solucoes
-    
+
     def calculate_BTCS_tf_gs(rho, cp, k, L, Tw, T0, Te, x0, xf, t0, tf, qw, i, j, n_t, n_x, material, variancia):
 
         import numpy as np
@@ -184,8 +186,8 @@ class BTCS():
         print('x', x)
         print('t', t)
 
-        def calculate_eta(k:float, rho:float, cp:float) -> float:
-            eta = k / (rho*cp)
+        def calculate_eta(k: float, rho: float, cp: float) -> float:
+            eta = k / (rho * cp)
 
             return eta
 
@@ -215,12 +217,14 @@ class BTCS():
 
         t_coeficientes = np.zeros((int(n_x) + 1, int(n_x) + 1))  # a matriz de coeficientes deve ser quadrada
         t_old = np.ones(int(n_x) + 1) * T0  # vai atualizar cada linha da matriz
-        t_solucoes = np.zeros((int(n_t) + 2,int(n_x) + 1))  # matriz de soluções pode seguir a mesma lógica da FTCS, não quadrada. a matriz de soluções deve ter dimensão de 402 em linhas, porque o vetor de h começa em 0 + 1 = 1 (linha 0 da matriz de soluções é a condição inicial p0), para ir até 401 deve ter uma dimensão a mais (21 linhas, preenche até 20 começando de 0; 401 linhas, preenche até 400 começando de 0; 402 linhas, preenche até 400, começando de 1 )
+        t_solucoes = np.zeros((int(n_t) + 2,
+                               int(n_x) + 1))  # matriz de soluções pode seguir a mesma lógica da FTCS, não quadrada. a matriz de soluções deve ter dimensão de 402 em linhas, porque o vetor de h começa em 0 + 1 = 1 (linha 0 da matriz de soluções é a condição inicial p0), para ir até 401 deve ter uma dimensão a mais (21 linhas, preenche até 20 começando de 0; 401 linhas, preenche até 400 começando de 0; 402 linhas, preenche até 400, começando de 1 )
         d = np.zeros(int(n_x) + 1)  # vai guardar os valores de p no tempo anterior mais 8/3*eta*rx*(Pw ou P0)
         h = 0  # para acompanhar o tamanho do vetor de tempo (0 a 9, 10 elementos), p_soluções deve ter uma posição a frente (1 a 9, 9 elementos)
         t_solucoes[h, :] = T0  # primeira linhas todas as colunas, tempo = 0
 
-        for j in range(len(t)):  # 0 a 4 (tamanho de t), tempo 4 elemento 5; 1 a 4 (tamanho de t, mesmo for), tempo 4 elemento 4; precisa de mais um elemento
+        for j in range(
+                len(t)):  # 0 a 4 (tamanho de t), tempo 4 elemento 5; 1 a 4 (tamanho de t, mesmo for), tempo 4 elemento 4; precisa de mais um elemento
             h = h + 1
             t_coeficientes = np.zeros((int(n_x) + 1, int(n_x) + 1))
             for i in range(len(t_coeficientes)):  # variando a linha
@@ -229,9 +233,9 @@ class BTCS():
                     t_coeficientes[i, 1] = an
                     d[i] = t_old[i] + 8 / 3 * rx * eta * Te
                 elif i == len(t_coeficientes) - 1:  # o último, N
-                    t_coeficientes[i, len(t_coeficientes) - 2] = ai
-                    t_coeficientes[i, len(t_coeficientes) - 1] = cn
-                    d[i] = t_old[i] - rx * eta * (qw/(h_x*k))
+                    t_coeficientes[i, len(t_coeficientes) - 2] = an
+                    t_coeficientes[i, len(t_coeficientes) - 1] = b1
+                    d[i] = (((8 / 3) * rx * eta) + 1) * t_old[i] + 8 / 3 * rx * eta * (qw / (h_x * k))
                 else:
                     t_coeficientes[i, i - 1] = ai  # linha 1, coluna 0 (i-1)
                     t_coeficientes[i, i] = bi
@@ -242,9 +246,10 @@ class BTCS():
             t_new = solvers.gauss_seidel(t_coeficientes, d, x0, Eppara, maxit)
             # p_new = solve(p_coeficientes,d)
             t_old = t_new  # atualiza a matriz, coloca o vetor de pressões calculado no tempo anterior (p_new) em p_old
-            #t_new = np.insert(t_new, 0, t_new[0] - ((qw)/(k*h_x))) # inserindo colunas
-            #t_new = np.append(t_new, T0) # append sempre no final
-            t_solucoes[h,:] = t_new  # vai guardar na matriz de solucoes todos os vetores de pressão calculados nos tempos
+            # t_new = np.insert(t_new, 0, t_new[0] - ((qw)/(k*h_x))) # inserindo colunas
+            # t_new = np.append(t_new, T0) # append sempre no final
+            t_solucoes[h,
+            :] = t_new  # vai guardar na matriz de solucoes todos os vetores de pressão calculados nos tempos
 
         print(t_solucoes)
         print(t_coeficientes)
@@ -252,7 +257,6 @@ class BTCS():
         tam2 = len(t_coeficientes)
         print('tam', tam1)
         print('tam2', tam2)
-
 
         # Plotagem:
         time = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
@@ -263,23 +267,22 @@ class BTCS():
         legend_label = f'{material} - {v} {n_x: .3f}' if variancia == "malha" else f'{material} - {v} {n_t: .3f}'
         plt.legend(labels=[legend_label])
         plt.title('Formulação BTCS - Neumann - Gaussa Seidel')
-        plt.xlabel('Comprimento [cm]')
-        plt.ylabel('Temperatura [°C]')
+        plt.xlabel('Comprimento (m)')
+        plt.ylabel('Pressão (psia)')
         plt.grid()
         plt.show()
 
-        #Plot 3D BTCS_tf_gs
+        # Plot 3D BTCS_tf_gs
         X, T = np.meshgrid(x, t)
         fig = plt.figure()
         ax = fig.add_subplot(111, projection='3d')
         ax.plot_surface(X, T, t_solucoes[:-1, :], cmap='viridis')
-        ax.set_xlabel('Comprimento [cm]')
-        ax.set_ylabel('Tempo [s]')
-        ax.set_zlabel('Temperatura(x,y) [°C]')
+        ax.set_xlabel('Comprimento (m)')
+        ax.set_ylabel('Tempo (s)')
+        ax.set_zlabel('Temperatura (°C)')
         ax.set_title('Formulação BTCS - Neumann - Gaussa Seidel')
         fig.text(0.02, 0.02, legend_label, color='black', ha='left')
         plt.show()
-
 
         return x, t, t_solucoes
 
@@ -325,8 +328,8 @@ class BTCS():
         print('x', x)
         print('t', t)
 
-        def calculate_eta(k:float, rho:float, cp:float) -> float:
-            eta = k / (rho*cp)
+        def calculate_eta(k: float, rho: float, cp: float) -> float:
+            eta = k / (rho * cp)
 
             return eta
 
@@ -356,12 +359,14 @@ class BTCS():
 
         t_coeficientes = np.zeros((int(n_x) + 1, int(n_x) + 1))  # a matriz de coeficientes deve ser quadrada
         t_old = np.ones(int(n_x) + 1) * T0  # vai atualizar cada linha da matriz
-        t_solucoes = np.zeros((int(n_t) + 2,int(n_x) + 1))  # matriz de soluções pode seguir a mesma lógica da FTCS, não quadrada. a matriz de soluções deve ter dimensão de 402 em linhas, porque o vetor de h começa em 0 + 1 = 1 (linha 0 da matriz de soluções é a condição inicial p0), para ir até 401 deve ter uma dimensão a mais (21 linhas, preenche até 20 começando de 0; 401 linhas, preenche até 400 começando de 0; 402 linhas, preenche até 400, começando de 1 )
+        t_solucoes = np.zeros((int(n_t) + 2,
+                               int(n_x) + 1))  # matriz de soluções pode seguir a mesma lógica da FTCS, não quadrada. a matriz de soluções deve ter dimensão de 402 em linhas, porque o vetor de h começa em 0 + 1 = 1 (linha 0 da matriz de soluções é a condição inicial p0), para ir até 401 deve ter uma dimensão a mais (21 linhas, preenche até 20 começando de 0; 401 linhas, preenche até 400 começando de 0; 402 linhas, preenche até 400, começando de 1 )
         d = np.zeros(int(n_x) + 1)  # vai guardar os valores de p no tempo anterior mais 8/3*eta*rx*(Pw ou P0)
         h = 0  # para acompanhar o tamanho do vetor de tempo (0 a 9, 10 elementos), p_soluções deve ter uma posição a frente (1 a 9, 9 elementos)
         t_solucoes[h, :] = T0  # primeira linhas todas as colunas, tempo = 0
 
-        for j in range(len(t)):  # 0 a 4 (tamanho de t), tempo 4 elemento 5; 1 a 4 (tamanho de t, mesmo for), tempo 4 elemento 4; precisa de mais um elemento
+        for j in range(
+                len(t)):  # 0 a 4 (tamanho de t), tempo 4 elemento 5; 1 a 4 (tamanho de t, mesmo for), tempo 4 elemento 4; precisa de mais um elemento
             h = h + 1
             t_coeficientes = np.zeros((int(n_x) + 1, int(n_x) + 1))
             for i in range(len(t_coeficientes)):  # variando a linha
@@ -370,9 +375,9 @@ class BTCS():
                     t_coeficientes[i, 1] = an
                     d[i] = t_old[i] + 8 / 3 * rx * eta * Te
                 elif i == len(t_coeficientes) - 1:  # o último, N
-                    t_coeficientes[i, len(t_coeficientes) - 2] = ai
-                    t_coeficientes[i, len(t_coeficientes) - 1] = cn
-                    d[i] = t_old[i] - rx * eta * (qw/(h_x*k))
+                    t_coeficientes[i, len(t_coeficientes) - 2] = an
+                    t_coeficientes[i, len(t_coeficientes) - 1] = b1
+                    d[i] = (((8 / 3) * rx * eta) + 1) * t_old[i] + 8 / 3 * rx * eta * (qw / (h_x * k))
                 else:
                     t_coeficientes[i, i - 1] = ai  # linha 1, coluna 0 (i-1)
                     t_coeficientes[i, i] = bi
@@ -383,9 +388,10 @@ class BTCS():
             t_new = solvers.tdma(t_coeficientes, d)
             # p_new = solve(p_coeficientes,d)
             t_old = t_new  # atualiza a matriz, coloca o vetor de pressões calculado no tempo anterior (p_new) em p_old
-            #t_new = np.insert(t_new, 0, t_new[0] - ((qw)/(k*h_x))) # inserindo colunas
-            #t_new = np.append(t_new, T0) # append sempre no final
-            t_solucoes[h,:] = t_new  # vai guardar na matriz de solucoes todos os vetores de pressão calculados nos tempos
+            # t_new = np.insert(t_new, 0, t_new[0] - ((qw)/(k*h_x))) # inserindo colunas
+            # t_new = np.append(t_new, T0) # append sempre no final
+            t_solucoes[h,
+            :] = t_new  # vai guardar na matriz de solucoes todos os vetores de pressão calculados nos tempos
 
         print(t_solucoes)
         print(t_coeficientes)
@@ -403,19 +409,19 @@ class BTCS():
         legend_label = f'{material} - {v} {n_x: .3f}' if variancia == "malha" else f'{material} - {v} {n_t: .3f}'
         plt.legend(labels=[legend_label])
         plt.title('Formulação BTCS - Neumann - TDMA')
-        plt.xlabel('Comprimento [cm]')
-        plt.ylabel('Temperatura [°C]')
+        plt.xlabel('Comprimento (m)')
+        plt.ylabel('Pressão (psia)')
         plt.grid()
         plt.show()
 
-        #Plot 3D BTCS_tf_gs
+        # Plot 3D BTCS_tf_gs
         X, T = np.meshgrid(x, t)
         fig = plt.figure()
         ax = fig.add_subplot(111, projection='3d')
         ax.plot_surface(X, T, t_solucoes[:-1, :], cmap='viridis')
-        ax.set_xlabel('Comprimento [cm]')
-        ax.set_ylabel('Tempo [s]')
-        ax.set_zlabel('Temperatura(x,y) [°C]')
+        ax.set_xlabel('Comprimento (m)')
+        ax.set_ylabel('Tempo (s)')
+        ax.set_zlabel('Temperatura (°C)')
         ax.set_title('Formulação BTCS - Neumann - TDMA')
         fig.text(0.02, 0.02, legend_label, color='black', ha='left')
         plt.show()
@@ -464,8 +470,8 @@ class BTCS():
         print('x', x)
         print('t', t)
 
-        def calculate_eta(k:float, rho:float, cp:float) -> float:
-            eta = k / (rho*cp)
+        def calculate_eta(k: float, rho: float, cp: float) -> float:
+            eta = k / (rho * cp)
 
             return eta
 
@@ -495,12 +501,14 @@ class BTCS():
 
         t_coeficientes = np.zeros((int(n_x) + 1, int(n_x) + 1))  # a matriz de coeficientes deve ser quadrada
         t_old = np.ones(int(n_x) + 1) * T0  # vai atualizar cada linha da matriz
-        t_solucoes = np.zeros((int(n_t) + 2,int(n_x) + 1))  # matriz de soluções pode seguir a mesma lógica da FTCS, não quadrada. a matriz de soluções deve ter dimensão de 402 em linhas, porque o vetor de h começa em 0 + 1 = 1 (linha 0 da matriz de soluções é a condição inicial p0), para ir até 401 deve ter uma dimensão a mais (21 linhas, preenche até 20 começando de 0; 401 linhas, preenche até 400 começando de 0; 402 linhas, preenche até 400, começando de 1 )
+        t_solucoes = np.zeros((int(n_t) + 2,
+                               int(n_x) + 1))  # matriz de soluções pode seguir a mesma lógica da FTCS, não quadrada. a matriz de soluções deve ter dimensão de 402 em linhas, porque o vetor de h começa em 0 + 1 = 1 (linha 0 da matriz de soluções é a condição inicial p0), para ir até 401 deve ter uma dimensão a mais (21 linhas, preenche até 20 começando de 0; 401 linhas, preenche até 400 começando de 0; 402 linhas, preenche até 400, começando de 1 )
         d = np.zeros(int(n_x) + 1)  # vai guardar os valores de p no tempo anterior mais 8/3*eta*rx*(Pw ou P0)
         h = 0  # para acompanhar o tamanho do vetor de tempo (0 a 9, 10 elementos), p_soluções deve ter uma posição a frente (1 a 9, 9 elementos)
         t_solucoes[h, :] = T0  # primeira linhas todas as colunas, tempo = 0
 
-        for j in range(len(t)):  # 0 a 4 (tamanho de t), tempo 4 elemento 5; 1 a 4 (tamanho de t, mesmo for), tempo 4 elemento 4; precisa de mais um elemento
+        for j in range(
+                len(t)):  # 0 a 4 (tamanho de t), tempo 4 elemento 5; 1 a 4 (tamanho de t, mesmo for), tempo 4 elemento 4; precisa de mais um elemento
             h = h + 1
             t_coeficientes = np.zeros((int(n_x) + 1, int(n_x) + 1))
             for i in range(len(t_coeficientes)):  # variando a linha
@@ -509,9 +517,9 @@ class BTCS():
                     t_coeficientes[i, 1] = an
                     d[i] = t_old[i] + 8 / 3 * rx * eta * Te
                 elif i == len(t_coeficientes) - 1:  # o último, N
-                    t_coeficientes[i, len(t_coeficientes) - 2] = ai
-                    t_coeficientes[i, len(t_coeficientes) - 1] = cn
-                    d[i] = t_old[i] - rx * eta * (qw/(h_x*k))
+                    t_coeficientes[i, len(t_coeficientes) - 2] = an
+                    t_coeficientes[i, len(t_coeficientes) - 1] = b1
+                    d[i] = (((8 / 3) * rx * eta) + 1) * t_old[i] + 8 / 3 * rx * eta * (qw / (h_x * k))
                 else:
                     t_coeficientes[i, i - 1] = ai  # linha 1, coluna 0 (i-1)
                     t_coeficientes[i, i] = bi
@@ -522,9 +530,10 @@ class BTCS():
             t_new = solvers.jacobi(t_coeficientes, d, x0, Eppara, maxit)
             # p_new = solve(p_coeficientes,d)
             t_old = t_new  # atualiza a matriz, coloca o vetor de pressões calculado no tempo anterior (p_new) em p_old
-            #t_new = np.insert(t_new, 0, t_new[0] - ((qw)/(k*h_x))) # inserindo colunas
-            #t_new = np.append(t_new, T0) # append sempre no final
-            t_solucoes[h,:] = t_new  # vai guardar na matriz de solucoes todos os vetores de pressão calculados nos tempos
+            # t_new = np.insert(t_new, 0, t_new[0] - ((qw)/(k*h_x))) # inserindo colunas
+            # t_new = np.append(t_new, T0) # append sempre no final
+            t_solucoes[h,
+            :] = t_new  # vai guardar na matriz de solucoes todos os vetores de pressão calculados nos tempos
 
         print(t_solucoes)
         print(t_coeficientes)
@@ -542,19 +551,19 @@ class BTCS():
         legend_label = f'{material} - {v} {n_x: .3f}' if variancia == "malha" else f'{material} - {v} {n_t: .3f}'
         plt.legend(labels=[legend_label])
         plt.title('Formulação BTCS - Neumann - Jacobi')
-        plt.xlabel('Comprimento [cm]')
-        plt.ylabel('Temperatura [°C]')
+        plt.xlabel('Comprimento (m)')
+        plt.ylabel('Pressão (psia)')
         plt.grid()
         plt.show()
 
-        #Plot 3D BTCS_tf_gs
+        # Plot 3D BTCS_tf_gs
         X, T = np.meshgrid(x, t)
         fig = plt.figure()
         ax = fig.add_subplot(111, projection='3d')
         ax.plot_surface(X, T, t_solucoes[:-1, :], cmap='viridis')
-        ax.set_xlabel('Comprimento [cm]')
-        ax.set_ylabel('Tempo [s]')
-        ax.set_zlabel('Temperatura(x,y) [°C]')
+        ax.set_xlabel('Comprimento (m)')
+        ax.set_ylabel('Tempo (s)')
+        ax.set_zlabel('Temperatura (°C)')
         ax.set_title('Formulação BTCS - Neumann - Jacobi')
         fig.text(0.02, 0.02, legend_label, color='black', ha='left')
         plt.show()
@@ -603,8 +612,8 @@ class BTCS():
         print('x', x)
         print('t', t)
 
-        def calculate_eta(k:float, rho:float, cp:float) -> float:
-            eta = k / (rho*cp)
+        def calculate_eta(k: float, rho: float, cp: float) -> float:
+            eta = k / (rho * cp)
 
             return eta
 
@@ -635,12 +644,14 @@ class BTCS():
 
         t_coeficientes = np.zeros((int(n_x) + 1, int(n_x) + 1))  # a matriz de coeficientes deve ser quadrada
         t_old = np.ones(int(n_x) + 1) * T0  # vai atualizar cada linha da matriz
-        t_solucoes = np.zeros((int(n_t) + 2,int(n_x) + 1))  # matriz de soluções pode seguir a mesma lógica da FTCS, não quadrada. a matriz de soluções deve ter dimensão de 402 em linhas, porque o vetor de h começa em 0 + 1 = 1 (linha 0 da matriz de soluções é a condição inicial p0), para ir até 401 deve ter uma dimensão a mais (21 linhas, preenche até 20 começando de 0; 401 linhas, preenche até 400 começando de 0; 402 linhas, preenche até 400, começando de 1 )
+        t_solucoes = np.zeros((int(n_t) + 2,
+                               int(n_x) + 1))  # matriz de soluções pode seguir a mesma lógica da FTCS, não quadrada. a matriz de soluções deve ter dimensão de 402 em linhas, porque o vetor de h começa em 0 + 1 = 1 (linha 0 da matriz de soluções é a condição inicial p0), para ir até 401 deve ter uma dimensão a mais (21 linhas, preenche até 20 começando de 0; 401 linhas, preenche até 400 começando de 0; 402 linhas, preenche até 400, começando de 1 )
         d = np.zeros(int(n_x) + 1)  # vai guardar os valores de p no tempo anterior mais 8/3*eta*rx*(Pw ou P0)
         h = 0  # para acompanhar o tamanho do vetor de tempo (0 a 9, 10 elementos), p_soluções deve ter uma posição a frente (1 a 9, 9 elementos)
         t_solucoes[h, :] = T0  # primeira linhas todas as colunas, tempo = 0
 
-        for j in range(len(t)):  # 0 a 4 (tamanho de t), tempo 4 elemento 5; 1 a 4 (tamanho de t, mesmo for), tempo 4 elemento 4; precisa de mais um elemento
+        for j in range(
+                len(t)):  # 0 a 4 (tamanho de t), tempo 4 elemento 5; 1 a 4 (tamanho de t, mesmo for), tempo 4 elemento 4; precisa de mais um elemento
             h = h + 1
             t_coeficientes = np.zeros((int(n_x) + 1, int(n_x) + 1))
             for i in range(len(t_coeficientes)):  # variando a linha
@@ -649,9 +660,9 @@ class BTCS():
                     t_coeficientes[i, 1] = an
                     d[i] = t_old[i] + 8 / 3 * rx * eta * Te
                 elif i == len(t_coeficientes) - 1:  # o último, N
-                    t_coeficientes[i, len(t_coeficientes) - 2] = ai
-                    t_coeficientes[i, len(t_coeficientes) - 1] = cn
-                    d[i] = t_old[i] - rx * eta * (qw/(h_x*k))
+                    t_coeficientes[i, len(t_coeficientes) - 2] = an
+                    t_coeficientes[i, len(t_coeficientes) - 1] = b1
+                    d[i] = (((8 / 3) * rx * eta) + 1) * t_old[i] + 8 / 3 * rx * eta * (qw / (h_x * k))
                 else:
                     t_coeficientes[i, i - 1] = ai  # linha 1, coluna 0 (i-1)
                     t_coeficientes[i, i] = bi
@@ -662,9 +673,10 @@ class BTCS():
             t_new = solvers.gauss_seidel_relax(t_coeficientes, d, x0, Eppara, maxit, Lambda)
             # p_new = solve(p_coeficientes,d)
             t_old = t_new  # atualiza a matriz, coloca o vetor de pressões calculado no tempo anterior (p_new) em p_old
-            #t_new = np.insert(t_new, 0, t_new[0] - ((qw)/(k*h_x))) # inserindo colunas
-            #t_new = np.append(t_new, T0) # append sempre no final
-            t_solucoes[h,:] = t_new  # vai guardar na matriz de solucoes todos os vetores de pressão calculados nos tempos
+            # t_new = np.insert(t_new, 0, t_new[0] - ((qw)/(k*h_x))) # inserindo colunas
+            # t_new = np.append(t_new, T0) # append sempre no final
+            t_solucoes[h,
+            :] = t_new  # vai guardar na matriz de solucoes todos os vetores de pressão calculados nos tempos
 
         print(t_solucoes)
         print(t_coeficientes)
@@ -682,20 +694,20 @@ class BTCS():
         legend_label = f'{material} - {v} {n_x: .3f}' if variancia == "malha" else f'{material} - {v} {n_t: .3f}'
         plt.legend(labels=[legend_label])
         plt.title('Formulação BTCS - Neumann - Gaussa Seidel Relaxamento')
-        plt.xlabel('Comprimento [cm]')
-        plt.ylabel('Temperatura [°C]')
+        plt.xlabel('Comprimento (m)')
+        plt.ylabel('Pressão (psia)')
         plt.grid()
         plt.show()
 
-        #Plot 3D BTCS_tf_gs
+        # Plot 3D BTCS_tf_gs
         X, T = np.meshgrid(x, t)
         fig = plt.figure()
         ax = fig.add_subplot(111, projection='3d')
         ax.plot_surface(X, T, t_solucoes[:-1, :], cmap='viridis')
-        ax.set_xlabel('Comprimento [cm]')
-        ax.set_ylabel('Tempo [s]')
-        ax.set_zlabel('Temperatura(x,y) [°C]')
-        ax.set_title('Formulação BTCS - Neumann - Gaussa Seidel Relaxamento')
+        ax.set_xlabel('Comprimento (m)')
+        ax.set_ylabel('Tempo (s)')
+        ax.set_zlabel('Temperatura (°C)')
+        ax.set_title('Formulação BTCS - Neumann - Relaxamento')
         fig.text(0.02, 0.02, legend_label, color='black', ha='left')
         plt.show()
 
@@ -743,8 +755,8 @@ class BTCS():
         print('x', x)
         print('t', t)
 
-        def calculate_eta(k:float, rho:float, cp:float) -> float:
-            eta = k / (rho*cp)
+        def calculate_eta(k: float, rho: float, cp: float) -> float:
+            eta = k / (rho * cp)
 
             return eta
 
@@ -775,12 +787,14 @@ class BTCS():
 
         t_coeficientes = np.zeros((int(n_x) + 1, int(n_x) + 1))  # a matriz de coeficientes deve ser quadrada
         t_old = np.ones(int(n_x) + 1) * T0  # vai atualizar cada linha da matriz
-        t_solucoes = np.zeros((int(n_t) + 2,int(n_x) + 1))  # matriz de soluções pode seguir a mesma lógica da FTCS, não quadrada. a matriz de soluções deve ter dimensão de 402 em linhas, porque o vetor de h começa em 0 + 1 = 1 (linha 0 da matriz de soluções é a condição inicial p0), para ir até 401 deve ter uma dimensão a mais (21 linhas, preenche até 20 começando de 0; 401 linhas, preenche até 400 começando de 0; 402 linhas, preenche até 400, começando de 1 )
+        t_solucoes = np.zeros((int(n_t) + 2,
+                               int(n_x) + 1))  # matriz de soluções pode seguir a mesma lógica da FTCS, não quadrada. a matriz de soluções deve ter dimensão de 402 em linhas, porque o vetor de h começa em 0 + 1 = 1 (linha 0 da matriz de soluções é a condição inicial p0), para ir até 401 deve ter uma dimensão a mais (21 linhas, preenche até 20 começando de 0; 401 linhas, preenche até 400 começando de 0; 402 linhas, preenche até 400, começando de 1 )
         d = np.zeros(int(n_x) + 1)  # vai guardar os valores de p no tempo anterior mais 8/3*eta*rx*(Pw ou P0)
         h = 0  # para acompanhar o tamanho do vetor de tempo (0 a 9, 10 elementos), p_soluções deve ter uma posição a frente (1 a 9, 9 elementos)
         t_solucoes[h, :] = T0  # primeira linhas todas as colunas, tempo = 0
 
-        for j in range(len(t)):  # 0 a 4 (tamanho de t), tempo 4 elemento 5; 1 a 4 (tamanho de t, mesmo for), tempo 4 elemento 4; precisa de mais um elemento
+        for j in range(
+                len(t)):  # 0 a 4 (tamanho de t), tempo 4 elemento 5; 1 a 4 (tamanho de t, mesmo for), tempo 4 elemento 4; precisa de mais um elemento
             h = h + 1
             t_coeficientes = np.zeros((int(n_x) + 1, int(n_x) + 1))
             for i in range(len(t_coeficientes)):  # variando a linha
@@ -789,9 +803,9 @@ class BTCS():
                     t_coeficientes[i, 1] = an
                     d[i] = t_old[i] + 8 / 3 * rx * eta * Te
                 elif i == len(t_coeficientes) - 1:  # o último, N
-                    t_coeficientes[i, len(t_coeficientes) - 2] = ai
-                    t_coeficientes[i, len(t_coeficientes) - 1] = cn
-                    d[i] = t_old[i] - rx * eta * (qw/(h_x*k))
+                    t_coeficientes[i, len(t_coeficientes) - 2] = an
+                    t_coeficientes[i, len(t_coeficientes) - 1] = b1
+                    d[i] = (((8/3)*rx*eta) + 1) * t_old[i] + 8/3 * rx * eta * (qw / (h_x * k))
                 else:
                     t_coeficientes[i, i - 1] = ai  # linha 1, coluna 0 (i-1)
                     t_coeficientes[i, i] = bi
@@ -801,9 +815,10 @@ class BTCS():
             x0 = t_old  # os primeiros valores de chute inicial vão ser os valores de p calculadas no tempo anterior
             t_new = solve(t_coeficientes, d)
             t_old = t_new  # atualiza a matriz, coloca o vetor de pressões calculado no tempo anterior (p_new) em p_old
-            #t_new = np.insert(t_new, 0, t_new[0] - ((qw)/(k*h_x))) # inserindo colunas
-            #t_new = np.append(t_new, T0) # append sempre no final
-            t_solucoes[h,:] = t_new  # vai guardar na matriz de solucoes todos os vetores de pressão calculados nos tempos
+            # t_new = np.insert(t_new, 0, t_new[0] - ((qw)/(k*h_x))) # inserindo colunas
+            # t_new = np.append(t_new, T0) # append sempre no final
+            t_solucoes[h,
+            :] = t_new  # vai guardar na matriz de solucoes todos os vetores de pressão calculados nos tempos
 
         print(t_solucoes)
         print(t_coeficientes)
@@ -821,21 +836,23 @@ class BTCS():
         legend_label = f'{material} - {v} {n_x: .3f}' if variancia == "malha" else f'{material} - {v} {n_t: .3f}'
         plt.legend(labels=[legend_label])
         plt.title('Formulação BTCS - Neumann - Solver Scipy')
-        plt.xlabel('Comprimento [cm]')
-        plt.ylabel('Temperatura [°C]')
+        plt.xlabel('Comprimento (m)')
+        plt.ylabel('Pressão (psia)')
         plt.grid()
         plt.show()
 
-        #Plot 3D BTCS_tf_gs
+        # Plot 3D BTCS_tf_gs
         X, T = np.meshgrid(x, t)
         fig = plt.figure()
         ax = fig.add_subplot(111, projection='3d')
         ax.plot_surface(X, T, t_solucoes[:-1, :], cmap='viridis')
-        ax.set_xlabel('Comprimento [cm]')
-        ax.set_ylabel('Tempo [s]')
-        ax.set_zlabel('Temperatura(x,y) [°C]')
+        ax.set_xlabel('Comprimento (m)')
+        ax.set_ylabel('Tempo (s)')
+        ax.set_zlabel('Temperatura (°C)')
         ax.set_title('Formulação BTCS - Neumann - Solver Scipy')
         fig.text(0.02, 0.02, legend_label, color='black', ha='left')
         plt.show()
 
         return x, t, t_solucoes
+
+
