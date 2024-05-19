@@ -16,12 +16,12 @@ class comparacao_metodos():
         Tw = 0  # ºC
         Te = 0  # ºC
         t0 = 0
-        tf = 100
+        tf = 1000
         x0 = 0
         xf = L
         variancia = 'tempo'
 
-        h_t = [0.05]
+        h_t = [0.5]
         h_x = 4
         j = h_x
 
