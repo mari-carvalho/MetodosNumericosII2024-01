@@ -268,7 +268,7 @@ class BTCS():
         plt.legend(labels=[legend_label])
         plt.title('Formulação BTCS - Neumann - Gaussa Seidel')
         plt.xlabel('Comprimento (m)')
-        plt.ylabel('Pressão (psia)')
+        plt.ylabel('Temperatura (°C)')
         plt.grid()
         plt.show()
 
@@ -410,7 +410,7 @@ class BTCS():
         plt.legend(labels=[legend_label])
         plt.title('Formulação BTCS - Neumann - TDMA')
         plt.xlabel('Comprimento (m)')
-        plt.ylabel('Pressão (psia)')
+        plt.ylabel('Temperatura (°C)')
         plt.grid()
         plt.show()
 
@@ -552,7 +552,7 @@ class BTCS():
         plt.legend(labels=[legend_label])
         plt.title('Formulação BTCS - Neumann - Jacobi')
         plt.xlabel('Comprimento (m)')
-        plt.ylabel('Pressão (psia)')
+        plt.ylabel('Temperatura (°C)')
         plt.grid()
         plt.show()
 
@@ -695,7 +695,7 @@ class BTCS():
         plt.legend(labels=[legend_label])
         plt.title('Formulação BTCS - Neumann - Gaussa Seidel Relaxamento')
         plt.xlabel('Comprimento (m)')
-        plt.ylabel('Pressão (psia)')
+        plt.ylabel('Temperatura (°C)')
         plt.grid()
         plt.show()
 
@@ -837,7 +837,7 @@ class BTCS():
         plt.legend(labels=[legend_label])
         plt.title('Formulação BTCS - Neumann - Solver Scipy')
         plt.xlabel('Comprimento (m)')
-        plt.ylabel('Pressão (psia)')
+        plt.ylabel('Temperatura (°C)')
         plt.grid()
         plt.show()
 
