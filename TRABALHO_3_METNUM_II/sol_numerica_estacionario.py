@@ -38,8 +38,8 @@ class estacionario():
         rho = 8.92  # g/cm^3
         cp = 0.092  # cal/(g.ºC)
         k = 0.95  # cal/(cm.s.ºC)
-        Lx = 10  # cm
-        Ly = 10  # cm
+        Lx = 1  # cm
+        Ly = 1  # cm
         
         # Dados Iniciais
         Tn = 20  # ºC
@@ -226,7 +226,7 @@ class estacionario():
         fig.colorbar(surf, shrink=0.5, aspect=10)
         ax.view_init(30, 30)
         plt.show()
-        return TS
+        return TS, nx
     
     def calculate_estacionario_nx20():
     
@@ -277,7 +277,7 @@ class estacionario():
         
         # Parâmetros de simulação
         nx = 20
-        ny = 10
+        ny = 20
         N = nx*ny
         
         # Cálculos Iniciais
@@ -454,7 +454,7 @@ class estacionario():
         fig.colorbar(surf, shrink=0.5, aspect=10)
         ax.view_init(30, 30)
         plt.show()
-        return TS
+        return TS, nx
         
     def calculate_estacionario_nx30():
     
@@ -505,7 +505,7 @@ class estacionario():
         
         # Parâmetros de simulação
         nx = 30
-        ny = 10
+        ny = 30
         N = nx*ny
         
         # Cálculos Iniciais
@@ -682,6 +682,6 @@ class estacionario():
         fig.colorbar(surf, shrink=0.5, aspect=10)
         ax.view_init(30, 30)
         plt.show()
-        return TS
+        return TS, nx
         
         

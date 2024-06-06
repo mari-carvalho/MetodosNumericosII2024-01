@@ -11,8 +11,8 @@ class analitica():
         rho = 8.92 # g/cm^3
         cp = 0.092 # cal/(g.ºC)
         k = 0.95 # cal/(cm.s.ºC)
-        Lx = 10 # cm
-        Ly = 10 # cm
+        Lx = 1 # cm
+        Ly = 1 # cm
         N = 200 # Números de termos da Série de Fourier
         
         nx = 10
@@ -67,7 +67,7 @@ class analitica():
         fig.colorbar(surf, shrink=0.5, aspect=10)
         #ax.view_init(30, 30)
         
-        return Temperatura
+        return Temperatura, nx
         
     def calculate_analitica_nx20():
         
@@ -84,7 +84,7 @@ class analitica():
         N = 200 # Números de termos da Série de Fourier
         
         nx = 20
-        ny = 10
+        ny = 20
         
         # Cálculos Iniciais
         c = k/(rho*cp)
@@ -134,7 +134,7 @@ class analitica():
         plt.title('Equação do Calor 2D - Solução Analítica - nx=20')
         fig.colorbar(surf, shrink=0.5, aspect=10)
         #ax.view_init(30, 30)
-        return Temperatura
+        return Temperatura, nx
         
     def calculate_analitica_nx30():
         
@@ -151,7 +151,7 @@ class analitica():
         N = 200 # Números de termos da Série de Fourier
         
         nx = 30
-        ny = 10
+        ny = 30
         
         # Cálculos Iniciais
         c = k/(rho*cp)
@@ -201,6 +201,6 @@ class analitica():
         plt.title('Equação do Calor 2D - Solução Analítica - nx=30')
         fig.colorbar(surf, shrink=0.5, aspect=10)
         #ax.view_init(30, 30)
-        return Temperatura
+        return Temperatura, nx
         
         
