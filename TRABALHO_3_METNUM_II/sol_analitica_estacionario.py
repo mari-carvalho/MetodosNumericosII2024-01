@@ -285,8 +285,8 @@ class analitica():
         Ly = 1 # cm
         N = 200 # Números de termos da Série de Fourier
         
-        nx = 10
-        ny = 10
+        nx = 20
+        ny = 20
         
         # Cálculos Iniciais
         c = k/(rho*cp)
@@ -353,8 +353,8 @@ class analitica():
         Ly = 1 # cm
         N = 200 # Números de termos da Série de Fourier
         
-        nx = 10
-        ny = 10
+        nx = 30
+        ny = 30
         
         # Cálculos Iniciais
         c = k/(rho*cp)

@@ -960,8 +960,8 @@ class estacionario():
         Te = 0  # ºC
         
         # Parâmetros de simulação
-        nx = 10
-        ny = 10
+        nx = 20
+        ny = 20
         N = nx*ny
         
         # Cálculos Iniciais
@@ -1188,8 +1188,8 @@ class estacionario():
         Te = 0  # ºC
         
         # Parâmetros de simulação
-        nx = 10
-        ny = 10
+        nx = 30
+        ny = 30
         N = nx*ny
         
         # Cálculos Iniciais
