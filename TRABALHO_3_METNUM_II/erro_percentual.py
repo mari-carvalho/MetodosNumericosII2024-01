@@ -66,42 +66,49 @@ def calculate_variacao_nx():
     # Cálculo do Erro 
     
     erro_percentual = []
+    erro_10 = []
+    erro_20 = []
+    erro_30 = []
     sum = 0 
     
     for i in range(len(temperatura_analitica)):
         temp_analitico = temperatura_analitica[i]
         temp_estac = temperatura_estacionario[i]
+        sum = 0
         if i == 0 :
             ui = temp_analitico[8]
-            vi = temp_estac[0]
+            vi = temp_estac[1]
             nx = nx_list_estacionario[i]
             for j in range(1,len(ui)-1):
                 uii = ui[j]
-                vii = vi[j+1]
-                sum = sum + abs((uii - vii) / uii)
+                vii = vi[j]
+                sum = sum + abs((uii - vii) / uii) 
+                erro_10.append(abs((uii - vii) / uii) *100)
             erro = 1/nx * sum 
             erro_percentual.append(erro)
         elif i == 1:
             ui = temp_analitico[18]
-            vi = temp_estac[0]
+            vi = temp_estac[1]
             nx = nx_list_estacionario[i]
             for j in range(1,len(ui)-1):
                 uii = ui[j]
-                vii = vi[j+1]
+                vii = vi[j]
                 sum = sum + abs((uii - vii) / uii)
+                erro_20.append(abs((uii - vii) / uii) *100)
             erro = 1/nx * sum 
             erro_percentual.append(erro)
         elif i == 2:
             ui = temp_analitico[28]
-            vi = temp_estac[0]
+            vi = temp_estac[1]
             nx = nx_list_estacionario[i]
             for j in range(1,len(ui)-1):
                 uii = ui[j]
-                vii = vi[j+1]
+                vii = vi[j]
                 sum = sum + abs((uii - vii) / uii)
+                erro_30.append(abs((uii - vii) / uii) *100)
             erro = 1/nx * sum 
             erro_percentual.append(erro)
-    return temperatura_analitica, temperatura_estacionario, erro_percentual, nx_list_analitico, nx_list_estacionario, x_list_analitico, y_list_analitico, x_list_numerico, y_list_numerico
+    return temperatura_analitica, temperatura_estacionario, erro_percentual, nx_list_analitico, nx_list_estacionario, x_list_analitico, y_list_analitico, x_list_numerico, y_list_numerico, erro_10, erro_20, erro_30
 
 def calculate_variacao_ny():
     
@@ -160,48 +167,55 @@ def calculate_variacao_ny():
     # Cálculo do Erro 
     
     erro_percentual = []
-    sum = 0 
+    erro_10 = []
+    erro_20 = []
+    erro_30 = []
+    sum = 0
     
     for i in range(len(temperatura_analitica)):
         temp_analitico = temperatura_analitica[i]
         temp_estac = temperatura_estacionario[i]
+        sum = 0
         if i == 0 :
-            ui = temp_analitico[:,1]
-            vi = temp_estac[:,0]
+            ui = temp_analitico[:,7]
+            vi = temp_estac[:,2]
             ny = ny_list_estacionario[i]
             vi_inv = vi[::-1]
             for j in range(1,len(ui)-1):
-                uii = ui[j]
-                vii = vi_inv[j+1]
+                uii = ui[j+1]
+                vii = vi_inv[j]
                 sum = sum + abs((uii - vii) / uii)
+                erro_10.append(abs((uii - vii) / uii) *100)
             erro = 1/ny * sum 
             erro_percentual.append(erro)
         elif i == 1:
-            ui = temp_analitico[:, 1]
-            vi = temp_estac[:, 0]
+            ui = temp_analitico[:, 17]
+            vi = temp_estac[:, 2]
             ny = ny_list_estacionario[i]
             vi_inv = vi[::-1]
             for j in range(1,len(ui)-1):
-                uii = ui[j]
-                vii = vi_inv[j+1]
+                uii = ui[j+1]
+                vii = vi_inv[j]
                 sum = sum + abs((uii - vii) / uii)
+                erro_10.append(abs((uii - vii) / uii) *100)
             erro = 1/ny * sum 
             erro_percentual.append(erro)
         elif i == 2:
-            ui = temp_analitico[:,1]
-            vi = temp_estac[:,0]
+            ui = temp_analitico[:,27]
+            vi = temp_estac[:,2]
             ny = ny_list_estacionario[i]
             vi_inv = vi[::-1]
             for j in range(1,len(ui)-1):
-                uii = ui[j]
-                vii = vi_inv[j+1]
+                uii = ui[j+1]
+                vii = vi_inv[j]
                 sum = sum + abs((uii - vii) / uii)
+                erro_30.append(abs((uii - vii) / uii) *100)
             erro = 1/ny * sum 
             erro_percentual.append(erro)
-    return temperatura_analitica, temperatura_estacionario, erro_percentual, ny_list_analitico, ny_list_estacionario, x_list_analitico, y_list_analitico, x_list_numerico, y_list_numerico
+    return temperatura_analitica, temperatura_estacionario, erro_percentual, ny_list_analitico, ny_list_estacionario, x_list_analitico, y_list_analitico, x_list_numerico, y_list_numerico, erro_10, erro_20, erro_30
 
-temperatura_analitica_nx, tempratura_estacionario_nx, erro_variacao_nx, nx_list_analitico, nx_list_estacionario, x_list_analitico, y_list_analitico, x_list_numerico, y_list_numerico = calculate_variacao_nx()
-temperatura_analitica_ny, tempratura_estacionario_ny, erro_variacao_ny, ny_list_analitico, ny_list_estacionario, x_list_analitico, y_list_analitico,  x_list_numerico, y_list_numerico = calculate_variacao_ny()
+temperatura_analitica_nx, tempratura_estacionario_nx, erro_variacao_nx, nx_list_analitico, nx_list_estacionario, x_list_analitico, y_list_analitico, x_list_numerico, y_list_numerico, erro_10_nx, erro_20_nx, erro_30_nx = calculate_variacao_nx()
+temperatura_analitica_ny, tempratura_estacionario_ny, erro_variacao_ny, ny_list_analitico, ny_list_estacionario, x_list_analitico, y_list_analitico,  x_list_numerico, y_list_numerico, erro_10_ny, erro_20_ny, erro_30_ny = calculate_variacao_ny()
 
 for i in range(len(temperatura_analitica_nx)):
     analitica2 = temperatura_analitica_nx[i]
@@ -212,14 +226,14 @@ for i in range(len(temperatura_analitica_nx)):
     ui =[]
     vi =[]
     if i == 0:
-        x_a = x_analitico[8]
-        y_a = analitica2[8]
-        x_n = x_numerico[0]
-        y_n = numerico[0]
-        for j in range(1,len(x_a)-1):
+        x_a = x_analitico[4]
+        y_a = analitica2[4]
+        x_n = x_numerico[5]
+        y_n = numerico[5]
+        for j in range(len(x_a)):
             xi.append(x_a[j])
             ui.append(y_a[j])
-            vi.append(y_n[j+1])
+            vi.append(y_n[j])
         spl_ui = make_interp_spline(xi, ui)
         spl_vi = make_interp_spline(xi, vi)
         xi_smooth = np.linspace(min(xi), max(xi), 300)
@@ -228,14 +242,14 @@ for i in range(len(temperatura_analitica_nx)):
         plt.plot(xi_smooth, ui_smooth, label='SA - nx={}'.format(nx_list_analitico[i]))
         plt.plot(xi_smooth, vi_smooth, label='SE - nx={}'.format(nx_list_estacionario[i]))
     elif i == 1:
-        x_a = x_analitico[18]
-        y_a = analitica2[18]
-        x_n = x_numerico[0]
-        y_n = numerico[0]
-        for j in range(1,len(x_a)-1):
+        x_a = x_analitico[12]
+        y_a = analitica2[12]
+        x_n = x_numerico[7]
+        y_n = numerico[7]
+        for j in range(len(x_a)):
             xi.append(x_a[j])
             ui.append(y_a[j])
-            vi.append(y_n[j+1])
+            vi.append(y_n[j])
         spl_ui = make_interp_spline(xi, ui)
         spl_vi = make_interp_spline(xi, vi)
         xi_smooth = np.linspace(min(xi), max(xi), 300)
@@ -244,14 +258,14 @@ for i in range(len(temperatura_analitica_nx)):
         plt.plot(xi_smooth, ui_smooth, label='SA - nx={}'.format(nx_list_analitico[i]))
         plt.plot(xi_smooth, vi_smooth, label='SE - nx={}'.format(nx_list_estacionario[i]))
     elif i == 2:
-        x_a = x_analitico[28]
-        y_a = analitica2[28]
-        x_n = x_numerico[0]
-        y_n = numerico[0]
-        for j in range(1,len(x_a)-1):
+        x_a = x_analitico[21]
+        y_a = analitica2[21]
+        x_n = x_numerico[8]
+        y_n = numerico[8]
+        for j in range(len(x_a)):
             xi.append(x_a[j])
             ui.append(y_a[j])
-            vi.append(y_n[j+1])
+            vi.append(y_n[j])
         spl_ui = make_interp_spline(xi, ui)
         spl_vi = make_interp_spline(xi, vi)
         xi_smooth = np.linspace(min(xi), max(xi), 300)
@@ -263,8 +277,8 @@ for i in range(len(temperatura_analitica_nx)):
 plt.legend(loc='upper right', fontsize='small')
 plt.xlabel('Comprimento [m]')
 plt.ylabel('Temperatura [°C]')
-plt.show()
 
+'''
 for i in range(len(temperatura_analitica_ny)):
     analitica2 = temperatura_analitica_ny[i]
     x_analitico = x_list_analitico[i]
@@ -274,14 +288,14 @@ for i in range(len(temperatura_analitica_ny)):
     ui =[]
     vi =[]
     if i == 0:
-        x_a = x_analitico[8]
-        y_a = analitica2[8]
-        x_n = x_numerico[0]
-        y_n = numerico[0]
-        for j in range(1,len(x_a)-1):
+        x_a = x_analitico[:, 5]
+        y_a = analitica2[:, 5]
+        x_n = x_numerico[:, 4]
+        y_n = numerico[:, 4]
+        for j in range(len(x_a)):
             xi.append(x_a[j])
             ui.append(y_a[j])
-            vi.append(y_n[j+1])
+            vi.append(y_n[j])
         spl_ui = make_interp_spline(xi, ui)
         spl_vi = make_interp_spline(xi, vi)
         xi_smooth = np.linspace(min(xi), max(xi), 300)
@@ -290,14 +304,14 @@ for i in range(len(temperatura_analitica_ny)):
         plt.plot(xi_smooth, ui_smooth, label='SA - nx={}'.format(nx_list_analitico[i]))
         plt.plot(xi_smooth, vi_smooth, label='SE - nx={}'.format(nx_list_estacionario[i]))
     elif i == 1:
-        x_a = x_analitico[18]
-        y_a = analitica2[18]
-        x_n = x_numerico[0]
-        y_n = numerico[0]
-        for j in range(1,len(x_a)-1):
+        x_a = x_analitico[:, 8]
+        y_a = analitica2[:, 8]
+        x_n = x_numerico[:, 11]
+        y_n = numerico[:, 11]
+        for j in range(len(x_a)):
             xi.append(x_a[j])
             ui.append(y_a[j])
-            vi.append(y_n[j+1])
+            vi.append(y_n[j])
         spl_ui = make_interp_spline(xi, ui)
         spl_vi = make_interp_spline(xi, vi)
         xi_smooth = np.linspace(min(xi), max(xi), 300)
@@ -306,25 +320,74 @@ for i in range(len(temperatura_analitica_ny)):
         plt.plot(xi_smooth, ui_smooth, label='SA - nx={}'.format(nx_list_analitico[i]))
         plt.plot(xi_smooth, vi_smooth, label='SE - nx={}'.format(nx_list_estacionario[i]))
     elif i == 2:
-        x_a = x_analitico[28]
-        y_a = analitica2[28]
-        x_n = x_numerico[0]
-        y_n = numerico[0]
-        for j in range(1,len(x_a)-1):
+        x_a = x_analitico[:, 14]
+        y_a = analitica2[:, 14]
+        x_n = x_numerico[:, 15]
+        y_n = numerico[:, 15]
+        for j in range(len(x_a)):
             xi.append(x_a[j])
             ui.append(y_a[j])
-            vi.append(y_n[j+1])
+            vi.append(y_n[j])
         spl_ui = make_interp_spline(xi, ui)
         spl_vi = make_interp_spline(xi, vi)
         xi_smooth = np.linspace(min(xi), max(xi), 300)
         ui_smooth = spl_ui(xi_smooth)
         vi_smooth = spl_vi(xi_smooth)
-        plt.plot(xi_smooth, ui_smooth, label='SA - nx={}'.format(nx_list_analitico[i]))
-        plt.plot(xi_smooth, vi_smooth, label='SE - nx={}'.format(nx_list_estacionario[i]))
+        plt.plot(xi_smooth, ui_smooth, label='SA - ny={}'.format(ny_list_analitico[i]))
+        plt.plot(xi_smooth, vi_smooth, label='SE - ny={}'.format(ny_list_estacionario[i]))
 
 plt.legend(loc='upper right', fontsize='small')
 plt.xlabel('Comprimento [m]')
 plt.ylabel('Temperatura [°C]')
 plt.show()
+'''
 
+for i in range(len(x_list_analitico)):
+    x_plot = x_list_analitico[i]
+    x = x_plot[5]
+    if i == 0 :
+        x_10 = []
+        for j in range(1,len(x)-1):
+            x_10.append(x[j])
+        plt.plot(x_10, erro_10_nx, label='nx={}'.format(nx_list_analitico[i]))
+    elif i == 1 :
+        x_20 = []
+        for j in range(1,len(x)-1):
+            x_20.append(x[j])
+        plt.plot(x_20, erro_20_nx, label='nx={}'.format(nx_list_analitico[i]))
+    elif i == 2 :
+        x_30 = []
+        for j in range(1,len(x)-1):
+            x_30.append(x[j])
+        plt.plot(x_30, erro_30_nx, label='nx={}'.format(nx_list_analitico[i]))
+
+plt.legend()
+plt.xlabel('Comprimento [m]')
+plt.ylabel('Erro Percentual Verdadeiro Local')
+plt.show()
     
+'''
+for i in range(len(x_list_analitico)):
+    x_plot = x_list_analitico[i]
+    x = x_plot[5]
+    if i == 0 :
+        x_10 = []
+        for j in range(1,len(x)-1):
+            x_10.append(x[j])
+        plt.plot(x_10, erro_10_ny, label='ny={}'.format(ny_list_analitico[i]))
+    elif i == 1 :
+        x_20 = []
+        for j in range(1,len(x)-1):
+            x_20.append(x[j])
+        plt.plot(x_20, erro_20_ny, label='ny={}'.format(ny_list_analitico[i]))
+    elif i == 2 :
+        x_30 = []
+        for j in range(1,len(x)-1):
+            x_30.append(x[j])
+        plt.plot(x_30, erro_30_ny, label='ny={}'.format(ny_list_analitico[i]))
+
+plt.legend()
+plt.xlabel('Comprimento [m]')
+plt.ylabel('Erro Percentual Verdadeiro Local')
+plt.show()
+'''
