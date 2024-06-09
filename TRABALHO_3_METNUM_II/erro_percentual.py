@@ -197,7 +197,7 @@ def calculate_variacao_ny():
                 uii = ui[j+1]
                 vii = vi_inv[j]
                 sum = sum + abs((uii - vii) / uii)
-                erro_10.append(abs((uii - vii) / uii) *100)
+                erro_20.append(abs((uii - vii) / uii) *100)
             erro = 1/ny * sum 
             erro_percentual.append(erro)
         elif i == 2:
@@ -273,12 +273,12 @@ for i in range(len(temperatura_analitica_nx)):
         vi_smooth = spl_vi(xi_smooth)
         plt.plot(xi_smooth, ui_smooth, label='SA - nx={}'.format(nx_list_analitico[i]))
         plt.plot(xi_smooth, vi_smooth, label='SE - nx={}'.format(nx_list_estacionario[i]))
-
 plt.legend(loc='upper right', fontsize='small')
 plt.xlabel('Comprimento [m]')
 plt.ylabel('Temperatura [°C]')
 
-'''
+
+
 for i in range(len(temperatura_analitica_ny)):
     analitica2 = temperatura_analitica_ny[i]
     x_analitico = x_list_analitico[i]
@@ -288,59 +288,62 @@ for i in range(len(temperatura_analitica_ny)):
     ui =[]
     vi =[]
     if i == 0:
-        x_a = x_analitico[:, 5]
-        y_a = analitica2[:, 5]
-        x_n = x_numerico[:, 4]
-        y_n = numerico[:, 4]
+        x_a = x_analitico[1]
+        y_a = analitica2[:, 1]
+        x_n = x_numerico[8]
+        y_n = numerico[:, 8]
         for j in range(len(x_a)):
             xi.append(x_a[j])
             ui.append(y_a[j])
             vi.append(y_n[j])
+        vi_inv = vi[::-1]
         spl_ui = make_interp_spline(xi, ui)
-        spl_vi = make_interp_spline(xi, vi)
+        spl_vi = make_interp_spline(xi, vi_inv)
         xi_smooth = np.linspace(min(xi), max(xi), 300)
         ui_smooth = spl_ui(xi_smooth)
         vi_smooth = spl_vi(xi_smooth)
-        plt.plot(xi_smooth, ui_smooth, label='SA - nx={}'.format(nx_list_analitico[i]))
-        plt.plot(xi_smooth, vi_smooth, label='SE - nx={}'.format(nx_list_estacionario[i]))
+        plt.plot(xi_smooth, ui_smooth, label='SA - ny={}'.format(nx_list_analitico[i]))
+        plt.plot(xi_smooth, vi_smooth, label='SE - ny={}'.format(nx_list_estacionario[i]))
     elif i == 1:
-        x_a = x_analitico[:, 8]
-        y_a = analitica2[:, 8]
-        x_n = x_numerico[:, 11]
-        y_n = numerico[:, 11]
-        for j in range(len(x_a)):
-            xi.append(x_a[j])
-            ui.append(y_a[j])
-            vi.append(y_n[j])
-        spl_ui = make_interp_spline(xi, ui)
-        spl_vi = make_interp_spline(xi, vi)
-        xi_smooth = np.linspace(min(xi), max(xi), 300)
-        ui_smooth = spl_ui(xi_smooth)
-        vi_smooth = spl_vi(xi_smooth)
-        plt.plot(xi_smooth, ui_smooth, label='SA - nx={}'.format(nx_list_analitico[i]))
-        plt.plot(xi_smooth, vi_smooth, label='SE - nx={}'.format(nx_list_estacionario[i]))
-    elif i == 2:
-        x_a = x_analitico[:, 14]
-        y_a = analitica2[:, 14]
-        x_n = x_numerico[:, 15]
+        x_a = x_analitico[4]
+        y_a = analitica2[:, 4]
+        x_n = x_numerico[15]
         y_n = numerico[:, 15]
         for j in range(len(x_a)):
             xi.append(x_a[j])
             ui.append(y_a[j])
             vi.append(y_n[j])
+        vi_inv = vi[::-1]
         spl_ui = make_interp_spline(xi, ui)
-        spl_vi = make_interp_spline(xi, vi)
+        spl_vi = make_interp_spline(xi, vi_inv)
+        xi_smooth = np.linspace(min(xi), max(xi), 300)
+        ui_smooth = spl_ui(xi_smooth)
+        vi_smooth = spl_vi(xi_smooth)
+        plt.plot(xi_smooth, ui_smooth, label='SA - ny={}'.format(nx_list_analitico[i]))
+        plt.plot(xi_smooth, vi_smooth, label='SE - ny={}'.format(nx_list_estacionario[i]))
+    elif i == 2:
+        x_a = x_analitico[14]
+        y_a = analitica2[:, 14]
+        x_n = x_numerico[15]
+        y_n = numerico[:, 15]
+        for j in range(len(x_a)):
+            xi.append(x_a[j])
+            ui.append(y_a[j])
+            vi.append(y_n[j])
+        vi_inv = vi[::-1]
+        spl_ui = make_interp_spline(xi, ui)
+        spl_vi = make_interp_spline(xi, vi_inv)
         xi_smooth = np.linspace(min(xi), max(xi), 300)
         ui_smooth = spl_ui(xi_smooth)
         vi_smooth = spl_vi(xi_smooth)
         plt.plot(xi_smooth, ui_smooth, label='SA - ny={}'.format(ny_list_analitico[i]))
         plt.plot(xi_smooth, vi_smooth, label='SE - ny={}'.format(ny_list_estacionario[i]))
 
-plt.legend(loc='upper right', fontsize='small')
+plt.legend(loc='upper left', fontsize='small')
 plt.xlabel('Comprimento [m]')
 plt.ylabel('Temperatura [°C]')
 plt.show()
-'''
+
 
 for i in range(len(x_list_analitico)):
     x_plot = x_list_analitico[i]
@@ -349,45 +352,46 @@ for i in range(len(x_list_analitico)):
         x_10 = []
         for j in range(1,len(x)-1):
             x_10.append(x[j])
-        plt.plot(x_10, erro_10_nx, label='nx={}'.format(nx_list_analitico[i]))
+        plt.plot(x_10, erro_10_nx, label='Erro nx={}'.format(nx_list_analitico[i]))
+
     elif i == 1 :
         x_20 = []
         for j in range(1,len(x)-1):
             x_20.append(x[j])
-        plt.plot(x_20, erro_20_nx, label='nx={}'.format(nx_list_analitico[i]))
+        plt.plot(x_20, erro_20_nx, label='Erro nx={}'.format(nx_list_analitico[i]))
     elif i == 2 :
         x_30 = []
         for j in range(1,len(x)-1):
             x_30.append(x[j])
-        plt.plot(x_30, erro_30_nx, label='nx={}'.format(nx_list_analitico[i]))
+        plt.plot(x_30, erro_30_nx, label='Erro nx={}'.format(nx_list_analitico[i]))
 
 plt.legend()
 plt.xlabel('Comprimento [m]')
 plt.ylabel('Erro Percentual Verdadeiro Local')
 plt.show()
-    
-'''
+ 
+
+
 for i in range(len(x_list_analitico)):
-    x_plot = x_list_analitico[i]
-    x = x_plot[5]
+    x_plot = y_list_analitico[i]
+    x = x_plot[:, 5]
     if i == 0 :
         x_10 = []
         for j in range(1,len(x)-1):
             x_10.append(x[j])
-        plt.plot(x_10, erro_10_ny, label='ny={}'.format(ny_list_analitico[i]))
+        plt.plot(x_10, erro_10_ny, label='Erro ny={}'.format(ny_list_analitico[i]))
     elif i == 1 :
         x_20 = []
         for j in range(1,len(x)-1):
             x_20.append(x[j])
-        plt.plot(x_20, erro_20_ny, label='ny={}'.format(ny_list_analitico[i]))
+        plt.plot(x_20, erro_20_ny, label='Erro ny={}'.format(ny_list_analitico[i]))
     elif i == 2 :
         x_30 = []
         for j in range(1,len(x)-1):
             x_30.append(x[j])
-        plt.plot(x_30, erro_30_ny, label='ny={}'.format(ny_list_analitico[i]))
+        plt.plot(x_30, erro_30_ny, label='Erro ny={}'.format(ny_list_analitico[i]))
 
 plt.legend()
 plt.xlabel('Comprimento [m]')
 plt.ylabel('Erro Percentual Verdadeiro Local')
 plt.show()
-'''

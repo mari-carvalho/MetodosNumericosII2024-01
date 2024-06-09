@@ -201,11 +201,13 @@ class estacionario():
         for i in range(nx):
             for j in range(ny):
                 TS[i, j] = T[ind[i, j]]
-        
+                
+        TS_plot = TS[::-1]
+
         
         # Plot
         plt.figure()
-        plt.imshow(TS, extent=[0, Lx, 0, Ly], origin='lower', aspect='auto', cmap='hot')
+        plt.imshow(TS_plot, extent=[0, Lx, 0, Ly], origin='lower', aspect='auto', cmap='hot')
         plt.colorbar()
         plt.xlabel('X (cm)')
         plt.ylabel('Y (cm)')
@@ -218,13 +220,13 @@ class estacionario():
         
         fig = plt.figure(figsize=(10, 10))
         ax = fig.add_subplot(111, projection='3d')
-        surf = ax.plot_surface(Y, X, TS, rstride=2, cstride=1, cmap=plt.cm.viridis, linewidth=0.2, alpha=1)
+        surf = ax.plot_surface(X, Y, TS_plot, rstride=2, cstride=1, cmap=plt.cm.viridis, linewidth=0.2, alpha=1)
         ax.set_xlabel('x (cm)')
         ax.set_ylabel('y (cm)')
-        ax.set_zlabel('T(x,y) (ºC)')
+        ax.set_zlabel('T(x,y) (°C)')
         plt.title('Equação do Calor 2D - Solução Estacionário - nx=10')
         fig.colorbar(surf, shrink=0.5, aspect=10)
-        ax.view_init(30, 30)
+        #ax.view_init(30, -30)
         plt.show()
         return TS, nx, X, Y 
     
@@ -266,8 +268,8 @@ class estacionario():
         rho = 8.92  # g/cm^3
         cp = 0.092  # cal/(g.ºC)
         k = 0.95  # cal/(cm.s.ºC)
-        Lx = 10  # cm
-        Ly = 10  # cm
+        Lx = 1  # cm
+        Ly = 1  # cm
         
         # Dados Iniciais
         Tn = 20  # ºC
@@ -429,11 +431,12 @@ class estacionario():
         for i in range(nx):
             for j in range(ny):
                 TS[i, j] = T[ind[i, j]]
-        
+                
+        TS_plot = TS[::-1]
         
         # Plot
         plt.figure()
-        plt.imshow(TS, extent=[0, Lx, 0, Ly], origin='lower', aspect='auto', cmap='hot')
+        plt.imshow(TS_plot, extent=[0, Lx, 0, Ly], origin='lower', aspect='auto', cmap='hot')
         plt.colorbar()
         plt.xlabel('X (cm)')
         plt.ylabel('Y (cm)')
@@ -446,13 +449,13 @@ class estacionario():
         
         fig = plt.figure(figsize=(10, 10))
         ax = fig.add_subplot(111, projection='3d')
-        surf = ax.plot_surface(Y, X, TS, rstride=2, cstride=1, cmap=plt.cm.viridis, linewidth=0.2, alpha=1)
+        surf = ax.plot_surface(X, Y, TS_plot, rstride=2, cstride=1, cmap=plt.cm.viridis, linewidth=0.2, alpha=1)
         ax.set_xlabel('x (cm)')
         ax.set_ylabel('y (cm)')
-        ax.set_zlabel('T(x,y) (ºC)')
+        ax.set_zlabel('T(x,y) (°C)')
         plt.title('Equação do Calor 2D - Solução Estacionário - nx=20')
         fig.colorbar(surf, shrink=0.5, aspect=10)
-        ax.view_init(30, 30)
+        #ax.view_init(30, 30)
         plt.show()
         return TS, nx, X, Y 
         
@@ -494,8 +497,8 @@ class estacionario():
         rho = 8.92  # g/cm^3
         cp = 0.092  # cal/(g.ºC)
         k = 0.95  # cal/(cm.s.ºC)
-        Lx = 10  # cm
-        Ly = 10  # cm
+        Lx = 1  # cm
+        Ly = 1  # cm
         
         # Dados Iniciais
         Tn = 20  # ºC
@@ -658,10 +661,12 @@ class estacionario():
             for j in range(ny):
                 TS[i, j] = T[ind[i, j]]
         
+        TS_plot = TS[::-1]       
+        
         
         # Plot
         plt.figure()
-        plt.imshow(TS, extent=[0, Lx, 0, Ly], origin='lower', aspect='auto', cmap='hot')
+        plt.imshow(TS_plot, extent=[0, Lx, 0, Ly], origin='lower', aspect='auto', cmap='hot')
         plt.colorbar()
         plt.xlabel('X (cm)')
         plt.ylabel('Y (cm)')
@@ -674,13 +679,13 @@ class estacionario():
         
         fig = plt.figure(figsize=(10, 10))
         ax = fig.add_subplot(111, projection='3d')
-        surf = ax.plot_surface(Y, X, TS, rstride=2, cstride=1, cmap=plt.cm.viridis, linewidth=0.2, alpha=1)
+        surf = ax.plot_surface(X, Y, TS_plot, rstride=2, cstride=1, cmap=plt.cm.viridis, linewidth=0.2, alpha=1)
         ax.set_xlabel('x (cm)')
         ax.set_ylabel('y (cm)')
-        ax.set_zlabel('T(x,y) (ºC)')
+        ax.set_zlabel('T(x,y) (°C)')
         plt.title('Equação do Calor 2D - Solução Estacionário - nx=30')
         fig.colorbar(surf, shrink=0.5, aspect=10)
-        ax.view_init(30, 30)
+        #ax.view_init(30, 30)
         plt.show()
         return TS, nx, X, Y 
     
@@ -886,14 +891,16 @@ class estacionario():
             for j in range(ny):
                 TS[i, j] = T[ind[i, j]]
         
+        TS_plot = TS[::-1]
+        
         
         # Plot
         plt.figure()
-        plt.imshow(TS, extent=[0, Lx, 0, Ly], origin='lower', aspect='auto', cmap='hot')
+        plt.imshow(TS_plot, extent=[0, Lx, 0, Ly], origin='lower', aspect='auto', cmap='hot')
         plt.colorbar()
         plt.xlabel('X (cm)')
         plt.ylabel('Y (cm)')
-        plt.title('Distribuição de Temperatura - Solução Estacionário - nx=10')
+        plt.title('Distribuição de Temperatura - Solução Estacionário - ny=10')
         
         # Plotagem
         X = np.linspace(0, Lx, nx)
@@ -902,13 +909,13 @@ class estacionario():
         
         fig = plt.figure(figsize=(10, 10))
         ax = fig.add_subplot(111, projection='3d')
-        surf = ax.plot_surface(Y, X, TS, rstride=2, cstride=1, cmap=plt.cm.viridis, linewidth=0.2, alpha=1)
-        ax.set_xlabel('x (cm)')
-        ax.set_ylabel('y (cm)')
-        ax.set_zlabel('T(x,y) (ºC)')
-        plt.title('Equação do Calor 2D - Solução Estacionário - nx=10')
+        surf = ax.plot_surface(X, Y, TS_plot, rstride=2, cstride=1, cmap=plt.cm.viridis, linewidth=0.2, alpha=1)
+        ax.set_xlabel('x [cm]')
+        ax.set_ylabel('y [cm]')
+        ax.set_zlabel('T(x,y) [°C]')
+        plt.title('Equação do Calor 2D - Solução Estacionário - ny=10')
         fig.colorbar(surf, shrink=0.5, aspect=10)
-        ax.view_init(30, 30)
+        #ax.view_init(30, 30)
         plt.show()
         return TS, ny, X, Y 
         
@@ -1114,14 +1121,15 @@ class estacionario():
             for j in range(ny):
                 TS[i, j] = T[ind[i, j]]
         
+        TS_plot = TS[::-1]
         
         # Plot
         plt.figure()
-        plt.imshow(TS, extent=[0, Lx, 0, Ly], origin='lower', aspect='auto', cmap='hot')
+        plt.imshow(TS_plot, extent=[0, Lx, 0, Ly], origin='lower', aspect='auto', cmap='hot')
         plt.colorbar()
-        plt.xlabel('X (cm)')
-        plt.ylabel('Y (cm)')
-        plt.title('Distribuição de Temperatura - Solução Estacionário - nx=10')
+        plt.xlabel('X [cm]')
+        plt.ylabel('Y [cm]')
+        plt.title('Distribuição de Temperatura - Solução Estacionário - ny=20')
         
         # Plotagem
         X = np.linspace(0, Lx, nx)
@@ -1130,13 +1138,13 @@ class estacionario():
         
         fig = plt.figure(figsize=(10, 10))
         ax = fig.add_subplot(111, projection='3d')
-        surf = ax.plot_surface(Y, X, TS, rstride=2, cstride=1, cmap=plt.cm.viridis, linewidth=0.2, alpha=1)
-        ax.set_xlabel('x (cm)')
-        ax.set_ylabel('y (cm)')
-        ax.set_zlabel('T(x,y) (ºC)')
-        plt.title('Equação do Calor 2D - Solução Estacionário - nx=10')
+        surf = ax.plot_surface(X, Y, TS_plot, rstride=2, cstride=1, cmap=plt.cm.viridis, linewidth=0.2, alpha=1)
+        ax.set_xlabel('x [cm]')
+        ax.set_ylabel('y [cm]')
+        ax.set_zlabel('T(x,y) [°C]')
+        plt.title('Equação do Calor 2D - Solução Estacionário - ny=20')
         fig.colorbar(surf, shrink=0.5, aspect=10)
-        ax.view_init(30, 30)
+        #ax.view_init(30, 30)
         plt.show()
         return TS, ny, X, Y 
 
@@ -1342,14 +1350,16 @@ class estacionario():
             for j in range(ny):
                 TS[i, j] = T[ind[i, j]]
         
+        TS_plot = TS[::-1]
+        
         
         # Plot
         plt.figure()
-        plt.imshow(TS, extent=[0, Lx, 0, Ly], origin='lower', aspect='auto', cmap='hot')
+        plt.imshow(TS_plot, extent=[0, Lx, 0, Ly], origin='lower', aspect='auto', cmap='hot')
         plt.colorbar()
-        plt.xlabel('X (cm)')
-        plt.ylabel('Y (cm)')
-        plt.title('Distribuição de Temperatura - Solução Estacionário - nx=10')
+        plt.xlabel('X [cm]')
+        plt.ylabel('Y [cm]')
+        plt.title('Distribuição de Temperatura - Solução Estacionário - ny=30')
         
         # Plotagem
         X = np.linspace(0, Lx, nx)
@@ -1358,12 +1368,12 @@ class estacionario():
         
         fig = plt.figure(figsize=(10, 10))
         ax = fig.add_subplot(111, projection='3d')
-        surf = ax.plot_surface(Y, X, TS, rstride=2, cstride=1, cmap=plt.cm.viridis, linewidth=0.2, alpha=1)
-        ax.set_xlabel('x (cm)')
-        ax.set_ylabel('y (cm)')
-        ax.set_zlabel('T(x,y) (ºC)')
-        plt.title('Equação do Calor 2D - Solução Estacionário - nx=10')
+        surf = ax.plot_surface(X, Y, TS_plot, rstride=2, cstride=1, cmap=plt.cm.viridis, linewidth=0.2, alpha=1)
+        ax.set_xlabel('x [cm]')
+        ax.set_ylabel('y [cm]')
+        ax.set_zlabel('T(x,y) [°C]')
+        plt.title('Equação do Calor 2D - Solução Estacionário - ny=30')
         fig.colorbar(surf, shrink=0.5, aspect=10)
-        ax.view_init(30, 30)
+        #ax.view_init(30, 30)
         plt.show()
         return TS, ny, X, Y 
