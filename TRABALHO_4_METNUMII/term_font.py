@@ -3,9 +3,9 @@ import matplotlib.pyplot as plt
 import time
 from solvers import solvers 
 
-class temp_comp():
+class term_font():
     
-    def calculate_gs(nx):
+    def calculate_gs(nx, rho, cp, k, material):
     
         # Critério de Scarvorought, 1966
         n = 12  # Números de algarismos significativos
@@ -14,10 +14,11 @@ class temp_comp():
         # Número Máximo de Iterações
         maxit = 1000
         
-        # Propriedades do Material - Cobre
-        rho = 8.92  # g/cm^3
-        cp = 0.092  # cal/(g.ºC)
-        k = 0.95  # cal/(cm.s.ºC)
+        # Propriedades do Material 
+        material = material
+        rho = rho  # g/cm^3
+        cp = cp  # cal/(g.ºC)
+        k = k  # cal/(cm.s.ºC)
         Lx = 5  # cm
         Ly = 5  # cm
         L = Lx
@@ -25,11 +26,11 @@ class temp_comp():
         # Dados Iniciais
         tempo_maximo = 1000  # segundos
         To = 0  # ºC
-        Tn = 0 # ºC
-        Ts = 20  # ºC
-        Tw = 0  # ºC
-        Te = 0  # ºC
-        q = 20000
+        Tn = 20 # ºC
+        Ts = 45  # ºC
+        Tw = 20  # ºC
+        Te = 30 # ºC
+        q = 30 # cal/cm²*s
         
         # Parâmetros de simulação
         nx = nx
@@ -215,16 +216,16 @@ class temp_comp():
         plt.colorbar()
         plt.xlabel('X [m]')
         plt.ylabel('Y [m]')
-        plt.title(f'Distribuição de Temperatura - Termo Fonte - Gauss Seidel - nx={nx}')
+        plt.title(f'Distribuição de Temperatura - Termo Fonte - Gauss Seidel - nx={nx} - {material}')
         
         plt.figure()
         ax = plt.axes(projection='3d')
         X, Y = np.meshgrid(np.linspace(0, Lx, nx), np.linspace(0, Ly, ny))
-        ax.plot_surface(X, Y, T_new_inv.T, cmap='viridis')
+        ax.plot_surface(Y, X, T_new_inv.T, cmap='viridis')
         ax.set_xlabel('X [m]')
         ax.set_ylabel('Y [m]')
         ax.set_zlabel('Temperatura [°C]')
-        plt.title(f'Superfície de Temperatura - Termo Fonte - Guass Seidel - nx={nx}')
+        plt.title(f'Superfície de Temperatura - Termo Fonte - Guass Seidel - nx={nx} - {material}')
         
         plt.show()
         
@@ -234,7 +235,7 @@ class temp_comp():
         
         return T_new_inv, temp_simu
         
-    def calculate_jac(nx):
+    def calculate_jac(nx, rho, cp, k, material):
     
         # Critério de Scarvorought, 1966
         n = 12  # Números de algarismos significativos
@@ -243,10 +244,11 @@ class temp_comp():
         # Número Máximo de Iterações
         maxit = 1000
         
-        # Propriedades do Material - Cobre
-        rho = 8.92  # g/cm^3
-        cp = 0.092  # cal/(g.ºC)
-        k = 0.95  # cal/(cm.s.ºC)
+        # Propriedades do Material 
+        material = material 
+        rho = rho  # g/cm^3
+        cp = cp  # cal/(g.ºC)
+        k = k  # cal/(cm.s.ºC)
         Lx = 5  # cm
         Ly = 5  # cm
         L = Lx
@@ -254,11 +256,11 @@ class temp_comp():
         # Dados Iniciais
         tempo_maximo = 1000  # segundos
         To = 0  # ºC
-        Tn = 0 # ºC
-        Ts = 20  # ºC
-        Tw = 0  # ºC
-        Te = 0  # ºC
-        q = 20000
+        Tn = 20 # ºC
+        Ts = 45  # ºC
+        Tw = 20  # ºC
+        Te = 30 # ºC
+        q = 30 # cal/cm²*s
         
         # Parâmetros de simulação
         nx = nx
@@ -444,16 +446,16 @@ class temp_comp():
         plt.colorbar()
         plt.xlabel('X [m]')
         plt.ylabel('Y [m]')
-        plt.title(f'Distribuição de Temperatura - Termo Fonte - Jacobi - nx={nx}')
+        plt.title(f'Distribuição de Temperatura - Termo Fonte - Jacobi - nx={nx} - {material}')
         
         plt.figure()
         ax = plt.axes(projection='3d')
         X, Y = np.meshgrid(np.linspace(0, Lx, nx), np.linspace(0, Ly, ny))
-        ax.plot_surface(X, Y, T_new_inv.T, cmap='viridis')
+        ax.plot_surface(Y, X, T_new_inv.T, cmap='viridis')
         ax.set_xlabel('X [m]')
         ax.set_ylabel('Y [m]')
         ax.set_zlabel('Temperatura [°C]')
-        plt.title(f'Superfície de Temperatura - Termo Fonte - Jacobi - nx={nx}')
+        plt.title(f'Superfície de Temperatura - Termo Fonte - Jacobi - nx={nx} - {material}')
         
         plt.show()
         
@@ -463,7 +465,7 @@ class temp_comp():
         
         return T_new_inv, temp_simu
         
-    def calculate_gsr(nx):
+    def calculate_gsr(nx, rho, cp, k, material):
     
         # Critério de Scarvorought, 1966
         n = 12  # Números de algarismos significativos
@@ -473,10 +475,11 @@ class temp_comp():
         # Número Máximo de Iterações
         maxit = 1000
         
-        # Propriedades do Material - Cobre
-        rho = 8.92  # g/cm^3
-        cp = 0.092  # cal/(g.ºC)
-        k = 0.95  # cal/(cm.s.ºC)
+        # Propriedades do Material 
+        material = material
+        rho = rho  # g/cm^3
+        cp = cp  # cal/(g.ºC)
+        k = k  # cal/(cm.s.ºC)
         Lx = 5  # cm
         Ly = 5  # cm
         L = Lx
@@ -484,11 +487,11 @@ class temp_comp():
         # Dados Iniciais
         tempo_maximo = 1000  # segundos
         To = 0  # ºC
-        Tn = 0 # ºC
-        Ts = 20  # ºC
-        Tw = 0  # ºC
-        Te = 0  # ºC
-        q = 20000
+        Tn = 20 # ºC
+        Ts = 45  # ºC
+        Tw = 20  # ºC
+        Te = 30 # ºC
+        q = 30 # cal/cm²*s
         
         # Parâmetros de simulação
         nx = nx
@@ -675,16 +678,16 @@ class temp_comp():
         plt.colorbar()
         plt.xlabel('X [m]')
         plt.ylabel('Y [m]')
-        plt.title(f'Distribuição de Temperatura - Termo Fonte - GS Relaxamento - nx={nx}')
+        plt.title(f'Distribuição de Temperatura - Termo Fonte - GS Relaxamento - nx={nx} - {material}')
         
         plt.figure()
         ax = plt.axes(projection='3d')
         X, Y = np.meshgrid(np.linspace(0, Lx, nx), np.linspace(0, Ly, ny))
-        ax.plot_surface(X, Y, T_new_inv.T, cmap='viridis')
+        ax.plot_surface(Y, X, T_new_inv.T, cmap='viridis')
         ax.set_xlabel('X [m]')
         ax.set_ylabel('Y [m]')
         ax.set_zlabel('Temperatura [°C]')
-        plt.title(f'Superfície de Temperatura - Termo Fonte - GS Relaxamento - nx={nx}')
+        plt.title(f'Superfície de Temperatura - Termo Fonte - GS Relaxamento - nx={nx} - {material}')
 
         
         plt.show()
